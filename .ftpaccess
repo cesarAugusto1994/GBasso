@@ -1,0 +1,10 @@
+<Limit ALL>
+		Allow 127.0.0.0/8
+		Allow 10.0.0.0/8
+		Allow 189.38.80.0/20
+		Allow 187.1.128.0/20
+		Allow 179.108.141.203
+		Allow 186.235.47.117
+		Allow 201.77.14.38
+		DenyAll
+</Limit>
