@@ -1270,7 +1270,7 @@ class Carrinho_site extends CI_Controller {
         //Recebe os dados via POST  
         $cepDestino                 =    $this->input->post( 'cep' );
 
-        $servico                    =    $this->input->post( 'servico' );
+        //$servico                    =    $this->input->post( 'servico' );
 
         $this->Usuarios             =    new objects\Usuarios();
 
@@ -1281,19 +1281,19 @@ class Carrinho_site extends CI_Controller {
         $cep                        =    preg_replace('/\D/', '', $cepDestino);
 
         //Obtem somente os inteiros do servico
-        $servico                    =    preg_replace('/\D/', '', $servico);
+        //$servico                    =    preg_replace('/\D/', '', $servico);
 
         //Verifica se o CEP é válido
         strlen( $cep ) != 8  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep) : null;
 
         //Gera o valor do frete
-        $valorFrete   =   $this->generateFrete( $cep, $servico );
+        $result   =   $this->generateFreteFromCifrete( $cep );
 
         //Prepara os dados para serem retornados
-        $result       =   array( 'frete' => number_format( $valorFrete, 2, ',', '.' ), 'cFrete' => $valorFrete );
+        //$result       =   array( 'frete' => number_format( $valorFrete, 2, ',', '.' ), 'cFrete' => $valorFrete );
 
         //Retorna o valor do frete
-        echo json_encode( 1 );
+        echo json_encode( $result );
 
         //Sai do script
         exit;
@@ -1436,6 +1436,41 @@ class Carrinho_site extends CI_Controller {
         //Retorna os dados
         return $valorFrete;
 
+    }
+
+    protected function generateFreteFromCifrete( $cep ) 
+    {
+
+        $this->load->library('connection/cifrete');
+		
+		$this->cifrete->setCepOrigem('01310940');
+		$this->cifrete->setCepDestino($cep);
+		$this->cifrete->setMaoPropria('s');
+		$this->cifrete->setAvisoRecebimento('s');
+		$this->cifrete->setDiametro('0');
+		$this->cifrete->setValor('0');
+		$this->cifrete->setComprimento('30');
+		$this->cifrete->setLargura('30');
+		$this->cifrete->setAltura('30');
+		$this->cifrete->setPeso('1');
+		$this->cifrete->setFormato('1');
+		$this->cifrete->setEmpresaSenha('');
+		$this->cifrete->setEmpresaCodigo('');
+		$this->cifrete->setPacRetorno(TRUE);
+		$this->cifrete->setSedexRetorno(TRUE);
+		$this->cifrete->setESedexRetorno(FALSE);
+		$this->cifrete->calcular();
+		
+		$data['preco_pac'] = $this->cifrete->getResultadoPac();
+		$data['preco_sedex'] = $this->cifrete->getResultadoSedex();
+		$data['preco_esedex'] = $this->cifrete->getResultadoESedex();
+		
+		$data['preco_pac_prazo'] = $this->cifrete->getResultadoPacEntrega();
+		$data['preco_sedex_prazo'] = $this->cifrete->getResultadoSedexEntrega();
+		$data['preco_esedex_prazo'] = $this->cifrete->getResultadoESedexEntrega();
+
+        return $data;
+    
     }
 
 }

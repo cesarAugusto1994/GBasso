@@ -98,7 +98,7 @@ namespace sessions {
         * @access PUBLIC
         * @return BOOL
         */
-        public function delete(){
+        public function delete($key = null){
 
             $cart   =  $this->get( 'cart' );
 

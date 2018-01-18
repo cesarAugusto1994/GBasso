@@ -7,13 +7,11 @@
     <meta name="author" content="">
     <title class="titulo"> Grupo Basso </title>
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-	
     {css}
 
-    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
+        <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/style.css' /> 
 
-    <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/style.css' /> 
+    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
 
     <style>
         .navbar-nav {
@@ -46,9 +44,11 @@
     <?php if( isset( $inc ) ) echo $inc ?>
 
     <header id="header">
-        <!--
         <div class="container">
             <div class="row height-fix">
+
+                <div class="row">
+
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <div class="logo">
                         <a href='{url}'>
@@ -95,6 +95,11 @@
                         </div>
                     </div>
                 </div>
+
+                </div>
+
+                <div class="row">
+
                 <div class='col-lg-3 col-md-3 col-sm-3 col-xs-3 no-padding'>
                     <div class="cd-dropdown-wrapper">
                         <a class="cd-dropdown-trigger categorias-menu" href="{url}pesquisar/resultado/Todas as categorias/">CATEGORIAS</a>
@@ -123,7 +128,7 @@
                                                                             <a href="#"><?php echo $innerKey[ 'nome' ]; ?></a>
                                                                             <ul class="is-hidden">
                                                                                 <li class="go-back"><a href="#0">Clothing</a></li>
-                                                                                <!--<li class="see-all"><a href="<?php echo $url . 'pesquisar/resultado/Todas as categorias/' . $key['text']; ?>">All Accessories</a></li>--><!--
+                                                                                <!--<li class="see-all"><a href="<?php echo $url . 'pesquisar/resultado/Todas as categorias/' . $key['text']; ?>">All Accessories</a></li>-->
                                                                                 <?php
                                                                                     foreach ($innerKey[ 'tags' ] as $tags) {
                                                                                         echo "<li><a href='" . $url . "pesquisar/resultado/" . $key['text'] . "/" . $tags['nome'] . "'>" . $tags['nome'] . "</a></li>";
@@ -240,161 +245,14 @@
                             </div>
                         </div>
                     </div>            
+                </div>
+
                 </div>                
             </div>
-        </div>-->	
-
-
-
-            <div class="container">
-                <nav class="navbar navbar-top">
-                    <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{url}"><img alt="" class="img" width="100px" height="100px" style="margin: 0 auto" src="{url}assets/images/logo.png"></a>
-                    </div>
-
-
-                    <div class="collapse navbar-collapse js-navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown mega-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias <span class="glyphicon glyphicon-chevron-down"></span></a>
-
-                        <ul class="dropdown-menu mega-dropdown-menu row">
-                            <li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">Dresses</li>
-                                <li><a href="#">Unique Features</a></li>
-                                <li><a href="#">Image Responsive</a></li>
-                                <li><a href="#">Auto Carousel</a></li>
-                                <li><a href="#">Newsletter Form</a></li>
-                                <li><a href="#">Four columns</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Tops</li>
-                                <li><a href="#">Good Typography</a></li>
-                            </ul>
-                            </li>
-                            <li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">Jackets</li>
-                                <li><a href="#">Easy to customize</a></li>
-                                <li><a href="#">Glyphicons</a></li>
-                                <li><a href="#">Pull Right Elements</a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Pants</li>
-                                <li><a href="#">Coloured Headers</a></li>
-                                <li><a href="#">Primary Buttons & Default</a></li>
-                                <li><a href="#">Calls to action</a></li>
-                            </ul>
-                            </li>
-                            <li class="col-sm-3">
-                            <ul>
-                                <li class="dropdown-header">Accessories</li>
-                                <li><a href="#">Default Navbar</a></li>
-                                <li><a href="#">Lovely Fonts</a></li>
-                                <li><a href="#">Responsive Dropdown </a></li>
-                                <li class="divider"></li>
-                                <li class="dropdown-header">Newsletter</li>
-                                <form class="form" role="form">
-                                <div class="form-group">
-                                    <label class="sr-only" for="email">Email address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                                </form>
-                            </ul>
-                            </li>
-                        </ul>
-
-                        </li>
-
-
-                        <?php
-                            if( isset( $menus ) && count( $menus ) > 0 ) {
-                                foreach ($menus as $key ) {
-                                    
-                                    if($key['name'] == 'Cadastre-se' || $key['name'] == 'Logar') {
-                                        continue;
-                                    }
-
-                        ?>
-                                    <li class="dropdown ttmenu-full no-padding-bottom no-margin-left">
-                                        <a class="no-border" href="{url}<?php echo $key['link']; ?>">
-                                            <?php echo $key['name']; ?>
-                                            <?php if( count( $key['subMenus'] ) > 0) { ?><b class="dropme"></b><?php } ?>
-                                        </a>
-                                        <?php
-                                            if( count( $key['subMenus'] ) > 0 ) {
-                                                echo '<ul class="dropdown-menu" style="border-right: 1px solid #CDCDCD; border-left: 1px solid #CDCDCD; border-bottom: 1px solid #CDCDCD;"><li style="background-color: #FFF"><div class="col-lg-12" style="background-color: #FFF">';
-                                                foreach ($key['subMenus'] as $kkey ) {
-                                        ?>
-                                                    <div class='col-lg-6'>
-                                                        <a class='no-border' style='width: 100%; float: left; padding: 20px; font-size: 1.4em; color: #0c4ea6;' href="<?php echo $kkey['link']; ?>"><?php echo $kkey['name']; ?></a>
-                                                        <?php
-                                                            foreach ( $kkey['item'] as $kkeyy ) {
-                                                                echo '<a style="float: left; width: 100%; padding: 10px;" class="no-border linkitens" href="{url}' . $kkeyy['link'] . '">' . $kkeyy['name'] . '</a>';
-                                                            }
-                                                        ?>                                                                
-                                                    </div>
-                                        <?php
-                                                }
-                                                echo '</div></li></ul>';
-                                            }
-                                        ?>
-                                    </li>
-                        <?php
-                                }
-                            }
-                        ?>
-
-                        <li class="dropdown ttmenu-full no-padding-bottom no-margin-left">
-                            <a id="logar-dropdown" class="no-border" href="http://www.grupobasso.com.br/minha/conta/login" class="dropdown-toggle" data-toggle="dropdown">Minha Conta</a>
-                            <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu" style="width:300px;background-color:beige;">
-                                <div class="col-lg-12" style="background-color:white;border: 1px solid;border-top:none;">
-                                    <br/>
-                                    <br/>
-                                    <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
-                                        <div class="form-group">
-                                            <label for="user">Usuário</label>
-                                            <input type="email" name="user" id="user" tabindex="1" class="form-control" value="" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="pass">Senha</label>
-                                            <input type="password" name="pass" id="pass" tabindex="2" class="form-control" required>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-xs-7">
-                                                    <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-success">Entrar</button>
-                                                </div>
-                                                <div class="col-xs-5">
-
-                                                    <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" tabindex="5" class="btn btn-link forgot-password">Cadastre-se!</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </ul>
-                        </li>
-
-
-                    </ul>
-
-                    </div>
-                    <!-- /.nav-collapse -->
-                </nav>
-            </div>
-
-
-
+        </div>		
     </header> <!--/header-->
+
+    
 
 
 

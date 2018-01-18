@@ -185,6 +185,58 @@ function getEnderecosCadastrados(post) {
 }
 
 
+$('.informarCep').keyup(function(e) {
+
+    var cep = $(this).val();
+
+    if (cep.length != 8) {
+        e.preventDefault();
+        return false;
+    }
+
+    new PNotify({
+        title: 'Aguarde...',
+        text: 'Buscando Valores de Frete',
+        type: 'info',
+        styling: 'fontawesome'
+    });
+
+    if ($.trim(cep) != '') {
+
+        var post = 'cep=' + cep;
+
+        getValorFrete2(post);
+
+    }
+
+});
+
+$('.btnCaclcularFrete').click(function(e) {
+
+    var cep = $('.informarCep').val();
+
+    if (cep.length != 8) {
+        e.preventDefault();
+        return false;
+    }
+
+    new PNotify({
+        title: 'Aguarde...',
+        text: 'Buscando Valores de Frete',
+        type: 'info',
+        styling: 'fontawesome'
+    });
+
+    if ($.trim(cep) != '') {
+
+        var post = 'cep=' + cep;
+
+        getValorFrete2(post);
+
+    }
+
+});
+
 $('#informarCep').change(function() {
 
     new PNotify({
@@ -196,19 +248,65 @@ $('#informarCep').change(function() {
 
     var cep = $(this).val();
 
-    var servico = $('#servicoFreteCarrinho').val();
 
-    if ($.trim(servico) != '') {
+    if ($.trim(cep) != '') {
 
-        var post = 'cep=' + cep + '&servico=' + servico;
+        var post = 'cep=' + cep;
 
-        getValorFreteCarrinho(post);
+        getValorFrete2(post);
 
     }
 
 });
 
-$('#servicoFreteCarrinho').change(function(e) {
+function getValorFrete2(post) {
+    $.ajax({
+
+        type: 'POST',
+
+        url: baseUrl + 'ajax/carrinho/getValorFreteCarrinho',
+
+        data: post,
+
+        dataType: 'json',
+
+        success: function(data) {
+
+            var error = typeof data['code'] != 'undefined' ? true : false;
+
+            if (!error) {
+
+                var retorno = "<ul>"
+
+                retorno += "<li><b>" + data.preco_pac_prazo[0] + " dias úteis no PAC, valor: " + data.preco_pac + "</b></li>";
+                retorno += "<li><b>" + data.preco_sedex_prazo[0] + " dias úteis no SEDEX, valor: " + data.preco_sedex + "</b></li>";
+
+                retorno += "</ul>";
+
+                $('.valorFrete').html(retorno);
+
+                $('.formas-envio').html(retorno);
+
+            } else {
+
+                alerta(data['message'], 102);
+
+                $('.valorFrete').text('Indisponível');
+
+            }
+
+        },
+        error: function(request, status, error) {
+
+            alert('Ocorreu um erro');
+
+        }
+
+    });
+
+}
+
+$('.servicoFreteCarrinho').change(function(e) {
 
     new PNotify({
         title: 'Aguarde...',
@@ -225,7 +323,7 @@ $('#servicoFreteCarrinho').change(function(e) {
 
         var post = 'cep=' + cep + '&servico=' + servico;
 
-        getValorFreteCarrinho(post);
+        getValorFrete2(post);
 
     }
 
@@ -488,6 +586,20 @@ $('.deletarProduto').click(function() {
     });
 
     post += 'qtd=' + i;
+
+    deletarItemCarrinho(post);
+
+});
+
+$('.excluirProduto').click(function() {
+
+    var i = 0;
+
+    var post = '';
+
+    post += 'id=' + $(this).data('idProduto') + '&';
+
+    post += 'qtd=' + $(this).data('quantidade');
 
     deletarItemCarrinho(post);
 
