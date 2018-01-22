@@ -1971,6 +1971,8 @@ class Produtos extends db\Querys  {
 
                 $result[$key]['qtd']   =  $value['qtd'];
 
+                $result[$key]['valor_int']  =  $data[0]->prod_valor;
+
                 $result[$key]['valo']  =  number_format( $data[0]->prod_valor, 2, ',', '.' );
 
                 $result[$key]['link']  =  base_url() . 'produtos/' . $id;

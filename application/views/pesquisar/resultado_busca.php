@@ -1,10 +1,12 @@
 <div class="container margin-top no-padding">
     <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' style='align: center;'>
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
-            <ol class="breadcrumb" style='float: left; width: 40%;'>
+            <ol class="breadcrumb" style='float: left; width: 100%;'>
                 <li><a href="{url}">Inicio</a></li>
                 <li class="active">Pesquisando: {pesquisa}</li>
-            </ol>        
+            </ol>
+            <br/>
+            <br/>        
             <div style='float: left; width: 200px;'>
                 <nav aria-label="Page navigation">
                     <ul class="pagination">
@@ -30,7 +32,7 @@
         {nodata}
         {data}
             <a href="{link}" tabindex="0" title='Visualizar o produto {name}'>
-                <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+                <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12 item-pesquisa'>
                     <div class="slick-fisrt slick-border" style="width: 100%; display: inline-block;">
                         <div class="row padding-padrao min-margin-right-reset">
                             <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4 padding-right-reset slick-product-image">
@@ -45,29 +47,36 @@
                                 <a href="{link}" tabindex="0">
                                     <p class="font-poppins-bold color-price padding-padrao align-left"> {valor}</p>
                                 </a>
-                                
-                                <div class="container-quantidade" style="margin-left:12px;width:65%">
-                                    <div class="input-group">
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[{id}]">
-												<span class="glyphicon glyphicon-minus"></span>
-										</button>
-										</span>
-										<input size="20" type="text" name="quant[{id}]" id="quantity-relacionados" class="form-control input-number" value="1" min="1" max="999">
-										<span class="input-group-btn">
-											<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[{id}]">
-												<span class="glyphicon glyphicon-plus"></span>
-										</button>
-										</span>
-                                    </div>
-                                    
-                                </div>
-								<br/>
-								<br/>
 
-                                <div class="container-add-carrinho" style="margin-left:12px;">
-                                    <button class="btn btn-default btn-carrinho" title='Adicionar {name} ao carrinho' data-id="{id}"> Adicionar ao carrinho</button>
+                                <div style="height: 80px;">
+                                
+                                    <div class="container-quantidade" style="margin-left:12px;width:150px;display:none;">
+                                        
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[{id}]">
+                                                    <span class="glyphicon glyphicon-minus"></span>
+                                            </button> 
+                                            </span>
+                                            <input size="20" type="text" name="quant[{id}]" id="quantity-relacionados" class="form-control input-number" value="1" min="1" max="999">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[{id}]">
+                                                    <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                            </span>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <br/>
+                                    <br/>
+
+                                    <div class="container-add-carrinho" style="margin-left:12px;display:none;">
+                                        <button class="btn btn-sm btn-default btn-carrinho" title='Adicionar {name} ao carrinho' data-id="{id}"> Adicionar ao carrinho</button>
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>

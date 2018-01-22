@@ -91,6 +91,8 @@ $route['produtos/(:num)']                     =   'produtos/index/$1';
 
 $route['compras/carrinho']                    =   'produtos/carrinho';
 
+$route['compras/precheckout']                =   'produtos/preCheckout';
+
 $route['compras/carrinho/finalizar/compra']   =   'ajax/carrinho_site/finalizar_compra';
 
 $route['minha/conta/cadastrar']               =   'minha_conta/cadastrar';

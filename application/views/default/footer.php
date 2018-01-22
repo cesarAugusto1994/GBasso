@@ -59,6 +59,8 @@
 
     <script type='text/javascript' src='http://www.grupobasso.com.br/assets/js/login.js'></script> 
     <script type='text/javascript' src='http://www.grupobasso.com.br/assets/js/pnotify.custom.min.js'></script> 
-    
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js'></script> 
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/alertify.min.js'></script>
+
 </body>
 </html>

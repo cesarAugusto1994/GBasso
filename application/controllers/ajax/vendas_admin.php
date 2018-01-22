@@ -170,7 +170,7 @@ class Vendas_admin extends CI_Controller {
         $result['nome']       =    $this->Usuarios->getFullName();
 
         //Obtem o email
-        $result['email']      =    $this->Usuarios->getEmail();
+        $result['email']      =    $this->Usuarios->getEmail(); 
 
         //Obtem o cpf
         $result['cpf']        =    $this->Essentials->maskCpf( $this->Usuarios->getCpf() );

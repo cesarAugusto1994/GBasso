@@ -9,10 +9,14 @@
 
     {css}
 
-        <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/style.css' /> 
+    <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/menu-new.css' /> 
+
+    <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/style.css' /> 
 
     <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
 
+    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css' /> 
+    
     <style>
         .navbar-nav {
             margin-top: 0;
@@ -31,11 +35,23 @@
         .table tbody tr td {
             font-size: 12px;
         }
+
+        .navbar .nav>li>a {
+            color: black;
+        }
+
+        .navbar-default {
+            height: 40px;
+        }
+      
+
     </style>
 
     {js}
 
     <script type='text/javascript' src='http://www.grupobasso.com.br/assets/js/jquery-form.js'></script>
+
+
 
 </head><!--/head-->
 
@@ -43,9 +59,235 @@
 <body class="homepage">
     <?php if( isset( $inc ) ) echo $inc ?>
 
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <nav class="topBar">
+                <div class="container">
+                <ul class="list-inline pull-left hidden-sm hidden-xs">
+                    <li></li>
+                </ul>
+                <ul class="topBarNav pull-right">
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false"> <i class="glyphicon glyphicon-user"></i>   <span class="hidden-xs">Minha Conta<i class="glyphicon glyphicon-down ml-5"></i></span> </a>
+                    <ul id="login-dp" class="dropdown-menu">
+                    <li>
+                        <div class="row">
+                                <div class="col-md-12">
+                                    Login
+                                    
+                                    <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="user">Email address</label>
+                                                <input type="email" class="form-control" name="user" id="user" placeholder="E-mail" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="pass">Password</label>
+                                                <input name="pass" type="password" class="form-control" id="pass" placeholder="Senha" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                                            </div>
+                                    </form>
+                                </div>
+                                <div class="bottom text-center">
+                                    <a href="http://www.grupobasso.com.br/minha/conta/cadastrar"><b>Cadastre-se</b></a>
+                                </div>
+                        </div>
+                    </li>
+                </ul>
+                    </li>
+                    <li>
+                    <a href="{url}compras/carrinho" 
+                    data-close-others="false"> <i class="fa fa-shopping-basket mr-5"></i> <span class="hidden-xs">
+                            <i class="fa fa-cart"></i>Carrinho<sup class="text-primary">(<span class='data-carrinho'>0 itens: R$ 0,00</span>)</sup>
+                        </span></a>
+
+                    </li>
+                </ul>
+                </div>
+            </nav>
+        </div>
+
+        <div class="col-lg-12" style="margin-top:80px;">
+            <div class="row display-table">
+                <div class="col-sm-3 vertical-align text-left hidden-xs">
+                    <a href="/"> <img alt="" width="100px" height="100px" style="margin: 0 auto" src="{url}assets/images/logo.png"></a>
+                </div>
+                <!-- end col -->
+                <div class="col-sm-7 vertical-align text-center">
+                        <div class="row grid-space-1">
+
+                            <div class="col-md-3 col-sm-4">
+
+                                <select style="height: 53px" class="form-control input-lg btn-search-reset" name="category">
+                                    <option>Todas as categorias</option>
+                                    {catss}
+                                        <option value='{value}'>{name}</option>
+                                    {/catss}
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-5 col-sm-8">
+
+                                <div id="custom-search-input">
+                                    <div class="input-group col-md-12">
+                                        <input name="q" value='{pesq}' type="text" class="form-control input-lg pesquisar-data" placeholder="Buscar" />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info btn-lg btn-search-reset" type="button">
+                                                <i class="glyphicon glyphicon-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                </div>
+                
+    <!-- end col -->
+            </div>
+  <!-- end  row -->
+        </div>
+    </div>
+    
+    
+        <nav class="navbar navbar-main navbar-default" role="navigation" style="opacity: 1;">
+          <div class="container">
+            <!-- Brand and toggle -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>             
+            </div>
+        
+            <!-- Collect the nav links,  -->
+            <div class="collapse navbar-collapse navbar-1" style="margin-top: 0px;">            
+              <ul class="nav navbar-nav">                  
+                <li class="dropdown megaDropMenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">Categorias </a>
+                  <ul class="dropdown-menu row">
+
+                    <?php
+                        if( count( $categorias ) > 0 ) {
+
+                            $categs = array_chunk($categorias, 3);
+
+                            foreach($categs as $index) {
+
+                    ?>
+
+                            <li class="col-sm-4 col-xs-12">
+                                <ul class="list-unstyled"><?php
+                            foreach ( $index as $key ) {
+                                if( count( $key['subcat'] ) > 0 ) { 
+                                ?><li class="title-item-menu"><?= $key['text'] ?></li>
+                                    <?php foreach ($key['subcat'] as $innerKey ) {
+                                        foreach ($innerKey[ 'tags' ] as $tags) {
+                                            echo "<li><a href='" . $url . "pesquisar/resultado/" . $key['text'] . "/" . $tags['nome'] . "'>" . $tags['nome'] . "</a></li>";
+
+                                        } ?>
+                                    <?php } } else { ?><li><a href="{url}pesquisar/resultado/<?= $key['text']; ?>"><?= $key['text'] ?></a></li>
+                                    <?php
+                                }
+                            }
+
+                    ?>
+                            
+                                </ul>
+                            </li>
+                            
+                            <?php
+
+                        }
+
+                        }
+                    ?>
+                    
+                  </ul>
+                </li>
+
+                  
+                <?php if( isset( $menus ) && count( $menus ) > 0 ) {
+                    foreach ($menus as $key ) { ?>
+                    <li><a href="<?= '/' . $key['link'] ?>"><?= $key['name'] ?></a></li>
+                <?php } } ?>
+
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div>
+        </nav>
+
+    </div>
+
+
+    <div class="modal fade" id="at-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <button class="btn-fb"> <i class="fa fa-fw fa-facebook pull-left" aria-hidden="true"></i>
+                    Login with Facebook	</button> <br>	
+                    <button class="btn-gp"> <i class="fa fa-fw fa-google-plus pull-left" aria-hidden="true"></i>
+                        Login with Google	</button> <br>	
+                        <div class="signup-or-separator">
+                            <span class="h6 signup-or-separator--text">or</span>
+                            <hr>
+                        </div>
+                        <form>
+                            <div class="form-group">
+                                <input type="email" class="form-control-form " id="exampleInputEmaillog" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control-form " id="exampleInputPasswordpas" placeholder="Password">
+                            </div>
+                            <div class="row">	
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Remember me
+                                        </label>
+                                    </div>	
+                                </div>
+                                <div class="col-md-4 col-md-offset-2">	
+                                    <p class="frgt-pswd"   data-toggle="modal" data-dismiss="modal"  data-target="#at-reset-pswd">	Forgot Password ?</p>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-lgin">Login</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">	
+                            <div class="col-md-6">
+                                <p class="ta-l">Don't have an account ? </p>
+                            </div>	
+                            <div class="col-md-4 col-md-offset-2">	
+                                <button class="btn-gst"  data-toggle="modal"  data-dismiss="modal" data-target="#at-signup" >Sign Up </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    <!--
     <header id="header">
         <div class="container">
-            <div class="row height-fix">
+            <div class="row">
 
                 <div class="row">
 
@@ -60,7 +302,7 @@
                     <div class="header-search">
                         <div class="search col-lg-8 col-md-8 col-sm-8 col-xs-8">
                             <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
-                                <select class="selectpicker index-big btn-search-reset">
+                                <select class="selectpicker index-big btn-search-reset">$class  =  count( $key['subcat'] ) > 0  ? 'has-children' : '';
                                     <option>Todas as categorias</option>
                                     {catss}
                                         <option value='{value}'>{name}</option>
@@ -100,7 +342,7 @@
 
                 <div class="row">
 
-                <div class='col-lg-3 col-md-3 col-sm-3 col-xs-3 no-padding'>
+                <div class='col-lg-3 col-md-3 col-sm-12 col-xs-12'>
                     <div class="cd-dropdown-wrapper">
                         <a class="cd-dropdown-trigger categorias-menu" href="{url}pesquisar/resultado/Todas as categorias/">CATEGORIAS</a>
                         <nav class="cd-dropdown" style='width: 100%'>
@@ -128,7 +370,7 @@
                                                                             <a href="#"><?php echo $innerKey[ 'nome' ]; ?></a>
                                                                             <ul class="is-hidden">
                                                                                 <li class="go-back"><a href="#0">Clothing</a></li>
-                                                                                <!--<li class="see-all"><a href="<?php echo $url . 'pesquisar/resultado/Todas as categorias/' . $key['text']; ?>">All Accessories</a></li>-->
+                                                                                <!--<li class="see-all"><a href="<?php echo $url . 'pesquisar/resultado/Todas as categorias/' . $key['text']; ?>">All Accessories</a></li>--><!--
                                                                                 <?php
                                                                                     foreach ($innerKey[ 'tags' ] as $tags) {
                                                                                         echo "<li><a href='" . $url . "pesquisar/resultado/" . $key['text'] . "/" . $tags['nome'] . "'>" . $tags['nome'] . "</a></li>";
@@ -157,15 +399,16 @@
                         </nav> 
                     </div> 
                 </div>
-                <div class='col-lg-9 col-md-9 col-sm-8 col-xs-9 no-padding'>
+                <div class='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
                     <div class="hovermenu ttmenu dark-style menu-red-gradient">
                         <div role="navigation" class="navbar navbar-default">
+                            <div>
                             <div class="navbar-header">
-                                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
                                 </button>
                             </div>
                             <div class="navbar-collapse collapse">
@@ -184,7 +427,7 @@
                                                         <?php echo $key['name']; ?>
                                                         <?php if( count( $key['subMenus'] ) > 0) { ?><b class="dropme"></b><?php } ?>
                                                     </a>
-                                                    <?php
+                                                    <?php   
                                                         if( count( $key['subMenus'] ) > 0 ) {
                                                             echo '<ul class="dropdown-menu" style="border-right: 1px solid #CDCDCD; border-left: 1px solid #CDCDCD; border-bottom: 1px solid #CDCDCD;"><li style="background-color: #FFF"><div class="col-lg-12" style="background-color: #FFF">';
                                                             foreach ($key['subMenus'] as $kkey ) {
@@ -243,6 +486,7 @@
 
                                 </ul>
                             </div>
+                            </div>
                         </div>
                     </div>            
                 </div>
@@ -250,8 +494,57 @@
                 </div>                
             </div>
         </div>		
-    </header> <!--/header-->
+    </header> -->
 
+
+    <script type="text/javascript">
+    ! function($, n, e) {
+      var o = $();
+      $.fn.dropdownHover = function(e) {
+        return "ontouchstart" in document ? this : (o = o.add(this.parent()), this.each(function() {
+          function t(e) {
+            o.find(":focus").blur(), h.instantlyCloseOthers === !0 && o.removeClass("open"), n.clearTimeout(c), i.addClass("open"), r.trigger(a)
+          }
+          var r = $(this),
+            i = r.parent(),
+            d = {
+              delay: 100,
+              instantlyCloseOthers: !0
+            },
+            s = {
+              delay: $(this).data("delay"),
+              instantlyCloseOthers: $(this).data("close-others")
+            },
+            a = "show.bs.dropdown",
+            u = "hide.bs.dropdown",
+            h = $.extend(!0, {}, d, e, s),
+            c;
+          i.hover(function(n) {
+            return i.hasClass("open") || r.is(n.target) ? void t(n) : !0
+          }, function() {
+            c = n.setTimeout(function() {
+              i.removeClass("open"), r.trigger(u)
+            }, h.delay)
+          }), r.hover(function(n) {
+            return i.hasClass("open") || i.is(n.target) ? void t(n) : !0
+          }), i.find(".dropdown-submenu").each(function() {
+            var e = $(this),
+              o;
+            e.hover(function() {
+              n.clearTimeout(o), e.children(".dropdown-menu").show(), e.siblings().children(".dropdown-menu").hide()
+            }, function() {
+              var t = e.children(".dropdown-menu");
+              o = n.setTimeout(function() {
+                t.hide()
+              }, h.delay)
+            })
+          })
+        }))
+      }, $(document).ready(function() {
+        $('[data-hover="dropdown"]').dropdownHover()
+      })
+    }(jQuery, this);
+  </script>
     
 
 

@@ -47,7 +47,7 @@
                         <div class="col-lg-12 section-pagamento " data-section='1'>
                             <div class="col-lg-8 no-padding">
                                 <label>Informe seu email</label>
-                                <input type='text' class='form-control' name='email' value='' placeholder="Informe seu e-mail" />
+                                <input type='text' class='form-control' name='email' value="{email}" placeholder="Informe seu e-mail" />
                             </div>
                             <div class="col-lg-4 no-padding">
                                 <div class='arrow_box'>
@@ -66,15 +66,15 @@
                                 <div class='col-lg-12 margin-bottom-17'>
 
                                     <label>E-mail: </label>
-                                    <span class='email-span'></span>
+                                    <span class='email-span'>{email}</span>
                                 </div>                            
                                 <div class='col-lg-12 margin-bottom-17'>
                                     <label>Nome Completo</label>
-                                    <input type='text' class='form-control' name='nome' value='' />
+                                    <input type='text' class='form-control' name='nome' value="{nome}" />
                                 </div>
                                 <div class='col-lg-12 margin-bottom-17'>
                                     <label>CPF</label>
-                                    <input type='text' class='form-control' name='cpf' value='' />
+                                    <input type='text' class='form-control' name='cpf' value="{cpf}" />
                                 </div>
                                 <div class='col-lg-12 margin-bottom-17'>
                                     <label style='width: 100%; float: left;'>Telefone</label>

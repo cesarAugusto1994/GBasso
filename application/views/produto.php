@@ -220,13 +220,13 @@
 
 									<div class="input-group">
 										<span class="input-group-btn">
-											<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[<?php echo $k ?>]">
+											<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[<?php echo $k + 1; ?>]">
 												<span class="glyphicon glyphicon-minus"></span>
 										</button>
 										</span>
-										<input size="20" type="text" name="quant[<?php echo $k ?>]" id="quantity-relacionados" class="form-control input-number" value="1" min="1" max="999">
+										<input size="20" type="text" name="quant[<?php echo $k + 1; ?>]" id="quantity-relacionados[<?= $key['value']; ?>]" class="form-control input-number" value="1" min="1" max="999">
 										<span class="input-group-btn">
-											<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[<?php echo $k ?>]">
+											<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[<?php echo $k + 1; ?>]">
 												<span class="glyphicon glyphicon-plus"></span>
 										</button>
 										</span>
@@ -238,7 +238,7 @@
 								<br/>
 									
 								<div class="container-add-carrinho ">
-									<button class="btn btn-carrinho-relacionados" data-id="<?php echo $key['value']; ?>"> Adicionar ao carrinho</button>
+									<button class="btn btn-carrinho-relacionados" data-id="<?= $key['value']; ?>" data-item="<?= $k + 1; ?>"> Adicionar ao carrinho</button>
 								</div>
 
 								<br/>

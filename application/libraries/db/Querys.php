@@ -446,7 +446,7 @@ class Querys  {
 
         $config['database']   =   "cep";
 
-        $config['dbdriver']   =   "mysql";
+        $config['dbdriver']   =   "mysqli";
 
         $config['dbprefix']   =   "";
 

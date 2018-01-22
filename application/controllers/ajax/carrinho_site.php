@@ -1214,6 +1214,18 @@ class Carrinho_site extends CI_Controller {
 
     }
 
+    public function deletarItem() 
+    {
+
+        $id   =  $this->input->post( 'id' );
+
+        $this->Carrinho->idProduto  =  $id ;
+        $this->Carrinho->delete();
+
+        $this->Essentials->setMessage( 'Deletado com sucesso', 100 );
+
+    }
+
 
     /**
      * Método obtem o valor do frete com base no Cep e tipo de serviço selecionado
@@ -1443,34 +1455,88 @@ class Carrinho_site extends CI_Controller {
 
         $this->load->library('connection/cifrete');
 		
-		$this->cifrete->setCepOrigem('01310940');
+		$this->cifrete->setCepOrigem('04205002');
 		$this->cifrete->setCepDestino($cep);
 		$this->cifrete->setMaoPropria('s');
-		$this->cifrete->setAvisoRecebimento('s');
-		$this->cifrete->setDiametro('0');
-		$this->cifrete->setValor('0');
-		$this->cifrete->setComprimento('30');
-		$this->cifrete->setLargura('30');
-		$this->cifrete->setAltura('30');
-		$this->cifrete->setPeso('1');
-		$this->cifrete->setFormato('1');
-		$this->cifrete->setEmpresaSenha('');
-		$this->cifrete->setEmpresaCodigo('');
-		$this->cifrete->setPacRetorno(TRUE);
-		$this->cifrete->setSedexRetorno(TRUE);
-		$this->cifrete->setESedexRetorno(FALSE);
-		$this->cifrete->calcular();
-		
-		$data['preco_pac'] = $this->cifrete->getResultadoPac();
-		$data['preco_sedex'] = $this->cifrete->getResultadoSedex();
-		$data['preco_esedex'] = $this->cifrete->getResultadoESedex();
-		
-		$data['preco_pac_prazo'] = $this->cifrete->getResultadoPacEntrega();
-		$data['preco_sedex_prazo'] = $this->cifrete->getResultadoSedexEntrega();
-		$data['preco_esedex_prazo'] = $this->cifrete->getResultadoESedexEntrega();
+        $this->cifrete->setAvisoRecebimento('s');
+        
+        //Obtem os produtos do carrinho
+        $produtos  =   $this->Carrinho->getProdutos();
+
+        //Verifica se o carrinho está vazio
+        count( $produtos ) == 0 ? $this->Essentials->setMessage( 'Seu carrinho está vázio, sua compra não foi finalizada' ) : null;
+
+        //Seta o valor inicial do frete
+        $frete   =   0.00;
+
+        $i       =   0;
+
+        $data['preco_pac'] = 0;
+        $data['preco_sedex'] = 0;
+        $data['preco_esedex'] = 0;
+        
+        $data['preco_pac_prazo'] = 0;
+        $data['preco_sedex_prazo'] = 0;
+        $data['preco_esedex_prazo'] = 0;
+
+        //Extraindo todos os produtos
+        foreach ($produtos as $key ) {
+
+            //Seta o ID do produto na classe
+            $this->Produtos->idProduto       =   $key['id'];
+
+            //Recebe a quantidade do produto
+            $qtd                             =   $key['qtd'];    
+            
+            foreach(range(1, $qtd) as $item) {
+
+                //Obtem o valor do peso do produto
+                $this->Correios->nVlPeso         =   $this->Produtos->getDataEspecificProduct( 4 );
+
+                //Obtem o valor da largura do produto
+                $this->Correios->nVlLargura      =   $this->Produtos->getDataEspecificProduct( 5 );
+
+                //OBtem o valor da altura do produto
+                $this->Correios->nVlAltura       =   $this->Produtos->getDataEspecificProduct( 6 );
+
+                //Obtem o valor do comprimento do produto
+                $this->Correios->nVlComprimento  =   $this->Produtos->getDataEspecificProduct( 7 );
+
+                $this->cifrete->setDiametro('0');
+                $this->cifrete->setValor('0');
+                $this->cifrete->setComprimento($this->Produtos->getDataEspecificProduct( 7 ));
+                $this->cifrete->setLargura($this->Produtos->getDataEspecificProduct( 5 ));
+                $this->cifrete->setAltura($this->Produtos->getDataEspecificProduct( 6 ));
+                $this->cifrete->setPeso($this->Produtos->getDataEspecificProduct( 4 ));
+                $this->cifrete->setFormato('1');
+                $this->cifrete->setEmpresaSenha('');
+                $this->cifrete->setEmpresaCodigo('');
+                $this->cifrete->setPacRetorno(TRUE);
+                $this->cifrete->setSedexRetorno(TRUE);
+                $this->cifrete->setESedexRetorno(FALSE);
+                $this->cifrete->calcular();
+                
+                $data['preco_pac'] += $this->cifrete->getResultadoPac();
+                $data['preco_sedex'] += $this->cifrete->getResultadoSedex();
+                $data['preco_esedex'] += $this->cifrete->getResultadoESedex();
+                
+                $data['preco_pac_prazo'] += $this->cifrete->getResultadoPacEntrega();
+                $data['preco_sedex_prazo'] += $this->cifrete->getResultadoSedexEntrega();
+                $data['preco_esedex_prazo'] += $this->cifrete->getResultadoESedexEntrega();
+
+            }
+
+        }
+
+
 
         return $data;
     
+    }
+
+    public function irParaCheckout()
+    {
+        !$this->Login->checkLogin() ? redirect('/minha/conta/login') : null;
     }
 
 }

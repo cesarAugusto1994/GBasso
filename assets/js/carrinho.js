@@ -114,6 +114,47 @@ function deletarItemCarrinho(post) {
 
 }
 
+function deletarItemCarrinhoNovo(post) {
+
+    $.ajax({
+
+        type: 'POST',
+
+        url: baseUrlAjaxCarrinho + 'deletarItem',
+
+        data: post,
+
+        dataType: 'json',
+
+        success: function(data) {
+
+            if (data['code'] == 100) {
+
+                alerta(data['message'], 100);
+
+                setTimeout(function() {
+
+                    window.location.reload(true);
+
+                }, 3500);
+
+            } else {
+
+                alerta(data['message'], 102);
+
+            }
+
+        },
+        error: function(request, status, error) {
+
+            console.log("Status: " + status + "\n" + "Error: " + error);
+
+        }
+
+    });
+
+}
+
 
 function getEnderecosCadastrados(post) {
 
@@ -211,11 +252,38 @@ $('.informarCep').keyup(function(e) {
 
 });
 
+$('.informarCep').change(function(e) {
+
+    var cep = $(this).val();
+
+    if (cep.length != 8) {
+        e.preventDefault();
+        return false;
+    }
+
+    new PNotify({
+        title: 'Aguarde...',
+        text: 'Buscando Valores de Frete',
+        type: 'info',
+        styling: 'fontawesome'
+    });
+
+    if ($.trim(cep) != '') {
+
+        var post = 'cep=' + cep;
+
+        getValorFrete2(post);
+
+    }
+
+});
+
+
 $('.btnCaclcularFrete').click(function(e) {
 
     var cep = $('.informarCep').val();
 
-    if (cep.length != 8) {
+    if (cep.length != 9) {
         e.preventDefault();
         return false;
     }
@@ -276,10 +344,12 @@ function getValorFrete2(post) {
 
             if (!error) {
 
+                var formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }
+
                 var retorno = "<ul>"
 
-                retorno += "<li><b>" + data.preco_pac_prazo[0] + " dias úteis no PAC, valor: " + data.preco_pac + "</b></li>";
-                retorno += "<li><b>" + data.preco_sedex_prazo[0] + " dias úteis no SEDEX, valor: " + data.preco_sedex + "</b></li>";
+                retorno += "<li><b>" + data.preco_pac_prazo + " dias úteis no PAC, valor: " + data.preco_pac.toLocaleString('pt-BR', formato) + "</b></li>";
+                retorno += "<li><b>" + data.preco_sedex_prazo + " dias úteis no SEDEX, valor: " + data.preco_sedex.toLocaleString('pt-BR', formato) + "</b></li>";
 
                 retorno += "</ul>";
 
@@ -331,7 +401,6 @@ $('.servicoFreteCarrinho').change(function(e) {
 
 
 $('#servicoFrete').change(function() {
-    alert('changer')
 
     var cep = $('input[type=text][name=cepEntregaCarrinho]').val();
 
@@ -525,8 +594,10 @@ $('.btn-carrinho-relacionados').click(function() {
     if (page == 'resultbusca') {
         var qtd = 1;
     } else {
-        var qtd = $('#quantity-relacionados').val();
+        var qtd = $("input[name='quant[" + $(this).data('id') + "]']").val();
     }
+
+    console.log(qtd);
 
     var id = $(this).attr('data-id');
 
@@ -535,6 +606,8 @@ $('.btn-carrinho-relacionados').click(function() {
         var post = 'id=' + id + '&qtd=' + qtd;
 
         addCarrinho(post);
+
+        window.location.reload();
 
     } else {
 
@@ -593,15 +666,15 @@ $('.deletarProduto').click(function() {
 
 $('.excluirProduto').click(function() {
 
-    var i = 0;
-
     var post = '';
 
-    post += 'id=' + $(this).data('idProduto') + '&';
+    post += 'id=' + $(this).data('id') + '&';
 
     post += 'qtd=' + $(this).data('quantidade');
 
-    deletarItemCarrinho(post);
+    console.log(post);
+
+    deletarItemCarrinhoNovo(post);
 
 });
 

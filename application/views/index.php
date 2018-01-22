@@ -2,10 +2,9 @@
     $number  =   array( 'one', 'two', 'three' );
 ?>
 <div class="container margin-top">
-    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 padding-left-reset slide-content-viewer">
+    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 padding-left-reset slide-content-viewer">
         <div class="row row-banner">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 "></div>
-            <div class="container-carousel col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div class="container-carousel col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <?php
                         if( count( $banner1 ) > 0 ){
@@ -72,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-5 col-xs-3 no-padding content-produtos-viewer"> 
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 no-padding content-produtos-viewer"> 
         <div class="produtos pull-left">
             <span class="font-poppins-bold border-right-regular padding-padrao font-big titulo-produtos pull-left"> PRODUTOS </span>
             <span class="padding-padrao  pull-right slick-arrows relative">  </span>  

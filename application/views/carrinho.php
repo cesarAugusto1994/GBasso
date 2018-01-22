@@ -23,45 +23,43 @@
 							</thead>
 							<tbody>
 								<?php
-									$attr = 'disabled';
-									if (count($carrinho) > 0) {
-										$attr = '';
-										foreach ($carrinho as $key => $value) {
-								?>
-											<tr>
-												<td><input type='checkbox' class='chkCarrinho' id="<?= $value['valu']; ?>" /></td>
-												<td><a href="<?= $value['link']; ?>"><img style="min-width:64px;min-height:64px;max-width:64px;max-height:64px;" src="<?= $value['image']; ?>"/></a></td>
-												<td><?= $value['prod']; ?></td>
-												<td><?= $value['refe']; ?></td>
-												<td><input min="1" style="width: 45px;padding:0.2em 0.5em;background-color:#f5f5f5;border:none;font-size:12px" data-id="<?= $value['valu']; ?>" type="number" class="control-form change-quantity" value="<?= $value['qtd']; ?>" /></td>
-												<td><?= $value['valo']; ?></td>
-											</tr>
-								<?php
-}
+                                    $attr = 'disabled';
+                                if (count($carrinho) > 0) {
+                                    $attr = '';
+                                    foreach ($carrinho as $key => $value) {
+                                ?>
+                                        <tr>
+                                            <td><input type='checkbox' class='chkCarrinho' id="<?= $value['valu']; ?>" /></td>
+                                            <td><a href="<?= $value['link']; ?>"><img style="min-width:64px;min-height:64px;max-width:64px;max-height:64px;" src="<?= $value['image']; ?>"/></a></td>
+                                            <td><?= $value['prod']; ?></td>
+                                            <td><?= $value['refe']; ?></td>
+                                            <td><input min="1" style="width: 45px;padding:0.2em 0.5em;background-color:#f5f5f5;border:none;font-size:12px" data-id="<?= $value['valu']; ?>" type="number" class="control-form change-quantity" value="<?= $value['qtd']; ?>" /></td>
+                                            <td><?= $value['valo']; ?></td>
+                                        </tr>
+                                <?php
+                                    }
 
-    echo "<tr><td colspan='5'></td><td>Total: R$ " . $total . "</td></tr>";
-} else {
-
-    echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
-
-}
+                                    echo "<tr><td colspan='5'></td><td>Total: R$ " . $total . "</td></tr>";
+                                } else {
+                                    echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
+                                }
 ?>
-							</tbody>
-						</table>
-					</div>
-					<div class="panel-footer">
-						<button class='btn btn-danger btn-xs deletarProduto' disabled>Remover Produtos</button>
-					</div>
-				</div>
-			</div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <button class='btn btn-danger btn-xs deletarProduto' disabled>Remover Produtos</button>
+                    </div>
+                </div>
+            </div>
 
 
-			<div class="col-lg-4 col-xs-12">
+            <div class="col-lg-4 col-xs-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">Informações Adicionais</div>
                         <div class="panel-body">
 
-							<div class="row">
+                            <div class="row">
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
@@ -82,12 +80,12 @@
 
                         </div>
                         <div class="panel-footer">
-							<button class='btn btn-success btn-xs finalizarCompra' <?= $attr; ?>>Ir para Checkout</button>
+                            <button class='btn btn-success btn-xs finalizarCompra' <?= $attr; ?>>Ir para Checkout</button>
                         </div>
                     </div>
                 </div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 -->
 
@@ -99,7 +97,7 @@
       <div class="cabecalho-interno row-fluid">
         <div class="span12">
 
-            <h1 class="titulo cor-secundaria">
+            <h1 class=" cor-secundaria">
               Carrinho <small> Clique em finalizar compra para efetuar o seu pedido.</small>
             </h1>
 
@@ -131,96 +129,95 @@
 
             <tbody>
 
-				<?php
-					$attr = 'disabled';
-					if (count($carrinho) > 0) :
-						$attr = '';
-						foreach ($carrinho as $key => $value) :
-				?>
-				
-					<tr data-produto-quantidade="<?= $value['qtd']; ?>">
-					
-						<td class="sem-borda conteiner-imagem">
-							<div class="imagem">
-								<a href="<?= $value['link']; ?>">
-								<img src="<?= $value['image']; ?>" alt="Bolsa Caramelo Reversível Ellus com Alça Transversal"></a>
-							</div>
-						</td>
-						<td class="sem-borda">
-							<div class="produto-info">
-							<a href="<?= $value['link']; ?>" class="cor-secundaria">
-								<?= $value['prod']; ?>
-							</a>
+                <?php
+                    $attr = 'disabled';
+                if (count($carrinho) > 0) :
+                    $attr = '';
+                    $index = 0;
+                    foreach ($carrinho as $key => $value) :
+                ?>
+                
+                <tr data-produto-quantidade="<?= $value['qtd']; ?>">
+                    
+                    <td class="sem-borda conteiner-imagem">
+                        <div class="imagem">
+                            <a href="<?= $value['link']; ?>">
+                            <img src="<?= $value['image']; ?>" alt="Bolsa Caramelo Reversível Ellus com Alça Transversal"></a>
+                        </div>
+                    </td>
+                    <td class="sem-borda">
+                        <div class="produto-info">
+                        <a href="<?= $value['link']; ?>" class="cor-secundaria">
+                            <?= $value['prod']; ?>
+                        </a>
 
-							<ul>
-								<li>
-								<span>
-									Referencia:
-									<strong>
-									<?= $value['refe']; ?>
-									</strong>
-								</span>
-								</li>
-								<li>
-								<span>
-									Estoque:
-									<strong>
-									Disponível
-									</strong>
-								</span>
-								</li>
-							</ul>
-							</div>
-						</td>
+                        <ul>
+                            <li>
+                            <span>
+                                Referencia:
+                                <strong>
+                                <?= $value['refe']; ?>
+                                </strong>
+                            </span>
+                            </li>
+                            <li>
+                            <span>
+                                Estoque:
+                                <strong>
+                                Disponível
+                                </strong>
+                            </span>
+                            </li>
+                        </ul>
+                        </div>
+                    </td>
 
-						<td class="hidden-phone">
+                    <td class="hidden-phone">
 
 
-							<div class="preco-produto destaque-preco com-promocao">
+                        <div class="preco-produto destaque-preco com-promocao">
 
-								<div>
-									<strong class="preco-promocional cor-principal titulo">
-									R$ <?= $value['valo']; ?>
-									</strong>
-								</div>
+                            <div>
+                                <strong class="preco-promocional cor-principal">
+                                R$ <?= $value['valo']; ?>
+                                </strong>
+                            </div>
 
-							</div>
+                        </div>
 
-						</td>
+                    </td>
 
-						<td class="clearfix">
-							<form action="https://www.biellissima.com.br/carrinho/produto/20105755/atualizar" method="post">
-							<div class="quantidade">
-								<input min="1" style="width: 45px;padding:0.2em 0.5em;border:none;font-size:12px" data-id="<?= $value['valu']; ?>" type="number" class="control-form change-quantity" value="<?= $value['qtd']; ?>" />
-								<button class="botao principal pequeno atualizar-quantidade">Atualizar quantidade</button>
-							</div>
-							</form>
-						</td>
+                    <td class="clearfix">
+                        <form action="#" method="post">
+                        <div class="quantidade">
+                            <input min="1" style="width: 45px;padding:0.2em 0.5em;border:none;font-size:12px" data-id="<?= $value['valu']; ?>" type="number" class="control-form change-quantity" value="<?= $value['qtd']; ?>" />
+                            <button class="botao principal pequeno atualizar-quantidade">Atualizar quantidade</button>
+                        </div>
+                        </form>
+                    </td>
 
-						<td>
-						<div class="preco-produto">
-							<strong class="preco-promocional cor-principal titulo">
-							R$ <?= $value['valo']; ?>
-							</strong>
-						</div>
-						</td>
+                    <td>
+                    <div class="preco-produto">
+                        <strong class="preco-promocional cor-principal">
+                        R$ <?= number_format($value['valor_int'] * $value['qtd'], 2, ',', '.' ); ?>
+                        </strong>
+                    </div>
+                    </td>
 
-						<td>
-							<div class="excluir">
-							<a class="excluirProduto" title="Excluir este produto." data-idProduto="<?= $value['valu']; ?>" data-quantidade="<?= $value['qtd']; ?>"><i class="icon-trash cor-secundaria"></i></button>
-							</div>
-						</td>
-					</tr>
+                    <td>
+                        <div class="excluir">
+                        <a class="excluirProduto" title="Excluir este produto." data-index="<?= $index ?>" data-id="<?= $value['valu']; ?>" data-quantidade="<?= $value['qtd']; ?>"><i class="icon-trash cor-secundaria"></i></button>
+                        </div>
+                    </td>
+                </tr>
 
-				<?php
-						endforeach;
-
-					else:
-
-						echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
-
-					endif;
-				?>
+                <?php
+                    $index++;
+                    endforeach;
+                else :
+                        echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
+                endif;
+                ?>
 
 
 
@@ -230,8 +227,8 @@
                 <td colspan="2">
                   <div class="subtotal">
                     <span>Subtotal: </span>
-                    <strong class="titulo cor-principal" data-subtotal-valor="439.9">
-                      R$ 439,90
+                    <strong class="cor-principal" data-subtotal-valor="<?= $total; ?>">
+                      R$ <?= $total; ?>
                     </strong>
                   </div>
                 </td>
@@ -247,11 +244,11 @@
                     </label>
                     <div class="controls text-left">
                       <div class="input-append">
-                        <input type="tel" name="cep_destino" class="input-small input-cep informarCep" value="" maxlength="9">
+                        <input type="tel" id="cep" name="cep_destino" class="input-small input-cep informarCep" value="" maxlength="9">
                         <button type="button" class="btn btnCaclcularFrete"><i class="icon-truck"></i>Calcular Frete</button>
                       </div>
                       <span class="help-inline">
-                        <a href="https://www.biellissima.com.br/nao_sei_o_cep/" target="_blank"><i class="icon-question-sign"></i>Não sei meu CEP</a>
+                        <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/" target="_blank"><i class="icon-question-sign"></i>Não sei meu CEP</a>
                       </span>
                     </div>
                   </div>
@@ -270,7 +267,7 @@
               <td colspan="6" class="line-18">
                 <div class="total">
                   <span>Total:</span>
-                  <strong class="titulo cor-principal valor-total" data-total-valor="<?= $total; ?>">R$ <?= $total; ?></strong>
+                  <strong class="cor-principal valor-total" data-total-valor="<?= $total; ?>">R$ <?= $total; ?></strong>
                 </div>
                 <div class="valores-descontos">
 
@@ -279,12 +276,12 @@
 
 
 
-          <div class="descontos avista">
+          <!--<div class="descontos avista">
             <span>
 
                 via depósito
 
-              por <strong class="cor-principal titulo font-15">R$ 404,71</strong> com <strong>8% de desconto</strong>
+              por <strong class="cor-principal  font-15">R$ <?= $total; ?></strong> com <strong>8% de desconto</strong>
             </span>
           </div>
 
@@ -292,56 +289,47 @@
           <span>
             ou em até <strong>6x</strong> de <strong>R$ 73,32</strong> sem juros
           </span>
-        </div>
+        </div>-->
 
-	</div>
+								</div>
               </td>
             </tr>
 
         </tbody></table>
       </div>
 
-      <form action="https://www.biellissima.com.br/checkout/redirect/" method="post">
         <div class="acao-editar row-fluid">
           <div class="span12">
 
-              <a href="https://www.biellissima.com.br/" class="botao">Continuar comprando</a>
+              <a href="/" class="botao">Continuar comprando</a>
+              <button type="button" class="botao principal grande finalizarCompra"><i class="icon-ok"></i>Finalizar compra</button>
 
-
-
-                <button class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</button>
-
-
-          </div>
+					</div>
 
            <div class="selo-ssl hidden-phone">
              <img src="https://cdn.awsli.com.br/production/static/img/struct/stamp_encryptssl_cart.png" alt="Compra 100% Segura">
            </div>
 
         </div>
-      </form>
     </div>
 
-
-
-
-
-
-
-            </div>
-
-
-          <div class="secao-secundaria">
-
-
-          </div>
-        </div>
+    </div>
+				<div class="secao-secundaria">
+				</div>
+    </div>
 
 <script type="text/javascript">
-	var baseUrl              =  '{url}';
-	var baseUrlAjaxCarrinho  =  '{url}' + 'ajax/carrinho/';
-	var valorPagamento       =  parseFloat( '{totalS}' );
+    var baseUrl              =  '{url}';
+    var baseUrlAjaxCarrinho  =  '{url}' + 'ajax/carrinho/';
+    var valorPagamento       =  parseFloat( '{totalS}' );
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#cep").mask("99999-999");
+    });
+</script>
+
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 

@@ -637,7 +637,7 @@ class Usuarios extends db\Querys  {
     public function getFullEndereco() {
 
         $this->reset();
-
+        
         $endereco   =   $this->getEndereco( $this->cep );
 
         $result     =   array();
@@ -683,13 +683,13 @@ class Usuarios extends db\Querys  {
 
         if( count( $data ) > 0 ) {
 
-            $i  = 0;
+            $prov = $i  = 0;
 
             foreach ( $data as $key ) {
 
                 $this->cep          =   $key->end_cep;
 
-                $prov               =   $this->getFullEndereco();
+                //$prov               =   $this->getFullEndereco();
                 
                 $result[$i]['val']  =   $key->end_id;
 
@@ -709,9 +709,9 @@ class Usuarios extends db\Querys  {
 
                 $result[$i]['pri']  =   $key->end_principal == 1 ? 'Sim' : 'Não';
 
-                $result[$i]['cid']  =   $prov['cid'];
+                $result[$i]['cid']  =   $prov['cid'] ?: 'Sao Paulo';
 
-                $result[$i]['est']  =   $prov['est'];
+                $result[$i]['est']  =   $prov['est'] ?: 'Sao Paulo';
 
                 $i++;
 
