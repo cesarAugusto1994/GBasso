@@ -348,8 +348,12 @@ function getValorFrete2(post) {
 
                 var retorno = "<ul>"
 
-                retorno += "<li><b>" + data.preco_pac_prazo + " dias úteis no PAC, valor: " + data.preco_pac.toLocaleString('pt-BR', formato) + "</b></li>";
-                retorno += "<li><b>" + data.preco_sedex_prazo + " dias úteis no SEDEX, valor: " + data.preco_sedex.toLocaleString('pt-BR', formato) + "</b></li>";
+                $.each(data, function(index, value) {
+                    retorno += "<li><b> " + value.nome + ", valor: " + value.valor.toLocaleString('pt-BR', formato) + "</b></li>";
+                });
+
+                //retorno += "<li><b> PAC, valor: " + data.preco_pac.toLocaleString('pt-BR', formato) + "</b></li>";
+                //retorno += "<li><b> SEDEX, valor: " + data.preco_sedex.toLocaleString('pt-BR', formato) + "</b></li>";
 
                 retorno += "</ul>";
 
@@ -402,7 +406,7 @@ $('.servicoFreteCarrinho').change(function(e) {
 
 $('#servicoFrete').change(function() {
 
-    var cep = $('input[type=text][name=cepEntregaCarrinho]').val();
+    var cep = $('input[type=text][name=cepEntrega]').val();
 
     var servico = $('#servicoFrete').val();
 
@@ -591,11 +595,7 @@ $(".input-number").keydown(function(e) {
 
 $('.btn-carrinho-relacionados').click(function() {
 
-    if (page == 'resultbusca') {
-        var qtd = 1;
-    } else {
-        var qtd = $("input[name='quant[" + $(this).data('id') + "]']").val();
-    }
+    var qtd = $("#quantity-relacionados-" + $(this).data('item')).val();
 
     console.log(qtd);
 

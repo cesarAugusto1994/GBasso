@@ -1,87 +1,87 @@
 var opt1 = {
 
-    success:   showResponse1,
+    success: showResponse1,
 
-    dataType:  'json'
-
-}; 
-
-var opt2 = {
-
-    success:   showResponse2,
-
-    dataType:  'json'
+    dataType: 'json'
 
 };
 
-$( '.formCadastro' ).ajaxForm( opt1 );
+var opt2 = {
 
-$( '.formLogin' ).ajaxForm( opt2 );
+    success: showResponse2,
 
-function showResponse1(data, statusText, xhr, $form)  {
+    dataType: 'json'
 
-    var message  =  data['message'];
+};
 
-    var code     =  data['code'];
+$('.formCadastro').ajaxForm(opt1);
 
-    $( '.alert' ).removeClass( 'hidden' );
+$('.formLogin').ajaxForm(opt2);
 
-    if( code == 100 ) {
+function showResponse1(data, statusText, xhr, $form) {
 
-        alerta( message, 100 );
+    var message = data['message'];
 
-        setTimeout( function () {
+    var code = data['code'];
 
-            window.location.href  =  baseUrl + 'minha/conta/login';
+    $('.alert').removeClass('hidden');
+
+    if (code == 100) {
+
+        alerta(message, 100);
+
+        setTimeout(function() {
+
+            window.location.href = baseUrl + 'minha/conta/login';
 
         }, 2400);
 
-    }else {
+    } else {
 
-        alerta( message, 102 );
+        alerta(message, 102);
 
     }
 
-    $( '.alert' ).text( message ).fadeIn().delay( 4000 ).fadeOut();
+    $('.alert').text(message).fadeIn().delay(4000).fadeOut();
 
 }
 
-function showResponse2(data, statusText, xhr, $form)  {
+function showResponse2(data, statusText, xhr, $form) {
 
-    var message  =  data['message'];
+    var message = data['message'];
 
-    var code     =  data['code'];
+    var code = data['code'];
 
-    $( '.alert' ).removeClass( 'hidden' );
+    $('.alert').removeClass('hidden');
 
-    if( code == 100 ) {
+    if (code == 100) {
 
-        alerta( message, 100 );
+        alerta(message, 100);
 
-        setTimeout( function () {
+        setTimeout(function() {
 
-            window.location.href  =  baseUrl + 'minha/conta/inicio';
+            window.location.href = baseUrl + 'minha/conta/inicio';
 
         }, 2400);
 
-    }else {
+    } else {
 
-        alerta( message, 102 );
+        alerta(message, 102);
 
     }
 
-    $( '.alert' ).text( message ).fadeIn().delay( 4000 ).fadeOut();
+    $('.alert').text(message).fadeIn().delay(4000).fadeOut();
 
 }
 
 /** SECTION FOCUSOUT **/
-$( '#email' ).focusout( function () {
+$('#email').focusout(function() {
 
-    var email  =   $( this ).val();
+    var email = $(this).val();
 
-    if( $.trim( email ) != '' ) {
+    if ($.trim(email) != '') {
 
-        $( '#userLogin' ).val( email );
+        $('#userLogin').val(email);
 
     }
 

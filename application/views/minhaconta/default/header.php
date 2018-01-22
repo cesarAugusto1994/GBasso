@@ -9,7 +9,8 @@
 	
 	{css}
 
-    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
+    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' />  
+    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css' /> 
 
     {js}
 

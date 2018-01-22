@@ -113,7 +113,7 @@
 
     </div>
 
-    <?php if( count( $ofertas ) > 0 ) { ?>
+    <?php /* if( count( $ofertas ) > 0 ) { ?>
         <div class="col-lg-12 no-padding margin-top">
 
                 <div class="row margin-left-reset margin-right-reset">
@@ -161,6 +161,49 @@
                         }
                     ?>
                 </div>
+        </div>
+    <?php } */ ?>
+
+        <?php if( count( $ofertas ) > 0 ) { ?>
+        <div class="col-lg-12 no-padding margin-top mais-vendidos">
+            <div class="produtos-relativos pull-left">
+                <span class="font-poppins-bold border-right-regular padding-padrao font-big titulo-produtos-relativos pull-left"> 
+                    <div class="pull-left"> OFERTA DO DIA </div> 
+                    <div class="pull-right">
+                        
+                    </div>
+                </span>
+                <span class="padding-padrao slick-arrows-mais-vendidos pull-right relative">  </span>  
+            </div>
+            <?php
+                $i  = 0;
+                foreach ($ofertas as $key ) {
+
+                    $class  =  $i == 0 ? 'slick-active-mais-vendido' : '';
+
+                    $style  =  $i > 0 ? 'display-none' : '';
+            ?>
+                    <div class="slick-slider-mais-vendidos-<?php echo $number[$i]; ?> width clear border-reset <?php echo $style; ?> <?php echo $class; ?>">
+
+                                <div class="slick-first-mais-vendido">
+                                    <div class="row padding-padrao padding-bottom-reset  min-margin-right-reset relative">
+                                        <div class="col-lg-12 col-md-12 slick-product-image-relativos">
+                                            <a href="<?php echo $key['link']; ?>"><img src="<?php echo $key['image']; ?>" class="img-responsive" /></a>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 text-produto-relativos">
+                                            <div class="slick-container-texto-relativos">
+                                                <p class="font-poppins align-center no-margin slick-titulo"><a href="<?php echo $key['link']; ?>"> <?php echo $key['nome']; ?> </a></p>
+
+                                                <p class="font-poppins-bold-relativos color-price slick-preco align-center no-margin"> <?php echo $key['valor']; ?> </p>
+                                            </div>
+                                        </div>
+                                    </div>                    
+                                </div>
+                    </div>
+            <?php
+                    $i++;
+                }
+            ?>
         </div>
     <?php } ?>
 

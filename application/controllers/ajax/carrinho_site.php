@@ -1299,7 +1299,7 @@ class Carrinho_site extends CI_Controller {
         strlen( $cep ) != 8  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep) : null;
 
         //Gera o valor do frete
-        $result   =   $this->generateFreteFromCifrete( $cep );
+        $result   =   $this->generateFreteToCart( $cep );
 
         //Prepara os dados para serem retornados
         //$result       =   array( 'frete' => number_format( $valorFrete, 2, ',', '.' ), 'cFrete' => $valorFrete );
@@ -1450,6 +1450,148 @@ class Carrinho_site extends CI_Controller {
 
     }
 
+        protected function generateFreteToCart( $cep ) {
+
+        //Instancia a classe General
+        $this->General                =    new extend\General();
+
+        //Instancia a classe de XML e seta o valor retornado pelo Correios
+        $this->XmlParser              =    new parser\Xml();
+
+        //Instancia a classe de configurações
+        $this->Config                 =    new objects\Configuracoes();
+
+        //Obtem o código do servico
+        
+        $servicos  = array();
+
+        $servicos  = array(array('id' => 1,'nome' => 'PAC'),array('id' => 2,'nome' => 'SEDEX'));
+
+        //Verifica se o serviço foi encontrado
+        //is_bool( $servico ) ? $this->Essentials->setMessage( 'O serviço selecionado é inválido' ) : null;
+
+        //Verifica se o cep existe
+        //$response   =   $this->Usuarios->cepExists();
+
+        //Verifica se o retorno é falso, se sim, erro, CEP inválido
+        //!$response  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep ) : null;
+
+        //Obtem o Cep de origem 04205-002
+        $cepOrigem                    =  '04205-002';  //$this->Config->getCepOrigem();
+
+        //Erro, cep de origem não cadastrado
+        is_bool( $cepOrigem ) ?  $this->Essentials->setMessage( 'Ocorreu um erro ao obter o valor do frete' ) : null;
+
+        //Obtem os produtos do carrinho
+        $produtos  =   $this->Carrinho->getProdutos();
+
+        //Verifica se o carrinho está vazio
+        count( $produtos ) == 0 ? $this->Essentials->setMessage( 'Seu carrinho está vázio, sua compra não foi finalizada' ) : null;
+
+        $valoresFrete = array();
+       
+        foreach($servicos as $key => $servico) {
+
+             $serv  =   $this->Vendas->getCodeServicoEntrega( $servico['id'] );
+
+            //Seta o valor inicial do frete
+            $frete   =   0.00;
+
+            $i       =   $key;
+
+            //Extraindo todos os produtos
+            foreach ($produtos as $key ) {
+
+                //Instancia a classe correios
+                $this->Correios                  =    new connection\Correios();
+
+                //Seta o serviço
+                $this->Correios->nCdServico      =    $serv;
+
+                //Seta o cep de origem
+                $this->Correios->sCepOrigem      =    $cepOrigem;
+
+                //Seta o ID do produto na classe
+                $this->Produtos->idProduto       =   $key['id'];
+
+                //Recebe a quantidade do produto
+                $qtd                             =   $key['qtd'];            
+
+                //Obtem o valor do peso do produto
+                $this->Correios->nVlPeso         =   $this->Produtos->getDataEspecificProduct( 4 );
+
+                //Obtem o valor da largura do produto
+                $this->Correios->nVlLargura      =   $this->Produtos->getDataEspecificProduct( 5 );
+
+                //OBtem o valor da altura do produto
+                $this->Correios->nVlAltura       =   $this->Produtos->getDataEspecificProduct( 6 );
+
+                //Obtem o valor do comprimento do produto
+                $this->Correios->nVlComprimento  =   $this->Produtos->getDataEspecificProduct( 7 );
+
+                //Prepara os dados
+                $this->Correios->prepareData();
+
+                //Realiza a consulta no correios
+                $response          =   $this->Correios->getFrete();
+
+                //Seta o Xml na classe
+                $this->XmlParser->Xml  =   $response;
+
+                //Verifica se o XML é válido
+                !$this->XmlParser->isXml() ? $this->Essentials->setMessage( 'Ocorreu um erro ao consultar o Frete' ) : null;
+
+                //Converte o XML para array
+                $response          =   $this->XmlParser->toArray();
+
+                //Verifica se o retorno da conversão é um array válido
+                if( is_array( $response ) ) {
+
+                    //Verifica se existe algum erro
+                    $error  =   $this->Correios->getError( $response['cServico']['Erro'] );                
+
+                    if( is_bool( $error ) ) {
+
+                        $valor   =   $this->General->number_format( $response['cServico']['Valor'] );
+
+                        $this->infoFrete[$i]['id']     =   $key['id'];
+
+                        $this->infoFrete[$i]['valor']  =   $valor;
+
+                        //Multiplica o valor do frete pela quantidade do produto e soma na variável Frete
+                        $frete  +=  ( $valor * $qtd );
+
+                        $i++;
+
+                    }else {
+
+                        $this->Essentials->setMessage( 'Ocorreu um erro ao consultar o Frete' );
+
+                    }
+
+                }else {
+
+                    $this->Essentials->setMessage( 'Ocorreu um erro ao consultar o Frete' );
+
+                }
+
+            }
+
+         //Obtem o valor adicional para o frete
+        $valorAddFrete   =   $this->Config->getValorAddFrete();        
+
+        //Obtem o valor do frete somando ao valor adicional do frete
+        $valoresFrete[]  =   array('nome' => $servico['nome'], 'valor' => $frete + $valorAddFrete);
+
+        //Retorna os dados
+
+        }
+
+       
+        return $valoresFrete;
+
+    }
+
     protected function generateFreteFromCifrete( $cep ) 
     {
 
@@ -1487,44 +1629,44 @@ class Carrinho_site extends CI_Controller {
 
             //Recebe a quantidade do produto
             $qtd                             =   $key['qtd'];    
+
+            $altura = 0;
+            $largura = 0;
+            $comprimento = 0;
+            $peso = 0;
+            $diametro = $altura + $largura;
             
             foreach(range(1, $qtd) as $item) {
 
-                //Obtem o valor do peso do produto
-                $this->Correios->nVlPeso         =   $this->Produtos->getDataEspecificProduct( 4 );
-
-                //Obtem o valor da largura do produto
-                $this->Correios->nVlLargura      =   $this->Produtos->getDataEspecificProduct( 5 );
-
-                //OBtem o valor da altura do produto
-                $this->Correios->nVlAltura       =   $this->Produtos->getDataEspecificProduct( 6 );
-
-                //Obtem o valor do comprimento do produto
-                $this->Correios->nVlComprimento  =   $this->Produtos->getDataEspecificProduct( 7 );
-
-                $this->cifrete->setDiametro('0');
-                $this->cifrete->setValor('0');
-                $this->cifrete->setComprimento($this->Produtos->getDataEspecificProduct( 7 ));
-                $this->cifrete->setLargura($this->Produtos->getDataEspecificProduct( 5 ));
-                $this->cifrete->setAltura($this->Produtos->getDataEspecificProduct( 6 ));
-                $this->cifrete->setPeso($this->Produtos->getDataEspecificProduct( 4 ));
-                $this->cifrete->setFormato('1');
-                $this->cifrete->setEmpresaSenha('');
-                $this->cifrete->setEmpresaCodigo('');
-                $this->cifrete->setPacRetorno(TRUE);
-                $this->cifrete->setSedexRetorno(TRUE);
-                $this->cifrete->setESedexRetorno(FALSE);
-                $this->cifrete->calcular();
-                
-                $data['preco_pac'] += $this->cifrete->getResultadoPac();
-                $data['preco_sedex'] += $this->cifrete->getResultadoSedex();
-                $data['preco_esedex'] += $this->cifrete->getResultadoESedex();
-                
-                $data['preco_pac_prazo'] += $this->cifrete->getResultadoPacEntrega();
-                $data['preco_sedex_prazo'] += $this->cifrete->getResultadoSedexEntrega();
-                $data['preco_esedex_prazo'] += $this->cifrete->getResultadoESedexEntrega();
+                $altura += (float)$this->Produtos->getDataEspecificProduct( 6 );
+                $largura += (float)$this->Produtos->getDataEspecificProduct( 5 );
+                $comprimento += (float)$this->Produtos->getDataEspecificProduct( 7 );
+                $peso += (float)$this->Produtos->getDataEspecificProduct( 4 );
+                $diametro += $altura + $largura;
 
             }
+
+            $this->cifrete->setDiametro($diametro);
+            $this->cifrete->setValor('0');
+            $this->cifrete->setComprimento($comprimento);
+            $this->cifrete->setLargura($largura);
+            $this->cifrete->setAltura($altura);
+            $this->cifrete->setPeso($peso);
+            $this->cifrete->setFormato('1');
+            $this->cifrete->setEmpresaSenha('');
+            $this->cifrete->setEmpresaCodigo('');
+            $this->cifrete->setPacRetorno(TRUE);
+            $this->cifrete->setSedexRetorno(TRUE);
+            $this->cifrete->setESedexRetorno(FALSE);
+            $this->cifrete->calcular();
+            
+            $data['preco_pac'] += $this->cifrete->getResultadoPac();
+            $data['preco_sedex'] += $this->cifrete->getResultadoSedex();
+            $data['preco_esedex'] += $this->cifrete->getResultadoESedex();
+            
+            $data['preco_pac_prazo'] = $this->cifrete->getResultadoPacEntrega();
+            $data['preco_sedex_prazo'] = $this->cifrete->getResultadoSedexEntrega();
+            $data['preco_esedex_prazo'] = $this->cifrete->getResultadoESedexEntrega();
 
         }
 

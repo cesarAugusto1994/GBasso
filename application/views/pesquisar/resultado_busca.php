@@ -50,29 +50,15 @@
 
                                 <div style="height: 80px;">
                                 
-                                    <div class="container-quantidade" style="margin-left:12px;width:150px;display:none;">
-                                        
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[{id}]">
-                                                    <span class="glyphicon glyphicon-minus"></span>
-                                            </button> 
-                                            </span>
-                                            <input size="20" type="text" name="quant[{id}]" id="quantity-relacionados" class="form-control input-number" value="1" min="1" max="999">
-                                            <span class="input-group-btn">
-                                                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[{id}]">
-                                                    <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
-                                            </span>
-                                        </div>
-                                        
-                                    </div>
+                                    <div class="container-quantidade" style="margin-left:12px;width:60px;display:none;">
+									    <input type="number" style="height:35px;" id="quantity-relacionados-{id}" class="form-control" value="1" min="1" max="999">
+								    </div>
 
                                     <br/>
                                     <br/>
 
                                     <div class="container-add-carrinho" style="margin-left:12px;display:none;">
-                                        <button class="btn btn-sm btn-default btn-carrinho" title='Adicionar {name} ao carrinho' data-id="{id}"> Adicionar ao carrinho</button>
+                                        <button class="btn btn-sm btn-default btn-carrinho-relacionados" title='Adicionar {name} ao carrinho' data-id="{id}" data-item="{id}"> Adicionar ao carrinho</button>
                                     </div>
 
                                 </div>

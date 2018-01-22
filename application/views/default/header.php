@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title class="titulo"> Grupo Basso </title>
+    <title> Grupo Basso </title>
 
     {css}
 
-    <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/menu-new.css' /> 
+    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/menu-new.css' /> 
 
-    <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/style.css' /> 
+    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/style.css' /> 
 
     <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
 
@@ -67,58 +67,77 @@
         <div class="col-lg-12">
             <nav class="topBar">
                 <div class="container">
-                <ul class="list-inline pull-left hidden-sm hidden-xs">
-                    <li></li>
-                </ul>
-                <ul class="topBarNav pull-right">
-                    <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false"> <i class="glyphicon glyphicon-user"></i>   <span class="hidden-xs">Minha Conta<i class="glyphicon glyphicon-down ml-5"></i></span> </a>
-                    <ul id="login-dp" class="dropdown-menu">
-                    <li>
-                        <div class="row">
-                                <div class="col-md-12">
-                                    Login
-                                    
-                                    <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
-                                            <div class="form-group">
-                                                <label class="sr-only" for="user">Email address</label>
-                                                <input type="email" class="form-control" name="user" id="user" placeholder="E-mail" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="pass">Password</label>
-                                                <input name="pass" type="password" class="form-control" id="pass" placeholder="Senha" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
-                                            </div>
-                                    </form>
-                                </div>
-                                <div class="bottom text-center">
-                                    <a href="http://www.grupobasso.com.br/minha/conta/cadastrar"><b>Cadastre-se</b></a>
-                                </div>
-                        </div>
-                    </li>
-                </ul>
-                    </li>
-                    <li>
-                    <a href="{url}compras/carrinho" 
-                    data-close-others="false"> <i class="fa fa-shopping-basket mr-5"></i> <span class="hidden-xs">
-                            <i class="fa fa-cart"></i>Carrinho<sup class="text-primary">(<span class='data-carrinho'>0 itens: R$ 0,00</span>)</sup>
-                        </span></a>
+                    <ul class="list-inline pull-left">
+                        <li><a href="/"><b>Grupo Basso</b></a></li>
+                    </ul>
+                    <ul class="topBarNav pull-right">
+                        <li class="dropdown">
+                        <?php if($logado): ?>
 
-                    </li>
-                </ul>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false"> <i class="glyphicon glyphicon-user mr-5"></i><span>Minha Conta</span> </a>
+                            <ul class="dropdown-menu w-150" role="menu">
+                                <li><a href="/minha/conta/inicio">Painel</a></li>
+                                <li><a href="/minha/conta/compras">Minhas Compras</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/minha/conta/meusdados">Minhas Informções</a>
+                                </li>
+                                <li><a href="/minha/conta/meusenderecos">Meus Endereços</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a style="color: red" href="/minha/conta/sair">Sair</a>
+                                </li>
+                            </ul>
+                           
+                        <?php else: ?>
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false"> <i class="glyphicon glyphicon-user"></i><span>Minha Conta<i class="glyphicon glyphicon-down ml-5"></i></span> </a>
+                            <ul id="login-dp" class="dropdown-menu">
+                                <li>
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                Login
+                                                
+                                                <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="user">E-mail</label>
+                                                            <input type="email" class="form-control" name="user" id="user" placeholder="E-mail" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="sr-only" for="pass">Senha</label>
+                                                            <input name="pass" type="password" class="form-control" id="pass" placeholder="Senha" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                                                        </div>
+                                                </form>
+                                            </div>
+                                            <div class="bottom text-center">
+                                                <a href="http://www.grupobasso.com.br/minha/conta/cadastrar"><b>Cadastre-se</b></a>
+                                            </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        <?php endif; ?>
+                        </li>
+                        <li>
+                        <a href="{url}compras/carrinho" 
+                        data-close-others="false"> <i class="fa fa-shopping-basket mr-5"></i> <span class="">
+                                <i class="fa fa-cart"></i>Carrinho<sup class="text-primary">(<span class='data-carrinho'>0 itens: R$ 0,00</span>)</sup>
+                            </span></a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         </div>
 
-        <div class="col-lg-12" style="margin-top:80px;">
-            <div class="row display-table">
-                <div class="col-sm-3 vertical-align text-left hidden-xs">
-                    <a href="/"> <img alt="" width="100px" height="100px" style="margin: 0 auto" src="{url}assets/images/logo.png"></a>
+        <div class="col-lg-12" style="margin-top:60px;">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-center">
+                    <a href="/"> <img alt="" width="100px" height="100px" class="img img-rounded" style="margin: -10px auto 50px" src="{url}assets/images/logo.png"></a>
                 </div>
                 <!-- end col -->
-                <div class="col-sm-7 vertical-align text-center">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 text-center">
                         <div class="row grid-space-1">
 
                             <div class="col-md-3 col-sm-4">
@@ -132,7 +151,7 @@
 
                             </div>
 
-                            <div class="col-md-5 col-sm-8">
+                            <div class="col-md-5 col-sm-7">
 
                                 <div id="custom-search-input">
                                     <div class="input-group col-md-12">
@@ -158,15 +177,15 @@
     
     
         <nav class="navbar navbar-main navbar-default" role="navigation" style="opacity: 1;">
-          <div class="container">
+          <div class="container-fluid">
             <!-- Brand and toggle -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>             
+             <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
         
             <!-- Collect the nav links,  -->
@@ -217,7 +236,12 @@
 
                   
                 <?php if( isset( $menus ) && count( $menus ) > 0 ) {
-                    foreach ($menus as $key ) { ?>
+                    foreach ($menus as $key ) { 
+                        if($key['name'] == 'Cadastre-se' || $key['name'] == 'Logar') {
+                            continue;
+                        }
+                        
+                        ?>
                     <li><a href="<?= '/' . $key['link'] ?>"><?= $key['name'] ?></a></li>
                 <?php } } ?>
 
@@ -227,62 +251,6 @@
         </nav>
 
     </div>
-
-
-    <div class="modal fade" id="at-login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
-                <button class="btn-fb"> <i class="fa fa-fw fa-facebook pull-left" aria-hidden="true"></i>
-                    Login with Facebook	</button> <br>	
-                    <button class="btn-gp"> <i class="fa fa-fw fa-google-plus pull-left" aria-hidden="true"></i>
-                        Login with Google	</button> <br>	
-                        <div class="signup-or-separator">
-                            <span class="h6 signup-or-separator--text">or</span>
-                            <hr>
-                        </div>
-                        <form>
-                            <div class="form-group">
-                                <input type="email" class="form-control-form " id="exampleInputEmaillog" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control-form " id="exampleInputPasswordpas" placeholder="Password">
-                            </div>
-                            <div class="row">	
-                                <div class="col-md-6">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Remember me
-                                        </label>
-                                    </div>	
-                                </div>
-                                <div class="col-md-4 col-md-offset-2">	
-                                    <p class="frgt-pswd"   data-toggle="modal" data-dismiss="modal"  data-target="#at-reset-pswd">	Forgot Password ?</p>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-lgin">Login</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="row">	
-                            <div class="col-md-6">
-                                <p class="ta-l">Don't have an account ? </p>
-                            </div>	
-                            <div class="col-md-4 col-md-offset-2">	
-                                <button class="btn-gst"  data-toggle="modal"  data-dismiss="modal" data-target="#at-signup" >Sign Up </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
 
     <!--
     <header id="header">

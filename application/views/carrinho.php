@@ -244,7 +244,7 @@
                     </label>
                     <div class="controls text-left">
                       <div class="input-append">
-                        <input type="tel" id="cep" name="cep_destino" class="input-small input-cep informarCep" value="" maxlength="9">
+                        <input type="tel" id="cep" name="cep_destino" class="input-small input-cep informarCep" style="height: 34px;width:180px" value="" placeholder="Informe o Frete" maxlength="9">
                         <button type="button" class="btn btnCaclcularFrete"><i class="icon-truck"></i>Calcular Frete</button>
                       </div>
                       <span class="help-inline">
@@ -299,17 +299,18 @@
       </div>
 
         <div class="acao-editar row-fluid">
-          <div class="span12">
-
-              <a href="/" class="botao">Continuar comprando</a>
-              <button type="button" class="botao principal grande finalizarCompra"><i class="icon-ok"></i>Finalizar compra</button>
-
-					</div>
+            <div class="span12">
+                <a href="/" class="botao">Continuar comprando</a>
+                <?php if($logado): ?>
+                    <button type="button" class="botao principal grande finalizarCompra"><i class="icon-ok"></i>Finalizar compra</button>
+                <?php else: ?>
+                    <a href="/minha/conta/login?redirect=http://www.grupobasso.com.br/compras/carrinho" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
+                <?php endif; ?>
+			</div>
 
            <div class="selo-ssl hidden-phone">
              <img src="https://cdn.awsli.com.br/production/static/img/struct/stamp_encryptssl_cart.png" alt="Compra 100% Segura">
            </div>
-
         </div>
     </div>
 

@@ -208,6 +208,10 @@ namespace connection {
          */
         public function prepareData() {
 
+            $altura = !empty($this->nVlAltura) ? (float)$this->nVlAltura : 0;
+            $largura =  !empty($this->nVlLargura) ? (float)$this->nVlLargura : 0;
+            $diametro = $altura + $largura;
+
             //Prepara no array os dados que serão enviados ao correios
             $data   =   array(
                 'nCdEmpresa'           =>   $this->nCdEmpresa,
@@ -220,7 +224,7 @@ namespace connection {
                 'nVlComprimento'       =>   $this->nVlComprimento,
                 'nVlAltura'            =>   $this->nVlAltura,
                 'nVlLargura'           =>   $this->nVlLargura,
-                'nVlDiametro'          =>   $this->nVlDiametro = $this->nVlAltura + $this->nVlLargura,
+                'nVlDiametro'          =>   $this->nVlDiametro = $diametro,
                 'sCdMaoPropria'        =>   $this->sCdMaoPropria,
                 'nVlValorDeclarado'    =>   $this->nVlValorDeclarado,
                 'sCdAvisoRecebimento'  =>   $this->sCdAvisoRecebimento,

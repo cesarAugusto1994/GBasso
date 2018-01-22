@@ -35,6 +35,8 @@ class Pesquisar extends CI_Controller{
 
         $this->Menus       =   new objects\Menus;
 
+        $this->Login       =   new sessions\Login(2);
+
         $this->load->model('pesquisar_mdl');
 
     }
@@ -133,6 +135,7 @@ class Pesquisar extends CI_Controller{
         $data['header']['menus'] =   $this->Menus->getMenusToHome();
         $data['header']['categorias']    =   $this->Categorias->getCategoriasToHome();
         $data['header']['pesq']  =   $pesquisar;
+        $data['header']['logado'] = $this->Login->checkLogin() ? true :  false;
         $data['body']["url"]     =   base_url();
         $data['body']["data"]    =   $products;
         $data['body']["previousPage"]  =   $previousPage;

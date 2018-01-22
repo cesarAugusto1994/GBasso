@@ -68,25 +68,8 @@
 			<div class="col-lg-12 padding-right-reset">
 				
 
-				<div class="container-quantidade pull-left" style="width:22%;">
-					
-				
-					<div class="input-group">
-						<span class="input-group-btn">
-						<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[<?php echo $id; ?>]">
-							<span class="glyphicon glyphicon-minus"></span>
-						</button>
-						</span>
-						<input type="text" name="quant[<?php echo $id; ?>]" id="quantity" class="form-control input-number" value="1" min="1" max="999">
-						<span class="input-group-btn">
-						<button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[<?php echo $id; ?>]">
-							<span class="glyphicon glyphicon-plus"></span>
-						</button>
-						</span>
-					</div>
-
-				
-						<!--<input type="number" size="4" max="10" class="control-form" title="Qty" value="1" name="quantity" id='quantity' min="1" step="1">-->
+				<div class="container-quantidade pull-left" style="margin-left:12px;width:80px;">
+					<input type="number" style="height:35px;" name="quant[<?php echo $id; ?>]" id="quantity" class="form-control" value="1" min="1" max="999">
 				</div>
 
 				<div class="container-add-carrinho ">
@@ -216,9 +199,11 @@
 
 							<div class="padding-right-reset row">
 
-								<div class="container-quantidade" style="margin-left:12px;width:43%">
+								<div class="container-quantidade" style="margin-left:12px;width:60px">
 
-									<div class="input-group">
+									<input type="number" style="height:35px;" id="quantity-relacionados-<?= $k; ?>" class="form-control" value="1" min="1" max="999">
+
+									<!--<div class="input-group">
 										<span class="input-group-btn">
 											<button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[<?php echo $k + 1; ?>]">
 												<span class="glyphicon glyphicon-minus"></span>
@@ -230,7 +215,7 @@
 												<span class="glyphicon glyphicon-plus"></span>
 										</button>
 										</span>
-									</div>
+									</div>-->
 
 									<!--<input type="number" size="4" max="7" class="form-control" title="Qty" value="1" name="quantity" id="quantity-relacionados" min="1" step="1">-->
 								</div>
@@ -238,7 +223,7 @@
 								<br/>
 									
 								<div class="container-add-carrinho ">
-									<button class="btn btn-carrinho-relacionados" data-id="<?= $key['value']; ?>" data-item="<?= $k + 1; ?>"> Adicionar ao carrinho</button>
+									<button class="btn btn-carrinho-relacionados" data-id="<?= $key['value']; ?>" data-item="<?= $k; ?>"> Adicionar ao carrinho</button>
 								</div>
 
 								<br/>

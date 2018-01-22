@@ -39,6 +39,8 @@ class Home extends CI_Controller{
 
         $this->Banners    =   new objects\Banners; 
 
+        $this->Login               =   new sessions\Login(2);
+
         $js    =  array( 0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12 );
 
         $css   =  array( 0, 1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 7 );
@@ -79,6 +81,8 @@ class Home extends CI_Controller{
         $data['header']['categorias']    =   $this->Categorias->getCategoriasToHome();
 
         $data['header']['menus']         =   $this->Menus->getMenusToHome();
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
 
         $data['footer']["url"]           =   base_url();
 

@@ -689,7 +689,7 @@ class Usuarios extends db\Querys  {
 
                 $this->cep          =   $key->end_cep;
 
-                //$prov               =   $this->getFullEndereco();
+                $prov               =   $this->getFullEndereco();
                 
                 $result[$i]['val']  =   $key->end_id;
 

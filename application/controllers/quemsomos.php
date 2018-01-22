@@ -28,6 +28,8 @@ class Quemsomos extends CI_Controller{
 
         $this->Menus       =   new objects\Menus;
 
+        $this->Login       =   new sessions\Login(2);
+
     }
 
 
@@ -63,6 +65,8 @@ class Quemsomos extends CI_Controller{
         $data['header']['pesq']          =   "";
 
         $data['header']['inc']           =   '';//$this->Header->getIncludes( );
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
 
         $data['body']["url"]             =   base_url();      
 

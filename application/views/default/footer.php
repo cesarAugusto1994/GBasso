@@ -22,7 +22,7 @@
                 <p style='text-align: center;; color: #FFFFFF'>Rua Cel. Alfredo Fláquer, 686 </p>
                 <p style='text-align: center;; color: #FFFFFF'>Telefone: 11 4438-1566</p>
                 <p style='text-align: center;; color: #FFFFFF'>
-                    <img width="15px" src="http://www.grupobasso.com.br/assets/images/whatapp.png"/>&nbsp;11 95254-0191 
+                    <img width="15px" src="http://www.grupobasso.com.br/assets/images/whatapp.png"/>&nbsp; <a style="color:white;font-size:14px;" target="_blank" href="https://api.whatsapp.com/send?phone=+5511952540191&text=Ola%20Grupo%20Basso">11 95254-0191 </a>
                 </p>
                  <p style='text-align: center;; color: #FFFFFF'>bassosa@grupobasso.com.br</p>
                <!-- <p style='text-align: center;'>Horário de Funcionamento: Seg. a Sex. das 9hs às 20hs</p>
@@ -32,7 +32,7 @@
                 <p style='text-align: center; color: #ffffff;  font-size: 20px'>São Bernardo do Campo</p>
                 <p style='text-align: center; color: #ffffff; '>Av. Getulio Vargas, 1510</p>
                 <p style='text-align: center; color: #ffffff; '>Telefone 11 4330-8411</p>
-                 <p style='text-align: center; color: #ffffff; '><img width="15px" src="http://www.grupobasso.com.br/assets/images/whatapp.png"/>&nbsp; 11 95254-1617</p>
+                 <p style='text-align: center; color: #ffffff; '><img width="15px" src="http://www.grupobasso.com.br/assets/images/whatapp.png"/>&nbsp; <a style="color:white;font-size:14px;" target="_blank" href="https://api.whatsapp.com/send?phone=+55119525416176&text=Ola%20Grupo%20Basso">11 95254-1617</a></p>
                   <p style='text-align: center; color: #ffffff; '>bassosbc@grupobasso.com.br</p>
                               <!--  <p style='text-align: center;'>Segunda a Sexta das 16hs às 20hs</p>
                 <p style='text-align: center;'>Sáb., Dom. e Feriados das 9hs às 14hs.</p>-->
@@ -42,7 +42,7 @@
                 <p style='text-align: center; color: #ffffff; font-size: 20px'>São Caetano do Sul</p>
                 <p style='text-align: center; color: #ffffff;'>Rua Heloisa Pamplona, 428</p>
                 <p style='text-align: center; color: #ffffff;'>Telefone 11 4221-5211</p>
-                <p style='text-align: center; color: #ffffff;'><img width="15px" src="http://www.grupobasso.com.br/assets/images/whatapp.png"/>&nbsp; 11 94146-0806</p>
+                <p style='text-align: center; color: #ffffff;'><img width="15px" src="http://www.grupobasso.com.br/assets/images/whatapp.png"/>&nbsp; <a style="color:white;font-size:14px;" target="_blank" href="https://api.whatsapp.com/send?phone=+5511941460806&text=Ola%20Grupo%20Basso">11 94146-0806</a></p>
                 <p style='text-align: center; color: #ffffff;'>bassosc@grupobasso.com.br</p>
                <!-- <p style='text-align: center;'>Sábado: das 07hs às 18hs</p>
                 <p style='text-align: center;'>Domingo: 07hs às 14h.</p>-->

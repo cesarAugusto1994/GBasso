@@ -20,13 +20,13 @@ function alerta(message, code) {
     var notification = alertify.notify(message, newClass, 2, function() { console.log('dismissed'); });
 
 }
-
+/*
 $('.btn-search-reset').click(function() {
     var selected = $('.btn-search-reset').find('option:selected').text();
     var text = $('.pesquisar-data').val();
     window.location.href = baseUrl + 'pesquisar/resultado/' + selected + '/' + text + '/1';
 });
-
+*/
 $('.pesquisar-data').keypress(function(e) {
     if (e.which == 13) {
         var selected = $('.btn-search-reset').find('option:selected').text();

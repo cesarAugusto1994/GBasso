@@ -438,13 +438,13 @@ class Querys  {
     **/
     public function connectBDCep() {
 
-        $config['hostname']   =   "saldocerto.cvfa24uelhhs.sa-east-1.rds.amazonaws.com";
+        $config['hostname']   =   "mysql.webmkt.com.br";
 
-        $config['username']   =   "mclinco";
+        $config['username']   =   "webmkt19";
 
-        $config['password']   =   "gp9D70E062VB2Ll";
+        $config['password']   =   "Net102030";
 
-        $config['database']   =   "cep";
+        $config['database']   =   "webmkt19";
 
         $config['dbdriver']   =   "mysqli";
 

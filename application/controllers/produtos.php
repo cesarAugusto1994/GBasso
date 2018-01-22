@@ -4,6 +4,8 @@ date_default_timezone_set("America/New_York");
 
 class Produtos extends CI_Controller{
 
+    private $Essentials =  null;
+
     private $Header    =  null;
 
     private $Produtos  =  null;
@@ -31,11 +33,11 @@ class Produtos extends CI_Controller{
         //Instancia a classe de produtos
         $this->Produtos   =   new objects\Produtos;
 
-        //
         $this->Menus      =   new objects\Menus;
         
         $this->Categorias  =   new objects\Categorias;
-         
+
+        $this->Login      =   new sessions\Login(2); 
     }
 
 
@@ -94,6 +96,8 @@ class Produtos extends CI_Controller{
 
             $data['header']['pesq']  =   "";
 
+            $data['header']['logado']       =   $this->Login->checkLogin() ? true :  false;
+
             $data['body']['images']         =   $this->Produtos->getAllImages();
 
             $data['body']['imageDefault']   =   $this->Produtos->getImageDefaultDiretory();
@@ -144,13 +148,15 @@ class Produtos extends CI_Controller{
 
         $this->Login               =   new sessions\Login(2);
 
+        $this->Essentials           =   new security\Essentials;
+
         $this->Usuarios->idUsuario =   $this->Login->getIdUser();
 
         $nome = $this->Usuarios->getFullName();
 
         $email = $this->Usuarios->getEmail();
 
-        $cpf = !empty($this->Usuarios->getCpf()) ? $this->Essentials->maskCpf( $this->Usuarios->getCpf() ) : null;
+        $cpf = $this->Usuarios->getCpf();
         
         if( is_bool( $nome ) ) {
 
@@ -196,6 +202,8 @@ class Produtos extends CI_Controller{
 
         $total                          =   $this->Carrinho->getTotal();
 
+        $logado = $this->Login->checkLogin() ? true :  false;
+
         $data['header']['url']          =   base_url();
 
         $data['header']['css']          =   $this->Header->getCss( $css );
@@ -222,7 +230,11 @@ class Produtos extends CI_Controller{
 
         $data['header']['total']        =   number_format( $total, 2, ',', '.' );
 
+        $data['header']['logado']       =   $logado;
+
         $data['body']['totalS']         =   $total;
+
+        $data['body']['logado']         =   $logado;
 
         $data['body']['images']         =   $this->Produtos->getAllImages();
 
@@ -266,7 +278,7 @@ class Produtos extends CI_Controller{
 
         $email = $this->Usuarios->getEmail();
 
-        $cpf = !empty($this->Usuarios->getCpf()) ? $this->Essentials->maskCpf( $this->Usuarios->getCpf() ) : null;
+        $cpf = $this->Usuarios->getCpf();
 
         if( is_bool( $nome ) ) {
 
