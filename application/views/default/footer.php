@@ -61,6 +61,28 @@
     <script type='text/javascript' src='http://www.grupobasso.com.br/assets/js/pnotify.custom.min.js'></script> 
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js'></script> 
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/alertify.min.js'></script>
+    <script type='text/javascript' src='https://cdn.awsli.com.br/production/static/loja/estrutura/v1/js/jquery.card.js?v=59b27ee'></script>
+    <script type='text/javascript' src='https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js?421308'></script>
 
+<script> //Máscaras dos inputs
+  jQuery(function($){
+  $("#creditCardHolderBirthDate").mask("99/99/9999");
+  $("#senderCPF").mask("999.999.999-99");
+  $("#creditCardHolderCPF").mask("999.999.999-99");
+  $("#shippingAddressPostalCode").mask("99999-999");
+  $("#billingAddressPostalCode").mask("99999-999");
+  });
+
+  $(document).ready(function() {
+    $.ajax({
+      type: 'GET',
+      url: '/compras/session',
+      cache: false,
+      success: function(data) {
+        PagSeguroDirectPayment.setSessionId(data);
+      }
+    });
+  });
+</script>
 </body>
 </html>

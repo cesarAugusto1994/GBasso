@@ -1,14 +1,14 @@
 <div id="corpo">
 <div class="conteiner">
-  
 
-  
 
-  
+
+    <?=var_dump($usuario);?>
+
     <div class="secao-principal row-fluid sem-coluna">
-      
 
-      
+
+
 <div class="campos-pedido">
 <div class="cabecalho-interno row-fluid">
 <div class="span12">
@@ -29,7 +29,7 @@
         <th width="80"><h6>Qtd.</h6></th>
         <th width="140" class="padding-preco"><div><h6 style="margin-left: 10px;">Preço</h6></div></th>
       </tr></thead>
-      
+
         <tbody><tr>
           <td class="phone-pullleft" data-produto-id="16256999" data-produto-quantidade="1">
             <div class="produto-info">
@@ -43,9 +43,9 @@
                     </strong>
                   </span>
                 </li>
-                
-                  
-                
+
+
+
               </ul>
             </div>
           </td>
@@ -60,7 +60,7 @@
             </div>
           </td>
         </tr>
-      
+
       <tr class="bg-dark esconder-mobile">
         <td>&nbsp;</td>
         <td class="text-right">
@@ -86,8 +86,8 @@
           </div>
         </td>
       </tr>
-      
-      
+
+
         <tr class="bg-dark esconder-mobile desconto-tr" style="">
           <td>&nbsp;</td>
           <td class="text-right">
@@ -100,7 +100,7 @@
             </div>
           </td>
         </tr>
-      
+
       <tr class="bg-dark tr-checkout-total" style="display: table-row;">
         <td colspan="2" class="text-right hidden-phone">
           <span>Total:</span>
@@ -126,36 +126,36 @@
   <div class="span4">
     <div class="caixa-sombreada borda-principal dados-cadastro">
       <fieldset data-recording-ignore="events">
-        
+
         <legend class=" cor-secundaria"><i class="icon-list"></i>Novo cadastro ou <a href="javascript:;" class=" cor-secundaria fazer-login-btn" style="text-decoration: underline;">identifique-se</a></legend>
-        
-        
+
+
           <input id="id_tipo" name="tipo" type="hidden" value="PF">
           <input id="id_tipo_usuario" name="tipo_usuario" type="hidden" value="PF">
           <div class="control-group  required">
             <label class="control-label font-bold" for="id_email">Nome</label>
             <div class="controls">
-              <input autocomplete="email" value="" class="input-xlarge span12" id="nome" maxlength="128" name="nome" type="text">
+              <input autocomplete="nome" class="input-xlarge span12" value="<?=$usuario['nome'] . ' ' . $usuario['sobrenome']?>" id="id_nome" maxlength="128" name="nome" type="text">
                 <p class="help-block hide">
-                  
+
                 </p>
             </div>
           </div>
           <div class="control-group  required">
             <label class="control-label font-bold" for="id_email">E-mail</label>
             <div class="controls">
-              <input autocomplete="email" class="input-xlarge span12" id="id_email" maxlength="128" name="email" type="text">
+              <input autocomplete="email" class="input-xlarge span12" value="<?=$usuario['email']?>" id="id_email" maxlength="128" name="email" type="text">
                 <p class="help-block hide">
-                  
+
                 </p>
             </div>
           </div>
           <div class="control-group  required">
             <label class="control-label font-bold" for="id_cpf">CPF</label>
             <div class="controls">
-              <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small span12" id="id_cpf" maxlength="14" name="cpf" spellcheck="false" type="tel">
+              <input autocapitalize="off" autocomplete="off" value="<?=$cpf?>" autocorrect="off" class="input-small span12" id="id_cpf" maxlength="14" name="cpf" spellcheck="false" type="tel">
               <p class="help-block hide">
-                
+
               </p>
             </div>
           </div>
@@ -168,7 +168,7 @@
                 <div class="controls">
                   <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small span12" id="id_telefone_celular" name="telefone_celular" spellcheck="false" tel="" type="tel" maxlength="15">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
@@ -177,24 +177,15 @@
                 <div class="controls">
                   <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small span12" id="id_telefone_principal" name="telefone_principal" spellcheck="false" type="tel" maxlength="15">
                   <p class="help-block hide">
-                    
-                  </p>
-                </div>
-              </div>
-              <div class="control-group span6  hide" style="margin-left: 0;">
-                <label class="control-label" for="id_telefone_comercial">Telefone comercial</label>
-                <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small span12" id="id_telefone_comercial" name="telefone_comercial" spellcheck="false" type="tel" maxlength="15">
-                  <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
             </div>
           </div><!-- /userExtraInfo -->
-        
+
       </fieldset>
-      
+
     </div>
   </div>
   <div class="span4">
@@ -207,12 +198,12 @@
           </div>
           <div class="formEndereco-conteiner">
             <div class="control-group  required" style="margin-bottom: 20px;">
-              <label class="control-label font-bold" for="id_cep">CEP</label>
+              <label class="control-label font-bold" for="shippingAddressPostalCode">CEP</label>
               <div class="controls">
-                <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small" id="id_cep" name="cep" spellcheck="false" type="tel" value="29980000" maxlength="9">
-                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-mensagem">Meus Endereços</button>
+                <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small" id="shippingAddressPostalCode" name="shippingAddressPostalCode" spellcheck="false" type="tel" value="29980000" maxlength="9">
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-enderecos">Meus Endereços</button>
                 <p class="help-block hide">
-                  
+
                 </p>
               </div>
               <div class="envio-erro alert alert-errors alert-error hide" style="margin: 10px 0px; display: none;">
@@ -223,7 +214,7 @@
           </div>
           <div id="formasEnvio" class="hide" style="display: block;">
             <ul class="hide borda-alpha"></ul>
-            
+
             <div class="formas envio accordion borda-alpha" id="formas-envio-wrapper"><div class="accordion-group pac forma-envio hide forma-envio-ativo" id="envio2" data-id="2" data-nome="Frete Grátis" data-code="pac" data-valor="0" style="display: block;"><label for="formaEnvio2-pac" class="accordion-heading Frete Grátis"><span class="radio-conteiner"><input type="radio" name="forma_envio" value="2" id="formaEnvio2-pac" checked="checked" data-codigo="pac" data-prazo="9"></span><span class="forma-conteiner"><span class="helper"></span><div class="text-content"><span class="cor-secundaria"><span class="cor-principal envio-preco">R$ 0,00</span><b class="envio-prazo-entrega">9 dias</b></span></div><span class="envio-nome cor-secundaria" id="envio-nome-2">Frete Grátis</span></span></label></div><div class="accordion-group sedex forma-envio hide" id="envio1" data-id="1" data-nome="SEDEX" data-code="sedex" data-valor="41" style="display: none;"><label for="formaEnvio1-sedex" class="accordion-heading SEDEX"><span class="radio-conteiner"><input type="radio" name="forma_envio" value="1" id="formaEnvio1-sedex" data-codigo="sedex" data-prazo="4"></span><span class="forma-conteiner"><span class="helper"></span><div class="text-content"><span class="cor-secundaria"><span class="cor-principal envio-preco">R$ 41,00</span><b class="envio-prazo-entrega">4 dias</b></span></div><span class="envio-nome cor-secundaria" id="envio-nome-1">SEDEX</span></span></label></div></div>
             <p class="warning-text">
               Dias úteis, após confirmação do pagamento.
@@ -232,111 +223,103 @@
           </div>
           <div class="formEndereco-conteiner">
             <hr class="" style="display: block;">
-            
+
             <div class="row-fluid">
               <div class="control-group span9 required" style="display: block;">
-                <label class="control-label font-bold" for="id_endereco">Endereço</label>
+                <label class="control-label font-bold" for="shippingAddressStreet">Endereço</label>
                 <div class="controls">
-                  <input class="input-xlarge span12" id="id_endereco" maxlength="255" name="endereco" type="text">
+                  <input class="input-xlarge span12" id="shippingAddressStreet" maxlength="255" value="<?=$enderecoPrincipal['end']?>" name="shippingAddressStreet" type="text">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
               <div class="control-group span3 required" style="display: block;">
-                <label class="control-label font-bold" for="id_numero">Número</label>
+                <label class="control-label font-bold" for="shippingAddressNumber">Número</label>
                 <div class="controls">
-                  <input class="input-mini span12" id="id_numero" maxlength="6" name="numero" type="text">
+                  <input class="input-mini span12" id="shippingAddressNumber" maxlength="6" value="<?=$enderecoPrincipal['num']?>" name="shippingAddressNumber" type="text">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
             </div>
             <div class="row-fluid">
-              <div class="control-group span6 " style="display: block;">
-                <label class="control-label" for="id_complemento">Complemento</label>
+              <div class="control-group" style="display: block;">
+                <label class="control-label" for="shippingAddressComplement">Complemento</label>
                 <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small span12" id="id_complemento" maxlength="30" name="complemento" spellcheck="false" type="text">
+                  <input autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['com']?>" class="input-small span12" id="shippingAddressComplement" maxlength="30" name="shippingAddressComplement" spellcheck="false" type="text">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
-              <div class="control-group span6 " style="display: block;">
-                <label class="control-label" for="id_referencia">Referência</label>
-                <div class="controls">
-                  <input class="span12" id="id_referencia" maxlength="255" name="referencia" type="text">
-                  <p class="help-block hide">
-                    
-                  </p>
-                </div>
-              </div>
+
             </div>
             <div class="row-fluid">
               <div class="control-group span6 required" style="display: block;">
-                <label class="control-label font-bold" for="id_bairro">Bairro</label>
+                <label class="control-label font-bold" for="shippingAddressDistrict">Bairro</label>
                 <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-medium span12" id="id_bairro" maxlength="128" name="bairro" spellcheck="false" type="text">
+                  <input autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['bai']?>" class="input-medium span12" id="shippingAddressDistrict" maxlength="128" name="shippingAddressDistrict" spellcheck="false" type="text">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
               <div class="control-group span6 required" style="display: block;">
-                <label class="control-label font-bold" for="id_cidade">Cidade</label>
+                <label class="control-label font-bold" for="shippingAddressCity">Cidade</label>
                 <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-medium span12" id="id_cidade" maxlength="128" name="cidade" spellcheck="false" type="text">
+                  <input autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['cid']?>" class="input-medium span12" id="shippingAddressCity" maxlength="128" name="shippingAddressCity" spellcheck="false" type="text">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
             </div>
             <div class="row-fluid">
               <div class="control-group span6 required" style="display: block;">
-                <label class="control-label font-bold" for="id_estado">Estado</label>
+                <label class="control-label font-bold" for="shippingAddressState">Estado</label>
                 <div class="controls">
-                  <select class="span12" id="id_estado" maxlength="2" name="estado">
-<option value="AC">Acre</option>
-<option value="AL">Alagoas</option>
-<option value="AP">Amapá</option>
-<option value="AM">Amazonas</option>
-<option value="BA">Bahia</option>
-<option value="CE">Ceará</option>
-<option value="DF">Distrito Federal</option>
-<option value="ES">Espírito Santo</option>
-<option value="GO">Goiás</option>
-<option value="MA">Maranhão</option>
-<option value="MT">Mato Grosso</option>
-<option value="MS">Mato Grosso do Sul</option>
-<option value="MG">Minas Gerais</option>
-<option value="PA">Pará</option>
-<option value="PB">Paraíba</option>
-<option value="PR">Paraná</option>
-<option value="PE">Pernambuco</option>
-<option value="PI">Piauí</option>
-<option value="RJ">Rio de Janeiro</option>
-<option value="RN">Rio Grande do Norte</option>
-<option value="RS">Rio Grande do Sul</option>
-<option value="RO">Rondônia</option>
-<option value="RR">Roraima</option>
-<option value="SC">Santa Catarina</option>
-<option value="SP">São Paulo</option>
-<option value="SE">Sergipe</option>
-<option value="TO">Tocantins</option>
-</select>
+                  <select class="span12" id="shippingAddressState" maxlength="2" name="shippingAddressState">
+                    <option value="AC" <?=$enderecoPrincipal['est'] == 'AC' ? 'selected' : ''?>>Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP" <?=$enderecoPrincipal['est'] == 'SP' ? 'selected' : ''?>>São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                    </select>
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
               <div class="control-group span6  hide required" style="display: block;">
-                <label class="control-label font-bold" for="id_pais_id">País</label>
+                <label class="control-label font-bold" for="shippingAddressCountry">País</label>
                 <div class="controls">
-                  <input class="span12" id="id_pais_id" maxlength="30" name="pais_id" type="text" value="BRA" readonly="readonly">
+                  <input class="span12" id="shippingAddressCountry" maxlength="30" name="shippingAddressCountry" type="text" value="BRA" readonly="readonly">
                   <p class="help-block hide">
-                    
+
                   </p>
                 </div>
               </div>
@@ -345,500 +328,293 @@
         </div>
       </fieldset>
     </div>
-    
+
   </div>
+
+
   <div class="span4">
-    <div class="caixa-sombreada borda-principal" id="formas-pagamento-wrapper">
+
+    <div class="caixa-sombreada borda-principal">
       <fieldset data-recording-ignore="events">
         <legend class=" cor-secundaria"><i class="icon-money"></i>Pagamento</legend>
-        <div class="formas pagamento accordion borda-alpha" id="formasPagamento" data-recording-disable="">
-          <input type="hidden" id="cart_selected_shipping" name="cart_selected_shipping" value="2">
-          <input type="hidden" id="cart_selected_payment" name="cart_selected_payment" value="">
-          <input type="hidden" id="payment_bank_id" name="payment_bank_id">
-          <input type="hidden" id="payment_session_id" name="payment_session_id">
-          <input type="hidden" id="payment_session_name" name="payment_session_name">
-          <input type="hidden" id="payment_token" name="payment_token">
-          <input type="hidden" id="payment_bin" name="payment_bin">
-          <input type="hidden" id="payment_last_digits" name="payment_last_digits">
-          <input type="hidden" id="payment_system_id" name="payment_system_id">
-          <input type="hidden" id="payment_system_name" name="payment_system_name">
-          <input type="hidden" id="payment_fingerprint" name="payment_fingerprint">
-          <input type="hidden" id="payment_installments" name="payment_installments">
-          <input type="hidden" id="payment_installments_value" name="payment_installments_value">
-          <input type="hidden" id="payment_address_active" name="payment_address_active">
-          <input type="hidden" id="payment_address_postalCode" name="payment_address_postalCode">
-          <input type="hidden" id="payment_address_street" name="payment_address_street">
-          <input type="hidden" id="payment_address_number" name="payment_address_number">
-          <input type="hidden" id="payment_address_complement" name="payment_address_complement">
-          <input type="hidden" id="payment_address_neighborhood" name="payment_address_neighborhood">
-          <input type="hidden" id="payment_address_city" name="payment_address_city">
-          <input type="hidden" id="payment_address_state" name="payment_address_state">
-          <input type="hidden" id="payment_address_country" name="payment_address_country" value="BR">
-          <input type="hidden" id="payment_client_active" name="payment_client_active">
-          <input type="hidden" id="payment_client_name" name="payment_client_name">
-          <input type="hidden" id="payment_client_document" name="payment_client_document">
-          <input type="hidden" id="payment_client_birthday" name="payment_client_birthday">
-          <input type="hidden" id="payment_client_phone" name="payment_client_phone">
-          
-            
-              
-<div class="accordion-group cartao pagamento_selecao_conteiner">
-<div class="accordion-heading" data-toggle="collapse" data-target="#escolha-cartao" data-parent="#formasPagamento" id="pagamentoCartao">
-<span class="radio-conteiner">
-<input type="radio" name="forma_pagamento" id="radio-cartao" data-code="cartao" value="">
-</span>
-<span class="forma-conteiner">
-<span class="helper"></span>
-<ul class="bandeiras-pagamento">
-<li><i class="icone-pagamento mastercard" title="Mastercard"></i></li>
-<li><i class="icone-pagamento visa" title="Visa"></i></li>
-<li><i class="icone-pagamento hipercard" title="Hipercard"></i></li>
-<li><i class="icone-pagamento elo" title="Elo"></i></li>
-<li><i class="icone-pagamento misc" title="Outros"></i></li>
-</ul>
-</span>
-</div>
-<div id="escolha-cartao" class="pagamento_selecao_info in collapse" style="height: auto;">
-<div class="accordion-inner">
-<div class="cartao-placeholder-card placeholder-card" data-code="cartao" data-jp-card-initialized="true" style="height: 148.154px; width: 288.077px;"><div class="jp-card-container" style="transform: scale(0.823077);"><div class="jp-card"><div class="jp-card-front"><div class="jp-card-logo jp-card-elo"><div class="e">e</div><div class="l">l</div><div class="o">o</div></div><div class="jp-card-logo jp-card-visa">Visa</div><div class="jp-card-logo jp-card-visaelectron">Visa<div class="elec">Electron</div></div><div class="jp-card-logo jp-card-mastercard">Mastercard</div><div class="jp-card-logo jp-card-maestro">Maestro</div><div class="jp-card-logo jp-card-amex"></div><div class="jp-card-logo jp-card-discover">discover</div><div class="jp-card-logo jp-card-dinersclub"></div><div class="jp-card-logo jp-card-dankort"><div class="dk"><div class="d"></div><div class="k"></div></div></div><div class="jp-card-logo jp-card-jcb"><div class="j">J</div><div class="c">C</div><div class="b">B</div></div><div class="jp-card-lower"><div class="jp-card-shiny"></div><div class="jp-card-cvc jp-card-display">•••</div><div class="jp-card-number jp-card-display">•••• •••• •••• ••••</div><div class="jp-card-name jp-card-display">Nome Completo</div><div class="jp-card-expiry jp-card-display" data-before="mm/aa" data-after="valid
-thru">••/••</div></div></div><div class="jp-card-back"><div class="jp-card-bar"></div><div class="jp-card-cvc jp-card-display">•••</div><div class="jp-card-shiny"></div></div></div></div></div>
-<div class="control-group" id="bandeiras-manual">
-<div class="controls">
-  <label class="control-label">Selecione uma Bandeira</label>
-  <ul class="bandeiras-pagamento">
-    <li data-name="Mastercard" data-class="jp-card-mastercard" class="hide"><i class="icone-pagamento mastercard" title="Mastercard"></i></li>
-    <li data-name="Visa" data-class="jp-card-visa" class="hide"><i class="icone-pagamento visa" title="Visa"></i></li>
-    <li data-name="Hipercard" data-class="jp-card-hipercard" class="hide"><i class="icone-pagamento hipercard" title="Hipercard"></i></li>
-    <li data-name="Elo" data-class="jp-card-elo" class="hide"><i class="icone-pagamento elo" title="Elo"></i></li>
-    <li data-name="Diners" data-class="jp-card-dinersclub" class="hide"><i class="icone-pagamento diners" title="Diners"></i></li>
-    <li data-name="American Express" data-class="jp-card-amex" class="hide"><i class="icone-pagamento amex" title="American Express"></i></li>
-  </ul>
-</div>
-</div>
-<div class="clearfix">
-<div class="span8">
-  <div class="control-group">
-    <div class="controls">
-      <label class="control-label" for="cartao_cartao_numero">Número do Cartão</label>
-      <input type="tel" class="cartao_cartao_numero cartao_dados_numero span12" placeholder="•••• •••• •••• ••••" id="cartao_cartao_numero" autocomplete="cc-number">
-      <span class="help-block erro">Este campo é obrigatório</span>
-    </div>
-  </div>
-</div>
-<div class="span4">
-  <div class="control-group">
-    <div class="controls">
-      <label class="control-label" for="cartao_cartao_data_expiracao">Validade</label>
-      <input type="tel" maxlength="5" placeholder="mm/aa" class="cartao_cartao_data_expiracao cartao_dados_expiracao span12" id="cartao_cartao_data_expiracao" autocomplete="cc-exp">
-      <span class="help-block erro">Este campo é obrigatório</span>
-    </div>
-  </div>
-</div>
-</div>
-<div class="control-group">
-<div class="controls">
-  <label class="control-label" for="cartao_cartao_nome">Nome do Titular
-    <small style="margin-left: 5px;">(Como escrito no cartão)</small>
-  </label>
-  <input type="text" class="cartao_cartao_nome cartao_dados_nome span12" placeholder="" id="cartao_cartao_nome" autocomplete="cc-name">
-  <span class="help-block erro">Este campo é obrigatório</span>
-</div>
-</div>
-<div class="clearfix">
-<div class="span5">
-  <div class="control-group">
-    <div class="controls">
-      <label class="control-label nowrap" for="cartao_cartao_cvv">Cód. de Segurança</label>
-      <div class="input-append" style="margin-bottom: 0;">
-        <input type="tel" placeholder="CCV" class="cartao_cartao_cvv cartao_dados_cvv span7" id="cartao_cartao_cvv" autocomplete="cc-csc">
-        <span class="add-on" data-toggle="tooltip" data-placement="right" title="" data-original-title="Últimos 3 digitos no verso do cartão"><i class="icon-question-sign"></i></span>
-      </div>
-      <span class="help-block erro">Este campo é obrigatório</span>
-    </div>
-  </div>
-</div>
-<div class="span7">
-  <div class="control-group">
-    <div class="controls aguardar-valor">
-      <label class="control-label" for="cartao_cartao_parcelas">Parcelas</label>
-      <select id="cartao_cartao_parcelas" class="cartao_dados_parcelas span12"><option value="">Digite o número do cartão</option></select>
-      <span class="help-block erro">Escolha uma opção de parcela</span>
-    </div>
-  </div>
-</div>
-</div>
+        <div class="groupData" id="paymentMethods">
 
-<div class="clearfix">
-<div class="control-group group_cartao_dados_titular">
-  <div class="controls">
-    <label class="checkbox">
-      <input type="checkbox" class="cartao_dados_titular_check" id="cartao_check_dados_titular">
-      <span class="cartao_check_dados_titular_pf cartao_dados_titular_pf ">Titular do cartão é diferente do cadastro</span>
-      <span class="cartao_check_dados_titular_pj cartao_dados_titular_pj hide">Dados pessoais do titular do cartão</span>
-    </label>
-  </div>
-</div>
-</div>
-<div class="cartao_dados_titular hide">
-<div class="clearfix">
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_cpf">CPF do titular</label>
-        <input id="cartao_dono_cartao_cpf" type="text" class="cartao_dados_cpf input-cpf span12" value="" maxlength="14">
-      </div>
-    </div>
-  </div>
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_data_nascimento">Data de Nascimento</label>
-        <input id="cartao_dono_cartao_data_nascimento" class="cartao_dados_nascimento input-data-nascimento span12" type="text" value="" maxlength="10">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="clearfix">
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_telefone">Telefone</label>
-        <input id="cartao_dono_cartao_telefone" class="cartao_dados_telefone input-telefone span12" type="text" value="" maxlength="15">
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<div class="clearfix">
-<div class="control-group group_cartao_endereco">
-  <div class="controls">
-    <label class="checkbox">
-      <input type="checkbox" class="cartao_endereco_check" id="cartao_check_dados_fatura">
-      Endereço do titular diferente do de entrega
-    </label>
-  </div>
-</div>
-</div>
-<div class="cartao_dados_fatura hide">
-<div class="clearfix">
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_cep">CEP</label>
-        <input id="cartao_dono_cartao_cep" class="span12 input-cep cartao_endereco_cep" type="text" value="" maxlength="9">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="clearfix">
-  <div class="span9">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_rua">Endereço</label>
-        <input id="cartao_dono_cartao_rua" class="span12 cartao_endereco_rua" type="text" value="">
-      </div>
-    </div>
-  </div>
-  <div class="span3">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_numero">Número</label>
-        <input id="cartao_dono_cartao_numero" class="span12 cartao_endereco_numero" type="text" value="">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="clearfix">
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_complemento">Complemento</label>
-        <input id="cartao_dono_cartao_complemento" class="span12 cartao_endereco_compl" type="text" value="">
-      </div>
-    </div>
-  </div>
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_bairro">Bairro</label>
-        <input id="cartao_dono_cartao_bairro" class="span12 cartao_endereco_bairro" type="text" value="">
-      </div>
-    </div>
-  </div>
-</div>
-<div class="clearfix">
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_cidade">Cidade</label>
-        <input id="cartao_dono_cartao_cidade" class="span12 cartao_endereco_cidade" type="text" value="">
-      </div>
-    </div>
-  </div>
-  <div class="span6">
-    <div class="control-group">
-      <div class="controls">
-        <label class="control-label" for="cartao_dono_cartao_estado">Estado</label>
-        <select class="span12 cartao_endereco_estado" id="cartao_dono_cartao_estado">
-          <option value="">Selecione</option>
-          <option value="AC">Acre</option>
-          <option value="AL">Alagoas</option>
-          <option value="AP">Amapá</option>
-          <option value="AM">Amazonas</option>
-          <option value="BA">Bahia</option>
-          <option value="CE">Ceará</option>
-          <option value="DF">Distrito Federal</option>
-          <option value="ES">Espírito Santo</option>
-          <option value="GO">Goiás</option>
-          <option value="MA">Maranhão</option>
-          <option value="MT">Mato Grosso</option>
-          <option value="MS">Mato Grosso do Sul</option>
-          <option value="MG">Minas Gerais</option>
-          <option value="PA">Pará</option>
-          <option value="PB">Paraíba</option>
-          <option value="PR">Paraná</option>
-          <option value="PE">Pernambuco</option>
-          <option value="PI">Piauí</option>
-          <option value="RJ">Rio de Janeiro</option>
-          <option value="RN">Rio Grande do Norte</option>
-          <option value="RS">Rio Grande do Sul</option>
-          <option value="RO">Rondônia</option>
-          <option value="RR">Roraima</option>
-          <option value="SC">Santa Catarina</option>
-          <option value="SP">São Paulo</option>
-          <option value="SE">Sergipe</option>
-          <option value="TO">Tocantins</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+          <div id="paymentMethodsOptions">
 
-<div class="text-right">
-<span>Valor</span>
-<h5 class=" cor-principal text-right pagamento-valor preco-carrinho-total">R$ 369,90</h5>
-</div>
-
-<div class="payment-country-origin pull-right">
-<small class="muted">
-Esta compra está sendo feita no <strong>Brasil</strong>.
-<img src="https://cdn.awsli.com.br/production/static/loja/estrutura/v1/img/flags/24/BR.png" alt="BR">
-</small>
-</div>
-
-</div>
-</div>
-</div>
-
-            
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                <input type="hidden" value="cartao" class="forma-pagamento-padrao">
-              
-              
-            
-              
-                
-              
-              
-                
-                  
-
-
-
-
-
-<div class="accordion-group bank-2 pagamento_selecao_conteiner" style="display: none;">
-<div class="accordion-heading" data-toggle="collapse" data-target="#escolha-bank-2" data-parent="#formasPagamento" id="pagamento2">
-  <span class="radio-conteiner">
-    <input type="radio" name="forma_pagamento" id="radio-bank-2" data-code="deposito" value="202" data-bank-id="2" data-desconto-valor="8.0">
-  </span>
-  <span class="forma-conteiner with-discount">
-    <span class="helper"></span>
-    <img src="https://cdn.awsli.com.br/production/static/loja/estrutura/v1/img/bandeiras/forma-banco-itau.png" alt="Pague com Banco Itaú">
-    
-      
-        <span class="cor-secundaria">
-          Desconto de
-          <b class="cor-principal">
-            8%
-          </b>
-        </span>
-      
-    
-  </span>
-</div>
-<div id="escolha-bank-2" class="collapse pagamento_selecao_info">
-  <div class="accordion-inner">
-    <div class="text-right">
-      <span>Valor</span>
-      <h5 class=" cor-principal text-right pagamento-valor preco-carrinho-total">R$ 369,90</h5>
-    </div>
-  </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                
-              
-            
-              
-                
-              
-              
-                
-                  
-<div class="accordion-group paypal pagamento_selecao_conteiner" style="display: none;">
-<div class="accordion-heading" data-toggle="collapse" data-target="#escolha-paypal" data-parent="#formasPagamento" id="pagamento12">
-<span class="radio-conteiner">
-<input type="radio" name="forma_pagamento" id="radio-paypal" data-code="paypal" value="12">
-</span>
-<span class="forma-conteiner">
-<span class="helper"></span>
-
-<img src="https://cdn.awsli.com.br/production/static/loja/estrutura/v1/img/bandeiras/paypal.png" alt="Pague com PayPal">
-
-
-</span>
-</div>
-<div id="escolha-paypal" class="collapse pagamento_selecao_info ">
-<div class="accordion-inner">
-
-
-<ul class="bandeiras-pagamento">
-<li><i class="icone-pagamento visa" title="Visa"></i></li>
-<li><i class="icone-pagamento mastercard" title="Mastercard"></i></li>
-<li><i class="icone-pagamento amex" title="Amex"></i></li>
-<li><i class="icone-pagamento elo" title="Elo"></i></li>
-<li><i class="icone-pagamento hiper" title="Hiper"></i></li>
-</ul>
-
-
-
-<div class="text-right">
-<span>Valor</span>
-<h5 class=" cor-principal text-right pagamento-valor preco-carrinho-total">R$ 369,90</h5>
-
-  <span class="forma-pagamento-parcela">Em até <span class="">6x</span> sem juros</span>
-
-</div>
-</div>
-</div>
-</div>
-
-                
-              
-            
-          
-        </div>
-        <div id="exibirFormasPagamento" class="hide text-center" style="margin: -10px 0px 25px; display: block;">
-          <a href="javascript:;" class="btn btn-small"><i class="icon-pencil"></i> Alterar forma de pagamento</a>
-        </div>
-        <div class="acao-editar" style="text-align: center;">
-          <button type="button" id="finalizarCompra" class="botao principal grande disabled" data-loading-text="<i class='icon-refresh icon-animate'></i> Finalizando..." autocomplete="off" readonly="readonly"><i class="icon-ok"></i>Finalizar compra</button>
-          
-            <div class="selo-ssl hidden-phone">
-              <img src="https://cdn.awsli.com.br/production/static/img/struct/stamp_encryptssl_cart.png" alt="Compra 100% Segura">
+            <div class="field radio">
+              <input id="creditCardRadio" class="form-control" type="radio" name="changePaymentMethod" value="creditCard" checked>Cartão de Crédito</input>
             </div>
-          
+
+            <div class="field radio">
+              <input id="boletoRadio" type="radio" name="changePaymentMethod" value="boleto">Boleto</input>
+            </div>
+
+            <!--<div class="funkyradio">
+                <div class="funkyradio-primary">
+                    <input id="creditCardRadio" class="form-control" type="radio" name="changePaymentMethod" value="creditCard" checked/>
+                    <label for="radio2">Cartão de Crédito</label>
+                </div>
+                <div class="funkyradio-info">
+                    <input id="boletoRadio" type="radio" name="changePaymentMethod" value="boleto" />
+                    <label for="radio6">Boleto</label>
+                </div>
+            </div>-->
+
+          </div>
+
+
+          <div id="creditCardData" class="paymentMethodGroup" dataMethod="creditCard">
+
+            <div id="cardData" style="margin-top:-20px">
+
+
+            <!--<div class="form-group" class="field" id="cardBrand">
+                <label class="control-label">Número</label>
+                <div>
+                <input type="text" name="cardNumber" required id="cardNumber" class="cardDatainput form-control" onblur="brandCard();" />
+                <span>
+                  <img class="bandeiraCartao" id="bandeiraCartao" />
+                </span>
+                </div>
+            </div>-->
+
+
+            <div class="control-group  required">
+              <label class="control-label font-bold" for="cardNumber">Número</label>
+              <div class="controls">
+                <input autocomplete="nome" class="input-xlarge span12 cardDatainput" id="cardNumber" name="cardNumber" type="text">
+                  <p class="help-block hide">
+
+                  </p>
+                  <span>
+                      <img class="bandeiraCartao" id="bandeiraCartao" />
+                  </span>
+              </div>
+            </div>
+
+            <div class="control-group  required">
+              <label class="control-label font-bold" for="cardNumber">Data de Vencimento (99/9999)</label>
+              <div class="controls">
+                  <input type="text" name="cardExpirationMonth" id="cardExpirationMonth" class="cardDatainput input-xlarge span2 month" maxlength="2" /> /
+                  <input type="text" name="cardExpirationYear" id="cardExpirationYear" class="cardDatainput input-xlarge span4 year" maxlength="4" />
+                  <p class="help-block hide">
+
+                  </p>
+              </div>
+            </div>
+
+
+            
+
+            <!--<div class="field" id="cardBrand">
+              <label for="cardNumber">Número <font color="red">*</font></label>
+              <input type="text" name="cardNumber" id="cardNumber" class="cardDatainput form-control" onblur="brandCard();" />
+              <span>
+                <img class="bandeiraCartao" id="bandeiraCartao" />
+              </span>
+            </div>-->
+
+            <!--<div class="field" style="margin-top: -5px;" id="expiraCartao">
+              <label for="cardExpirationMonth">Data de Vencimento (99/9999) <font color="red">*</font></label>
+              <input type="text" name="cardExpirationMonth" id="cardExpirationMonth" class="cardDatainput form-control month" maxlength="2" /> /
+              <input type="text" name="cardExpirationYear" id="cardExpirationYear" class="cardDatainput form-control year" maxlength="4" />
+            </div>-->
+
+            <div class="control-group  required">
+              <label class="control-label font-bold" for="cvvCartao">Código de Segurança</label>
+              <div class="controls">
+                  <input type="text" name="cardCvv" id="cardCvv" maxlength="5" class="cardDatainput input-xlarge span12 form-control" />
+                  <p class="help-block hide">
+
+                  </p>
+              </div>
+            </div>
+
+            <!--
+            <div class="field" style="margin-top: -5px;" id="cvvCartao">
+              <label for="cardCvv">Código de Segurança <font color="red">*</font></label>
+              <input type="text" name="cardCvv" id="cardCvv" maxlength="5" class="cardDatainput form-control" />
+            </div>-->
+
+            <div class="field" id="installmentsWrapper">
+              <label for="installmentQuantity">Parcelamento</label>
+              <select name="installmentQuantity" id="installmentQuantity"></select>
+              <input type="hidden" name="installmentValue" id="installmentValue" />
+            </div>
+
+            <div class="span12" style="margin-top:20px">
+
+              <div class="caixa-sombreada borda-principal">
+                <fieldset data-recording-ignore="events">
+                  <legend class=" cor-secundaria"><i class="icon-money"></i>Dados do Titular do Cartão</legend>
+
+                    <div id="holderDataChoice">
+
+                      <div class="field radio">
+                        <input type="radio" name="holderType" id="sameHolder" value="sameHolder" checked>mesmo que o comprador</input>
+                      </div>
+
+                      <div class="field radio">
+                        <input type="radio" name="holderType" id="otherHolder" value="otherHolder">outro</input>
+                      </div>
+
+                    </div>
+
+
+
+                    <!--<div class="field" style="margin-top: -5px">
+                      <label for="creditCardHolderBirthDate">Data de Nascimento do Titular do Cartão <font color="red">*</font></label>
+                      <input type="text" name="creditCardHolderBirthDate" id="creditCardHolderBirthDate" maxlength="10" />
+                    </div>-->
+
+                    <div class="control-group field required">
+                      <label class="control-label font-bold" for="cvvCartao">Data de Nascimento do Titular do Cartão</label>
+                      <div class="controls">
+                          <input type="text" name="creditCardHolderBirthDate" id="creditCardHolderBirthDate" maxlength="10" class="cardDatainput input-xlarge span12 form-control" />
+                          <p class="help-block hide">
+
+                          </p>
+                      </div>
+                    </div>
+
+                    <div id="dadosOtherPagador" class="dadosOtherPagador">
+
+                        <div id="holderData">
+
+                          <div class="control-group field required">
+                            <label class="control-label font-bold" for="creditCardHolderName">Nome (Como está impresso no cartão)</label>
+                            <div class="controls">
+                                <input type="text" name="creditCardHolderName" id="creditCardHolderName" class="cardDatainput input-xlarge span12 form-control" />
+                                <p class="help-block hide">
+
+                                </p>
+                            </div>
+                          </div>
+
+                          <!--<div class="field" style="margin-top: -5px">
+                            <label for="creditCardHolderName">Nome (Como está impresso no cartão) <font color="red">*</font></label>
+                            <input type="text" name="creditCardHolderName" id="creditCardHolderName" />
+                          </div>-->
+                          
+                          <div class="control-group field required">
+                            <label class="control-label font-bold" for="creditCardHolderCPF">CPF (somente n&uacute;meros) </label>
+                            <div class="controls">
+                                <input type="text" name="creditCardHolderCPF" id="creditCardHolderCPF" class="cardDatainput input-xlarge span12 form-control" />
+                                <p class="help-block hide">
+
+                                </p>
+                            </div>
+                          </div>
+
+                          <!--<div class="field" style="margin-top: -5px" id="CPFP">
+                            <label for="creditCardHolderCPF">CPF (somente n&uacute;meros) <font color="red">*</font></label>
+                            <input type="text" name="creditCardHolderCPF" id="creditCardHolderCPF" maxlength="14" />
+                          </div>-->
+
+                          <div class="control-group  required" id="TelP">
+                            <label class="control-label font-bold" for="creditCardHolderAreaCode">Telefone </label>
+                            <div class="controls">
+                                <input type="text" name="creditCardHolderAreaCode" id="creditCardHolderAreaCode" class="cardDatainput input-xlarge span2 areaCode" maxlength="2" /> /
+                                <input type="text" name="creditCardHolderPhone" id="creditCardHolderPhone" class="cardDatainput input-xlarge span4 phone" maxlength="9" />
+                                <p class="help-block hide">
+
+                                </p>
+                            </div>
+                          </div>
+
+                          <!--<div class="field" style="margin-top: -5px" id="TelP">
+                            <label for="creditCardHolderAreaCode">Telefone <font color="red">*</font></label>
+                            <input type="text" name="creditCardHolderAreaCode" id="creditCardHolderAreaCode" class="areaCode" maxlength="2" />
+                            <input type="text" name="creditCardHolderPhone" id="creditCardHolderPhone" class="phone" maxlength="9" />
+                          </div>-->
+
+                  </fieldset>
+                  </div>
+
+
+                  <div class="span12" style="margin-top:20px">
+
+                    <div class="caixa-sombreada borda-principal">
+                      <fieldset data-recording-ignore="events">
+                        <legend class=" cor-secundaria"><i class="icon-money"></i>Endereço de Cobrança</legend>
+
+
+                          <div class="field" style="margin-top: -5px" id="CEPP">
+                            <label for="billingAddressPostalCode">CEP <font color="red">*</font></label>
+                            <input type="text" name="billingAddressPostalCode" id="billingAddressPostalCode" maxlength="9"/>
+                          </div>
+
+
+                          <div class="field" style="margin-top: -5px" id="EndP">
+                            <label for="billingAddressStreet">Endereço <font color="red">*</font></label>
+                            <input type="text" name="billingAddressStreet" id="billingAddressStreet" />
+                          </div>
+
+                          <div class="field" style="margin-top: -5px" id="NumP">
+                            <label for="billingAddressNumber">Número <font color="red">*</font></label>
+                            <input type="text" name="billingAddressNumber" id="billingAddressNumber" size="5"/>
+                          </div>
+
+                          <div class="field" style="margin-top: -5px" id="ComP">
+                            <label for="billingAddressComplement">Complemento</label>
+                            <input type="text" name="billingAddressComplement" id="billingAddressComplement" />
+                          </div>
+
+                          <div class="field" style="margin-top: -5px" id="BairP">
+                            <label for="billingAddressDistrict">Bairro <font color="red">*</font></label>
+                            <input type="text" name="billingAddressDistrict" id="billingAddressDistrict" />
+                          </div>
+
+                          <div class="field" style="margin-top: -5px" id="CidP">
+                            <label for="billingAddressCity">Cidade <font color="red">*</font></label>
+                            <input type="text" name="billingAddressCity" id="billingAddressCity" />
+                          </div>
+
+                          <div class="field" style="margin-top: -5px" id="EstP">
+                            <label for="billingAddressState">Estado <font color="red">*</font></label>
+                            <input type="text" name="billingAddressState" id="billingAddressState" class="addressState" maxlength="2" style="text-transform: uppercase;" onBlur="this.value=this.value.toUpperCase()"/>
+                          </div>
+
+                          <div class="field" style="display: none">
+                            <label for="billingAddressCountry">País</label>
+                            <input type="text" name="billingAddressCountry" id="billingAddressCountry" value="Brasil" readonly="readonly" />
+                          </div>
+
+                           </fieldset>
+                  </div>
+
+                </div>
+            </div>
+
+
+              <input type="hidden" name="creditCardToken" id="creditCardToken"  />
+              <input type="hidden" name="creditCardBrand" id="creditCardBrand"  />
+              <center>
+                <button type="button" id="creditCardPaymentButton" class="btn btn-success btn-block" onclick="pagarCartao(PagSeguroDirectPayment.getSenderHash());" value="Finalizar compra" />Finalizar compra</button>
+              </center>
+
+            </div>
+          </div>
+
+          <center>
+            <div id="boletoData" name="boletoData" class="paymentMethodGroup" dataMethod="boleto">
+              <button type="button" id="boletoButton" value="Gerar Boleto" class="btn btn-primary btn-block" />Gerar Boleto</button>
+            </div>
+
+            <br />
+
+          </center>
+
         </div>
+
       </fieldset>
     </div>
-  </div>
-</div>
-</form>
-</div>
-</div>
-<div id="modalLogin" class="modal hide fade" role="dialog" aria-hidden="true">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i></button>
-<span class=" cor-secundaria">Login</span>
-</div>
-<form action="https://www.biellissima.com.br/conta/login" method="post">
-<div class="modal-body borda-principal form-horizontal">
-<div class="control-group">
-  <label for="id_email" class="control-label">Email</label>
-  <div class="controls">
-    <input type="text" name="email" id="id_email" autocomplete="email">
-  </div>
-</div>
-<div class="control-group">
-  <label for="id_senha" class="control-label">Senha</label>
-  <div class="controls">
-    <input type="password" name="senha" id="id_senha">
-  </div>
-</div>
-</div>
-<div class="modal-footer">
-<a href="https://www.biellissima.com.br/conta/login?next=/checkout/#modalRecuperarSenha" class="botao hidden-phone">
-  <i class="icon-lock cor-secundaria"></i> Esqueceu a senha?
-</a>
-<button type="button" class="botao" data-dismiss="modal">Fechar</button>
-<button type="submit" class="botao principal">Enviar dados</button>
-<input type="hidden" name="next" value="/checkout/">
-</div>
-</form>
-</div>
 
-
-      
-    </div>
-  
-
-  <div class="secao-secundaria">
-    
-    
-  </div>
 </div>
 </div>
 
 
- <div class="modal fade" id="modal-mensagem">
+ <div class="modal fade" id="modal-enderecos">
     <div class="modal-dialog modal-lg">
          <div class="modal-content">
              <div class="modal-header">
@@ -858,40 +634,602 @@ Esta compra está sendo feita no <strong>Brasil</strong>.
                     </tr>
                    </thead>
                    <tbody>
-                     <?php foreach($enderecos as $endereco) : ?>
+                     <?php foreach ($enderecos as $endereco): ?>
                         <tr class="endereco-item"
-                        data-cep="<?= $endereco['cep']; ?>"
-                        data-end="<?= $endereco['end']; ?>"
-                        data-bai="<?= $endereco['bai']; ?>"
-                        data-num="<?= $endereco['num']; ?>"
-                        data-com="<?= $endereco['com']; ?>"
-                        data-cid="<?= $endereco['cid']; ?>"
-                        data-est="<?= $endereco['est']; ?>"
+                        data-cep="<?=$endereco['cep'];?>"
+                        data-end="<?=$endereco['end'];?>"
+                        data-bai="<?=$endereco['bai'];?>"
+                        data-num="<?=$endereco['num'];?>"
+                        data-com="<?=$endereco['com'];?>"
+                        data-cid="<?=$endereco['cid'];?>"
+                        data-est="<?=$endereco['est'];?>"
                         >
-                          <td><?= $endereco['cep']; ?></td>
-                          <td><?= $endereco['end']; ?></td>
-                          <td><?= $endereco['bai']; ?></td>
-                          <td><?= $endereco['num']; ?></td>
-                          <td><?= $endereco['com']; ?></td>
-                          <td><?= $endereco['cid'] . ' - ' . $endereco['est']; ?></td>
+                          <td><?=$endereco['cep'];?></td>
+                          <td><?=$endereco['end'];?></td>
+                          <td><?=$endereco['bai'];?></td>
+                          <td><?=$endereco['num'];?></td>
+                          <td><?=$endereco['com'];?></td>
+                          <td><?=$endereco['cid'] . ' - ' . $endereco['est'];?></td>
                         </tr>
-                     <?php endforeach; ?>
+                     <?php endforeach;?>
                    </tbody>
                  </table>
              </div>
              <div class="modal-footer">
+                 <a href="/minha/conta/meusenderecos" class="btn btn-success">Gerenciar Endereços</a>
                  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
              </div>
          </div>
      </div>
 </div>
 
+<div id="aguarde" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="modal-title">Aguarde...</h1>
+      </div>
+      <div class="modal-body" id="modal-body" style="font-size: 18px;">
+        <a href="" id="verBoleto" target="_blank" style="display: none"><button class="btn btn-success btn-block">Ver o meu boleto</button></a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!--<script type='text/javascript' src='http://localhost:8089/assets/js/checkout.js'></script> -->
+
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+
+<script> //Máscaras dos inputs
+  jQuery(function($){
+  $("#creditCardHolderBirthDate").mask("99/99/9999");
+  $("#senderCPF").mask("999.999.999-99");
+  $("#creditCardHolderCPF").mask("999.999.999-99");
+  $("#shippingAddressPostalCode").mask("99999-999");
+  $("#billingAddressPostalCode").mask("99999-999");
+  });
+
+  $(document).ready(function() {
+    $.ajax({
+      type: 'GET',
+      url: '/compras/session',
+      cache: false,
+      success: function(data) {
+        PagSeguroDirectPayment.setSessionId(data);
+      }
+    });
+  });
+</script>
+
+<script>
+
+$("input[name='changePaymentMethod']").on('click', function(e) {
+    if (e.currentTarget.value == 'creditCard') {
+      $('#boletoData').css('display', 'none');
+      $('#creditCardData').css('display', 'block');
+    } else if (e.currentTarget.value == 'boleto') {
+      $('#creditCardData').css('display', 'none');
+      $('#boletoData').css('display', 'block');
+    }
+});
+
+$("input[name='holderType']").on('click', function(e) {
+    if (e.currentTarget.value == 'sameHolder') {
+      $('#dadosOtherPagador').css('display', 'none');
+      ReInserir();
+    } else if (e.currentTarget.value == 'otherHolder') {
+      $('#dadosOtherPagador').css('display', 'block');
+    }
+});
+
+$("input[type='text']").on('blur', function(e) {
+    if ( ( $("#" + e.currentTarget.id).css('border') == '2px solid rgb(255, 0, 0)') || ($("#" + e.currentTarget.id).css('border') == '2px solid red' ) ) {
+      $("#" + e.currentTarget.id).css('border', '1px solid #999');
+    }
+});
+
+  function ReInserir() {
+        $("#creditCardHolderName").val($("#senderName").val());
+        $("#creditCardHolderCPF").val($("#senderCPF").val());
+        $("#creditCardHolderAreaCode").val($("#senderAreaCode").val());
+        $("#creditCardHolderPhone").val($("#senderPhone").val());
+        $("#billingAddressPostalCode").val($("#shippingAddressPostalCode").val());
+        $("#billingAddressStreet").val($("#shippingAddressStreet").val());
+        $("#billingAddressNumber").val($("#shippingAddressNumber").val());
+        $("#billingAddressComplement").val($("#shippingAddressComplement").val());
+        $("#billingAddressDistrict").val($("#shippingAddressDistrict").val());
+        $("#billingAddressCity").val($("#shippingAddressCity").val());
+        $("#billingAddressState").val($("#shippingAddressState").val());
+        $("#billingAddressCountry").val("BRA");
+  }
+</script>
+
+<script>
+
+  function parcelasDisponiveis() {
+    PagSeguroDirectPayment.getInstallments({
+      amount: (($("#totalValue").html()).replace(",", ".")),
+      brand: $("#creditCardBrand").val(),
+      maxInstallmentNoInterest: 2,
+
+      success: function(response) {
+        //console.log(response.installments);
+        $("#installmentsWrapper").css('display', "block");
+
+
+        var installments = response.installments[$("#creditCardBrand").val()];
+
+        var options = '';
+        for (var i in installments) {
+
+          var optionItem     = installments[i];
+          var optionQuantity = optionItem.quantity;
+          var optionAmount   = optionItem.installmentAmount;
+          var optionLabel    = (optionQuantity + " x R$ " + (optionAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace(".", ',')));
+
+          options += ('<option value="' + optionItem.quantity + '" valorparcela="' + optionAmount +'">'+ optionLabel +'</option>');
+
+        };
+
+        $("#installmentQuantity").html(options);
+
+      },
+
+      error: function(response) {
+        //console.log(response);
+      },
+
+      complete: function(response) {
+      }
+    });
+  }
+
+  $("#installmentQuantity").change(function() {
+    var option = $(this).find("option:selected");
+    if (option.length) {
+      $("#installmentValue").val( option.attr("valorparcela") );
+    }
+  });
+
+  function brandCard() {
+
+    PagSeguroDirectPayment.getBrand({
+      cardBin: $("#cardNumber").val(),
+      success: function(response) {
+        $("#creditCardBrand").val(response.brand.name);
+        $("#cardNumber").css('border', '1px solid #999');
+
+        if (response.brand.expirable) {
+          $("#expiraCartao").css('display', 'block');
+        } else {
+          $("#expiraCartao").css('display', 'none');
+        }
+        if (response.brand.cvvSize > 0) {
+          $("#cvvCartao").css('display', 'block');
+        } else {
+          $("#cvvCartao").css('display', 'none');
+        }
+
+        $("#bandeiraCartao").attr('src', 'https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/' + response.brand.name + '.png');
+
+
+        parcelasDisponiveis();
+
+      },
+
+      error: function(response) {
+        $("#cardNumber").css('border', '2px solid red');
+        $("#cardNumber").focus();
+      },
+
+      complete: function(response) {
+
+      }
+
+    });
+
+  }
+
+  function showModal() {
+      $("#modal-title").html("Aguarde");
+      $("#modal-body").html("");
+      $("#aguarde").modal("show");
+  }
+
+  function pagarBoleto(senderHash) {
+    alert('click');
+    showModal();
+    $.ajax({
+      type: 'POST',
+      url: '/ajax/vendas/pagamentoboleto',
+      cache: false,
+      data: {
+        id: <?php echo $_GET['id']; ?>,
+        email: $("#senderEmail").val(),
+        nome: $("#senderName").val(),
+        cpf: $("#senderCPF").val(),
+        ddd: $("#senderAreaCode").val(),
+        telefone: $("#senderPhone").val(),
+        cep: $("#shippingAddressPostalCode").val(),
+        endereco: $("#shippingAddressStreet").val(),
+        numero: $("#shippingAddressNumber").val(),
+        complemento: $("#shippingAddressComplement").val(),
+        bairro: $("#shippingAddressDistrict").val(),
+        cidade: $("#shippingAddressCity").val(),
+        estado: $("#shippingAddressState").val(),
+        pais: "BRA",
+        senderHash: senderHash,
+      },
+      success: function(data) {
+
+        if (!(data.paymentLink)) {
+          //alert(data);
+          $("#modal-title").html("<font color='red'>Erro</font>");
+
+          $("#modal-body").html("");
+          //console.log(data.error);
+          $.each(data.error, function (index, value) {
+            if (value.code) {
+              //console.log("6 " + value.code);
+              tratarError(value.code);
+            } else {
+              //console.log("7 " + data.error);
+              tratarError(data.error.code);
+            }
+
+          });
+        } else {
+          window.location = data.paymentLink;
+          setTimeout(function () {
+            $("#modal-body").html("");
+            $("#modal-title").html("<font color='green'>Sucesso!</font>")
+
+            $("#modal-body").html("Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.<br /><br /><a href='" + data.paymentLink + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
+          }, 3500);
+        }
+
+      }
+    });
+
+  }
+
+    function pagarCartao(senderHash) {
+      showModal();
+
+      PagSeguroDirectPayment.createCardToken({
+
+        cardNumber: $("#cardNumber").val(),
+        brand: $("#creditCardBrand").val(),
+        cvv: $("#cardCvv").val(),
+        expirationMonth: $("#cardExpirationMonth").val(),
+        expirationYear: $("#cardExpirationYear").val(),
+
+        success: function (response) {
+          $("#creditCardToken").val(response.card.token);
+        },
+        error: function (response) {
+          if (response.error) {
+            $("#modal-title").html("<font color='red'>Erro</font>");
+
+            $("#modal-body").html("");
+            //console.log("4" + response);
+            $.each(response.errors, function (index, value) {
+              //console.log(value);
+              tratarError(value);
+            });
+          }
+        },
+        complete: function (response) {
+
+        }
+
+      });
+
+
+      $.ajax({
+        type: 'POST',
+        url: 'pagamentoCartao.php',
+        cache: false,
+        data: {
+          id: <?php echo $_GET['id']; ?>,
+          email: $("#senderEmail").val(),
+          nome: $("#senderName").val(),
+          cpf: $("#senderCPF").val(),
+          ddd: $("#senderAreaCode").val(),
+          telefone: $("#senderPhone").val(),
+          cep: $("#shippingAddressPostalCode").val(),
+          endereco: $("#shippingAddressStreet").val(),
+          numero: $("#shippingAddressNumber").val(),
+          complemento: $("#shippingAddressComplement").val(),
+          bairro: $("#shippingAddressDistrict").val(),
+          cidade: $("#shippingAddressCity").val(),
+          estado: $("#shippingAddressState").val(),
+          pais: "BRA",
+          senderHash: senderHash,
+
+          enderecoPagamento: $("#billingAddressStreet").val(),
+          numeroPagamento: $("#billingAddressNumber").val(),
+          complementoPagamento: $("#billingAddressComplement").val(),
+          bairroPagamento: $("#billingAddressDistrict").val(),
+          cepPagamento: $("#billingAddressPostalCode").val(),
+          cidadePagamento: $("#billingAddressCity").val(),
+          estadoPagamento: $("#billingAddressState").val(),
+          cardToken: $("#creditCardToken").val(),
+          cardNome: $("#creditCardHolderName").val(),
+          cardCPF: $("#creditCardHolderCPF").val(),
+          cardNasc: $("#creditCardHolderBirthDate").val(),
+          cardFoneArea: $("#creditCardHolderAreaCode").val(),
+          cardFoneNum: $("#creditCardHolderPhone").val(),
+
+          numParcelas: $("#installmentQuantity").val(),
+          valorParcelas: $("#installmentValue").val(),
+
+        },
+        success: function(data) {
+          //console.log(data);
+          if (data.error) {
+            if (data.error.code == "53037") {
+              $("#creditCardPaymentButton").click();
+            } else {
+              $("#modal-title").html("<font color='red'>Erro</font>");
+
+              $("#modal-body").html("");
+              $.each(data.error, function (index, value) {
+                if (value.code) {
+                  tratarError(value.code);
+
+                } else {
+                  tratarError(data.error.code)
+                }
+              })
+              //console.log("2 " + data);
+            }
+          } else {
+
+
+            $.ajax({
+              type: 'POST',
+              url: 'getStatus.php',
+              cache: false,
+              data: {
+                id: data.code,
+              },
+              success: function(status) {
+
+                if (status == "7") {
+                  //alert(data);
+                  $("#modal-title").html("<font color='red'>Erro</font>");
+
+                  $("#modal-body").html("Erro ao processar o seu pagamento.<br/> Não se preocupe pois esse valor <b>não será debitado de sua conta ou não constará em sua fatura</b><br /><br />Verifique se você possui limite suficiente para efetuar a transação e/ou tente um cartão diferente");
+
+                } else {
+                  window.location = "http://download.infoenem.com.br/pagamento-efetuado/";
+                  setTimeout(function () {
+                    $("#modal-body").html("");
+                    $("#modal-title").html("<font color='green'>Sucesso!</font>")
+
+                    $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='http://download.infoenem.com.br/pagamento-efetuado/'><center><button class='btn-success btn-block btn-lg'>Ir para a página de instruções</button></center></a>");
+                  }, 1500);
+                }
+
+              }
+            });
+
+
+            //console.log("1 " + data);
+          }
+
+          }
+
+      });
+
+    }
+
+function tratarError(id) {
+  if (id.charAt(0) == '2') id = id.substr(1);
+  if (id == "53020" || id == '53021') {
+    $("#modal-body").append("<p>Verifique telefone inserido</p>");
+    $("#senderPhone").css('border', '2px solid red');
+
+  } else if (id == "53010" || id == '53011' || id == '53012') {
+    $("#modal-body").append("<p>Verifique o e-mail inserido</p>");
+    $("#senderEmail").css('border', '2px solid red');
+
+  } else if (id == "53017") {
+    $("#modal-body").append("<p>Verifique o CPF inserido</p>");
+    $("#senderCPF").css('border', '2px solid red');
+
+  } else if (id == "53018" || id == "53019") {
+    $("#modal-body").append("<p>Verifique o DDD inserido</p>");
+    $("#senderAreaCode").css('border', '2px solid red');
+
+  } else if (id == "53013" || id == '53014' || id == '53015') {
+    $("#modal-body").append("<p>Verifique o nome inserido</p>");
+    $("#senderName").css('border', '2px solid red');
+
+  } else if (id == "53029" || id == '53030') {
+    $("#modal-body").append("<p>Verifique o bairro inserido</p>");
+    $("#shippingAddressDistrict").css('border', '2px solid red');
+
+  } else if (id == "53022" || id == '53023') {
+    $("#modal-body").append("<p>Verifique o CEP inserido</p>");
+    $("#shippingAddressPostalCode").css('border', '2px solid red');
+
+  } else if (id == "53024" || id == '53025') {
+    $("#modal-body").append("<p>Verifique a rua inserido</p>");
+    $("#shippingAddressStreet").css('border', '2px solid red');
+
+  } else if (id == "53026" || id == '53027') {
+    $("#modal-body").append("<p>Verifique o número inserido</p>");
+    $("#shippingAddressNumber").css('border', '2px solid red');
+
+  } else if (id == "53033" || id == '53034') {
+    $("#modal-body").append("<p>Verifique o estado inserido</p>");
+    $("#shippingAddressState").css('border', '2px solid red');
+
+  } else if (id == "53031" || id == '53032') {
+    $("#modal-body").append("<p>Verifique a cidade informada</p>");
+    $("#shippingAddressCity").css('border', '2px solid red');
+
+  } else if (id == '10001') {
+    $("#modal-body").append("<p>Verifique o número do cartão inserido</p>");
+    $("#cardNumber").css('border', '2px solid red');
+
+  } else if (id == '10002' || id == '30405') {
+    $("#modal-body").append("<p>Verifique a data de validade do cartão inserido</p>");
+    $("#cardExpirationMonth").css('border', '2px solid red');
+    $("#cardExpirationYear").css('border', '2px solid red');
+
+  } else if (id == '10004') {
+    $("#modal-body").append("<p>É obrigatorio informar o código de segurança, que se encontra no verso, do cartão</p>");
+    $("#cardCvv").css('border', '2px solid red');
+
+  } else if (id == '10006' || id == '10003' || id == '53037') {
+    $("#modal-body").append("<p>Verifique o código de segurança do cartão informado</p>");
+    $("#cardCvv").css('border', '2px solid red');
+
+  } else if (id == '30404') {
+    $("#modal-body").append("<p>Ocorreu um erro. Atualize a página e tente novamente!</p>");
+
+  } else if (id == '53047') {
+    $("#modal-body").append("<p>Verifique a data de nascimento do titular do cartão informada</p>");
+    $("#creditCardHolderBirthDate").css('border', '2px solid red');
+
+  } else if (id == '53053' || id == '53054') {
+    $("#modal-body").append("<p>Verifique o CEP inserido</p>");
+    $("#billingAddressPostalCode").css('border', '2px solid red');
+
+  } else if (id == '53055' || id == '53056') {
+    $("#modal-body").append("<p>Verifique a rua inserido</p>");
+    $("#billingAddressStreet").css('border', '2px solid red');
+
+  } else if (id == '53042' || id == '53043' || id == '53044') {
+    $("#modal-body").append("<p>Verifique o nome inserido</p>");
+    $("#creditCardHolderName").css('border', '2px solid red');
+
+  } else if (id == '53057' || id == '53058') {
+    $("#modal-body").append("<p>Verifique o número inserido</p>");
+    $("#billingAddressNumber").css('border', '2px solid red');
+
+  } else if (id == '53062' || id == '53063') {
+    $("#modal-body").append("<p>Verifique a cidade informada</p>");
+    $("#billingAddressCity").css('border', '2px solid red');
+
+  } else if (id == '53045' || id == '53046') {
+    $("#modal-body").append("<p>Verifique o CPF inserido</p>");
+    $("#creditCardHolderCPF").css('border', '2px solid red');
+
+  } else if (id == '53060' || id == '53061') {
+    $("#modal-body").append("<p>Verifique o bairro inserido</p>");
+    $("#billingAddressDistrict").css('border', '2px solid red');
+
+  } else if (id == '53064' || id == '53065') {
+    $("#modal-body").append("<p>Verifique o estado inserido</p>");
+    $("#billingAddressState").css('border', '2px solid red');
+
+  } else if (id == '53051' || id == '53052') {
+    $("#modal-body").append("<p>Verifique telefone inserido</p>");
+    $("#billingAddressState").css('border', '2px solid red');
+
+  } else if (id == '53049' || id == '53050') {
+    $("#modal-body").append("<p>Verifique o código de área informado</p>");
+    $("#creditCardHolderAreaCode").css('border', '2px solid red');
+
+  } else if (id == '53122') {
+    $("#modal-body").append("<p>Enquanto na sandbox do PagSeguro, o e-mail deve ter o domínio '@sandbox.pagseguro.com.br' (ex.: comprador@sandbox.pagseguro.com.br)</p>");
+
+  }
+
+  // else {
+  //   $("#modal-body").append("<p>"+ id + "</p>");
+  // }
+}
+
+</script>
+
 <script>
     $(document).ready(function() {
 
+      //PagSeguroDirectPayment.setSessionId('sessao');
+
+      //PagSeguroDirectPayment.getPaymentMethods({});});
+
       $('.endereco-item').click(function() {
-          $("#id_endereco").val($(this).data('end'))
+          $("#shippingAddressPostalCode").val($(this).data('cep'))
+          $("#shippingAddressStreet").val($(this).data('end'))
+          $("#shippingAddressDistrict").val($(this).data('bai'))
+          $("#shippingAddressNumber").val($(this).data('num'))
+          $("#shippingAddressComplement").val($(this).data('com'))
+          $("#shippingAddressCity").val($(this).data('cid'))
+          $("#shippingAddressState").val($(this).data('est'))
+          $('#modal-enderecos').modal('hide');
       });
 
-    });
+      $('#creditCardBrand').blur(function() {
+        brandCard();
+      });
+
+      $('#boletoButton').click(function() {
+        alert('clicado')
+          showModal();
+          $.ajax({
+            type: 'POST',
+            url: '/ajax/vendas/pagamentoboleto',
+            cache: false,
+            data: {
+              id: <?php echo $_GET['id']; ?>,
+              email: $("#senderEmail").val(),
+              nome: $("#senderName").val(),
+              cpf: $("#senderCPF").val(),
+              ddd: $("#senderAreaCode").val(),
+              telefone: $("#senderPhone").val(),
+              cep: $("#shippingAddressPostalCode").val(),
+              endereco: $("#shippingAddressStreet").val(),
+              numero: $("#shippingAddressNumber").val(),
+              complemento: $("#shippingAddressComplement").val(),
+              bairro: $("#shippingAddressDistrict").val(),
+              cidade: $("#shippingAddressCity").val(),
+              estado: $("#shippingAddressState").val(),
+              pais: "BRA",
+              senderHash: PagSeguroDirectPayment.getSenderHash(),
+            },
+            success: function(data) {
+
+              if (!(data.paymentLink)) {
+                //alert(data);
+                $("#modal-title").html("<font color='red'>Erro</font>");
+
+                $("#modal-body").html("");
+                //console.log(data.error);
+                $.each(data.error, function (index, value) {
+                  if (value.code) {
+                    //console.log("6 " + value.code);
+                    tratarError(value.code);
+                  } else {
+                    //console.log("7 " + data.error);
+                    tratarError(data.error.code);
+                  }
+
+                });
+              } else {
+                window.location = data.paymentLink;
+                setTimeout(function () {
+                  $("#modal-body").html("");
+                  $("#modal-title").html("<font color='green'>Sucesso!</font>")
+
+                  $("#modal-body").html("Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.<br /><br /><a href='" + data.paymentLink + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
+                }, 3500);
+              }
+
+            }
+          });
+      });
+
+
+
 </script>
+

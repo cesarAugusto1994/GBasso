@@ -188,6 +188,25 @@ class Vendas_admin extends CI_Controller {
 
     }
 
+    public function getProdutos()
+    {
+        $this->Carrinho = new sessions\Carrinho;
+
+        $produtos                       =   $this->Carrinho->getProdutos();
+
+        //$produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
+
+        //$total                          =   $this->Carrinho->getTotal();
+
+        return $produtos;
+    }
+
+
+    public function pagamentoBoleto()
+    {
+        var_dump($produtos);
+    }
+
 }    
 
 
