@@ -350,6 +350,8 @@ class Produtos extends CI_Controller{
 
         $data['header']['total']        =   number_format( $total, 2, ',', '.' );
 
+        $data['header']['logado']       =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']['totalS']         =   $total;
 
         $data['body']['images']         =   $this->Produtos->getAllImages();
@@ -371,6 +373,131 @@ class Produtos extends CI_Controller{
         $this->parser->parse("default/header", $data['header']);
 
         $this->parser->parse('precheckout', $data['body']);
+
+        $this->parser->parse('default/footer', $data['footer']);
+
+    }
+
+    public function checkout()
+    {
+    
+        $data  =  array();
+
+        $this->Carrinho            =   new sessions\Carrinho;
+
+        $this->Usuarios            =   new objects\Usuarios;
+
+        $this->Login               =   new sessions\Login(2);
+
+        $userEmail = $this->input->post( 'email' );
+
+        $this->Usuarios->idUsuario =   $this->Login->getIdUser();
+
+        $nome = $this->Usuarios->getFullName();
+
+        $email = $this->Usuarios->getEmail();
+
+        $cpf = $this->Usuarios->getCpf();
+
+        if( is_bool( $nome ) ) {
+
+            $nome  =  'Visitante';
+
+        }else {
+
+            $bName  =   explode(' ', $nome);
+
+            if( count( $bName ) >= 2 ) {
+
+                $nome   =   $bName[0] . ' ' . $bName[1];
+
+            }else {
+
+                $nome   =   $bName[0];
+
+            }
+
+        }
+
+        //Define data info to header
+        $data['header']            =   array();
+
+        //Define data info to body
+        $data['body']              =   array();
+
+        //Define data info to footer
+        $data['footer']            =   array();
+
+        //Declara o array que vai levar todas as imagens
+        $data['body']['images']    =   array();
+
+        $js    =  array( 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 20, 22 );
+
+        $css   =  array( 0, 1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 7 );
+
+        $fJs   =  array( 18, 15, 17, 19 );
+
+        $produtos                       =   $this->Carrinho->getProdutos();
+
+        $produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
+
+        $total                          =   $this->Carrinho->getTotal();
+
+        $data['header']['url']          =   base_url();
+
+        $data['header']['css']          =   $this->Header->getCss( $css );
+
+        $data['header']['catss']        =   $this->Menus->getCategorias();
+
+        $data['header']['categorias']    =   $this->Categorias->getCategoriasToHome();
+
+        $data['header']['js']           =   $this->Header->getJs( $js );
+
+        $data['header']['inc']          =   '';
+
+        $data['header']['pesq']  =   "";
+
+        $data['header']['menus']        =   $this->Menus->getMenusToHome(); 
+
+        $data['header']['inc']          =   $this->Header->getIncludes( array( 1, 7 ) );
+
+        $data['header']['nome']         =   $nome;        
+
+        $data['header']['email']        =   $email;  
+
+        $data['header']['cpf']          =   $cpf;
+
+        $data['header']['total']        =   number_format( $total, 2, ',', '.' );
+
+        $data['header']['logado']       =   $this->Login->checkLogin() ? true :  false;
+
+        $data['body']['totalS']         =   $total;
+
+        $data['body']['images']         =   $this->Produtos->getAllImages();
+
+        $data['body']['imageDefault']   =   $this->Produtos->getImageDefaultDiretory();
+
+        $data['body']['carrinho']       =   $produtos;
+
+        $data['body']['total']          =   number_format( $this->Carrinho->getTotal(), 2, ',', '.');
+
+        $data['body']['info']           =   $this->Produtos->getInfoProdutoView();
+
+        $data['body']["url"]            =   base_url();
+
+        var_dump($this->Usuarios->getAllEndereco());
+
+        $data['body']["enderecos"]  =   $this->Usuarios->getAllEndereco();
+        
+        $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
+
+        $data['footer']["url"]          =   base_url();
+
+        $data['footer']['js']           =   $this->Header->getJs( $fJs );
+        
+        $this->parser->parse("default/header", $data['header']);
+
+        $this->parser->parse('checkout', $data['body']);
 
         $this->parser->parse('default/footer', $data['footer']);
 

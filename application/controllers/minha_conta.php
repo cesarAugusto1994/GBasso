@@ -387,7 +387,9 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']     =   $this->Header->getIncludes( array( 1, 8 ) );
 
-        $data['body']["endereco"]  =   $this->Usuarios->getAllEndereco();
+        $data['body']["enderecos"]  =   $this->Usuarios->getAllEndereco();
+
+        $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
 
         $data['body']["url"]       =   base_url();        
 

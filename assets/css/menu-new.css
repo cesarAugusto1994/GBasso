@@ -503,3 +503,109 @@
         border-top: 0 none;
     }
 }
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #ffffff;
+    background-position: top center;
+    background-attachment: scroll;
+    background-repeat: repeat;
+}
+
+a,
+a:hover,
+a:focus,
+.cor-principal,
+.menu a:hover,
+.atributo-comum a:hover span,
+.atributo-comum .active a span {
+    color: #9e7d30;
+}
+
+
+/* Cor Principal - Textos e Links */
+
+.fundo-principal,
+.botao.principal,
+.botao.principal:hover,
+.menu li:hover>a .fundo-secundario,
+.flex-control-paging li a.flex-active,
+.dropdown-menu>li>a:hover,
+.filtro.lista ul li label:hover,
+.filtro.lista ul li.active label,
+.menu-simples li a:hover,
+.menu-simples li.active a {
+    background-color: #9e7d30;
+}
+
+
+/* Cor Principal - Background */
+
+.borda-principal,
+.atributos ul li a:hover,
+.atributos ul li.active a,
+.tema-scuro .nav-tabs li.active a,
+.elastislide-carousel ul li.active a {
+    border-color: #9e7d30;
+}
+
+
+/* Cor Principal - Bordas */
+
+.cor-secundaria {
+    color: #000000;
+}
+
+.fundo-secundario {
+    background-color: #000000;
+}
+
+.borda-secundaria {
+    border-color: #000000;
+}
+
+.titulo {
+    font-family: 'Open Sans', serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+#cabecalho {
+    background-color: #f7f0dd;
+    background-position: top center;
+    background-repeat: repeat;
+}
+
+.barra-inicial {
+    background-color: #000000;
+}
+
+.barra-inicial .canais-contato span,
+.barra-inicial .canais-contato a,
+.barra-inicial .canais-contato i {
+    color: #FFFFFF;
+}
+
+#rodape .institucional {
+    background-color: #000000;
+    background-position: top center;
+    background-repeat: repeat;
+}
+
+.botao.principal.botao-comprar,
+.botao.principal.grande,
+.acoes-produto-responsiva .tag-comprar {
+    background-color: #9e7d30;
+}
+
+#barraNewsletter,
+#barraNewsletter .show-hide,
+#barraNewsletter .componente,
+#barraNewsletter.posicao-rodape .conteiner {
+    background-color: #000000;
+}
+
+#barraNewsletter,
+#barraNewsletter .show-hide {
+    color: #FFFFFF;
+}
