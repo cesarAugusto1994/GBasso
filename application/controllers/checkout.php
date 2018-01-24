@@ -650,10 +650,10 @@ class Checkout extends CI_Controller{
 
             header('Content-Type: application/json; charset=UTF-8');
             $errosOcorridos = array('erro' => '1');
-            //echo json_encode($dataXML);        
+            echo json_encode($dataXML);        
         } else {
             header('Content-Type: application/json; charset=UTF-8');
-            //echo json_encode($dataXML);
+            echo json_encode($dataXML);
         }
         curl_close($ch);
 
@@ -919,7 +919,7 @@ class Checkout extends CI_Controller{
         //Grava a venda
         $dadosVenda = $this->Vendas->gravarVenda( $status, $totalVenda, $servico );
 
-        echo $this->Vendas->getIDVenda();
+        //echo $this->Vendas->getIDVenda();
 
         //!$this->Vendas->vendaExists() ? $this->Essentials->setMessage( 'Venda inválida' ): null;
 
