@@ -119,7 +119,6 @@ class Querys  {
     }
 
 
-
     /**
     * Esse método consulta se existe algum registro na tabela,baseando-se numa condição
     *

@@ -1321,7 +1321,8 @@ class Carrinho_site extends CI_Controller {
      * @return MIX ARRAY JSON | DECIMAL
      * @access PROTECTED
      */
-    protected function generateFrete( $cep, $servico ) {
+    protected function generateFrete( $cep, $servico ) 
+    {
 
         //Instancia a classe General
         $this->General                =    new extend\General();
@@ -1450,7 +1451,8 @@ class Carrinho_site extends CI_Controller {
 
     }
 
-        protected function generateFreteToCart( $cep ) {
+    protected function generateFreteToCart( $cep ) 
+    {
 
         //Instancia a classe General
         $this->General                =    new extend\General();

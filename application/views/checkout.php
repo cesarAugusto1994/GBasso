@@ -1,13 +1,7 @@
 <div id="corpo">
 <div class="conteiner">
 
-
-
-    <?=var_dump($usuario);?>
-
-    <div class="secao-principal row-fluid sem-coluna">
-
-
+<div class="secao-principal row-fluid sem-coluna">
 
 <div class="campos-pedido">
 <div class="cabecalho-interno row-fluid">
@@ -30,36 +24,53 @@
         <th width="140" class="padding-preco"><div><h6 style="margin-left: 10px;">Preço</h6></div></th>
       </tr></thead>
 
-        <tbody><tr>
-          <td class="phone-pullleft" data-produto-id="16256999" data-produto-quantidade="1">
-            <div class="produto-info">
-              Bolsa Tiracolo Vermelha Ellus com Stickers
-              <ul>
-                <li>
-                  <span>
-                    SKU:
-                    <strong>
-                      45ZW706
-                    </strong>
-                  </span>
-                </li>
+        <tbody>
+        <?php
+                    $attr = 'disabled';
+                if (count($carrinho) > 0) :
+                    $attr = '';
+                    $index = 0;
+                    foreach ($carrinho as $key => $value) :
+                ?>
+                  
+                <tr>
+                  <td class="phone-pullleft" data-produto-id="24316594" data-produto-quantidade="1">
+                    <div class="produto-info">
+                    <a href="<?= $value['link']; ?>" class="cor-secundaria">
+                            <?= $value['prod']; ?>
+                        </a>
+                      <ul>
+                        <li>
+                          <span>
+                            Referencia:
+                            <strong>
+                            <?= $value['refe']; ?>
+                            </strong>
+                          </span>
+                        </li>
+                        
+                      </ul>
+                    </div>
+                  </td>
+                  <td class="conteiner-qtd">
+                    <div><?= $value['qtd']; ?></div>
+                  </td>
+                  <td class="conteiner-preco padding-preco">
+                    <div class="preco-produto">
+                      <strong class="preco-promocional cor-principal">
+                        R$ <?= number_format($value['valor_int'] * $value['qtd'], 2, ',', '.' ); ?>
+                      </strong>
+                    </div>
+                  </td>
+                </tr>
 
-
-
-              </ul>
-            </div>
-          </td>
-          <td class="conteiner-qtd">
-            <div>1</div>
-          </td>
-          <td class="conteiner-preco padding-preco">
-            <div class="preco-produto">
-              <strong class="preco-promocional cor-principal ">
-                R$ 369,90
-              </strong>
-            </div>
-          </td>
-        </tr>
+                <?php
+                    $index++;
+                    endforeach;
+                else :
+                        echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
+                endif;
+                ?>
 
       <tr class="bg-dark esconder-mobile">
         <td>&nbsp;</td>
@@ -69,7 +80,7 @@
         <td class="padding-preco">
           <div class="subtotal" data-subtotal="369,90" data-float="369.9">
             <strong class=" cor-principal">
-              R$ 369,90
+              R$ <?= $total; ?>
             </strong>
           </div>
         </td>
@@ -87,8 +98,7 @@
         </td>
       </tr>
 
-
-        <tr class="bg-dark esconder-mobile desconto-tr" style="">
+        <tr class="bg-dark esconder-mobile desconto-tr hide" style="">
           <td>&nbsp;</td>
           <td class="text-right">
             <span>Desconto à vista:</span>
@@ -106,9 +116,9 @@
           <span>Total:</span>
         </td>
         <td class="padding-preco">
-          <span class="visible-phone">Total:</span>
-          <div class="total" data-total="369.9">
-            <strong class=" cor-principal preco-carrinho-total">R$ 369,90</strong>
+          <!--<span class="visible-phone">Total:</span>-->
+          <div class="total" data-total="<?= $total; ?>">
+            <strong class=" cor-principal preco-carrinho-total">R$ <?= $total; ?></strong>
           </div>
         </td>
       </tr>
@@ -133,27 +143,27 @@
           <input id="id_tipo" name="tipo" type="hidden" value="PF">
           <input id="id_tipo_usuario" name="tipo_usuario" type="hidden" value="PF">
           <div class="control-group  required">
-            <label class="control-label font-bold" for="id_email">Nome</label>
+            <label class="control-label font-bold" for="senderName">Nome</label>
             <div class="controls">
-              <input autocomplete="nome" class="input-xlarge span12" value="<?=$usuario['nome'] . ' ' . $usuario['sobrenome']?>" id="id_nome" maxlength="128" name="nome" type="text">
+              <input autocomplete="senderName" class="input-xlarge span12" value="<?=$usuario['nome'] . ' ' . $usuario['sobrenome']?>" id="senderName" maxlength="128" name="senderName" type="text">
                 <p class="help-block hide">
 
                 </p>
             </div>
           </div>
           <div class="control-group  required">
-            <label class="control-label font-bold" for="id_email">E-mail</label>
+            <label class="control-label font-bold" for="senderEmail">E-mail</label>
             <div class="controls">
-              <input autocomplete="email" class="input-xlarge span12" value="<?=$usuario['email']?>" id="id_email" maxlength="128" name="email" type="text">
+              <input autocomplete="senderEmail" class="input-xlarge span12" value="<?=$usuario['email']?>" id="senderEmail" maxlength="128" name="senderEmail" type="text">
                 <p class="help-block hide">
 
                 </p>
             </div>
           </div>
           <div class="control-group  required">
-            <label class="control-label font-bold" for="id_cpf">CPF</label>
+            <label class="control-label font-bold" for="senderCPF">CPF</label>
             <div class="controls">
-              <input autocapitalize="off" autocomplete="off" value="<?=$cpf?>" autocorrect="off" class="input-small span12" id="id_cpf" maxlength="14" name="cpf" spellcheck="false" type="tel">
+              <input autocapitalize="off" autocomplete="off" value="<?=$cpf?>" autocorrect="off" class="input-small span12" id="senderCPF" maxlength="14" name="senderCPF" spellcheck="false" type="tel">
               <p class="help-block hide">
 
               </p>
@@ -200,8 +210,9 @@
             <div class="control-group  required" style="margin-bottom: 20px;">
               <label class="control-label font-bold" for="shippingAddressPostalCode">CEP</label>
               <div class="controls">
-                <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small" id="shippingAddressPostalCode" name="shippingAddressPostalCode" spellcheck="false" type="tel" value="29980000" maxlength="9">
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-enderecos">Meus Endereços</button>
+                <input  id="shippingAddressPostalCodeId" type="hidden" value="<?=$enderecoPrincipal['val']?>">
+                <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small" id="shippingAddressPostalCode" value="<?=$enderecoPrincipal['cep']?>" name="shippingAddressPostalCode" spellcheck="false" type="tel" maxlength="9">
+                <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#modal-enderecos">Meus Endereços</button>
                 <p class="help-block hide">
 
                 </p>
@@ -349,35 +360,12 @@
               <input id="boletoRadio" type="radio" name="changePaymentMethod" value="boleto">Boleto</input>
             </div>
 
-            <!--<div class="funkyradio">
-                <div class="funkyradio-primary">
-                    <input id="creditCardRadio" class="form-control" type="radio" name="changePaymentMethod" value="creditCard" checked/>
-                    <label for="radio2">Cartão de Crédito</label>
-                </div>
-                <div class="funkyradio-info">
-                    <input id="boletoRadio" type="radio" name="changePaymentMethod" value="boleto" />
-                    <label for="radio6">Boleto</label>
-                </div>
-            </div>-->
-
           </div>
 
 
           <div id="creditCardData" class="paymentMethodGroup" dataMethod="creditCard">
 
             <div id="cardData" style="margin-top:-20px">
-
-
-            <!--<div class="form-group" class="field" id="cardBrand">
-                <label class="control-label">Número</label>
-                <div>
-                <input type="text" name="cardNumber" required id="cardNumber" class="cardDatainput form-control" onblur="brandCard();" />
-                <span>
-                  <img class="bandeiraCartao" id="bandeiraCartao" />
-                </span>
-                </div>
-            </div>-->
-
 
             <div class="control-group  required">
               <label class="control-label font-bold" for="cardNumber">Número</label>
@@ -403,23 +391,6 @@
               </div>
             </div>
 
-
-            
-
-            <!--<div class="field" id="cardBrand">
-              <label for="cardNumber">Número <font color="red">*</font></label>
-              <input type="text" name="cardNumber" id="cardNumber" class="cardDatainput form-control" onblur="brandCard();" />
-              <span>
-                <img class="bandeiraCartao" id="bandeiraCartao" />
-              </span>
-            </div>-->
-
-            <!--<div class="field" style="margin-top: -5px;" id="expiraCartao">
-              <label for="cardExpirationMonth">Data de Vencimento (99/9999) <font color="red">*</font></label>
-              <input type="text" name="cardExpirationMonth" id="cardExpirationMonth" class="cardDatainput form-control month" maxlength="2" /> /
-              <input type="text" name="cardExpirationYear" id="cardExpirationYear" class="cardDatainput form-control year" maxlength="4" />
-            </div>-->
-
             <div class="control-group  required">
               <label class="control-label font-bold" for="cvvCartao">Código de Segurança</label>
               <div class="controls">
@@ -429,12 +400,6 @@
                   </p>
               </div>
             </div>
-
-            <!--
-            <div class="field" style="margin-top: -5px;" id="cvvCartao">
-              <label for="cardCvv">Código de Segurança <font color="red">*</font></label>
-              <input type="text" name="cardCvv" id="cardCvv" maxlength="5" class="cardDatainput form-control" />
-            </div>-->
 
             <div class="field" id="installmentsWrapper">
               <label for="installmentQuantity">Parcelamento</label>
@@ -460,13 +425,6 @@
 
                     </div>
 
-
-
-                    <!--<div class="field" style="margin-top: -5px">
-                      <label for="creditCardHolderBirthDate">Data de Nascimento do Titular do Cartão <font color="red">*</font></label>
-                      <input type="text" name="creditCardHolderBirthDate" id="creditCardHolderBirthDate" maxlength="10" />
-                    </div>-->
-
                     <div class="control-group field required">
                       <label class="control-label font-bold" for="cvvCartao">Data de Nascimento do Titular do Cartão</label>
                       <div class="controls">
@@ -490,11 +448,6 @@
                                 </p>
                             </div>
                           </div>
-
-                          <!--<div class="field" style="margin-top: -5px">
-                            <label for="creditCardHolderName">Nome (Como está impresso no cartão) <font color="red">*</font></label>
-                            <input type="text" name="creditCardHolderName" id="creditCardHolderName" />
-                          </div>-->
                           
                           <div class="control-group field required">
                             <label class="control-label font-bold" for="creditCardHolderCPF">CPF (somente n&uacute;meros) </label>
@@ -505,11 +458,6 @@
                                 </p>
                             </div>
                           </div>
-
-                          <!--<div class="field" style="margin-top: -5px" id="CPFP">
-                            <label for="creditCardHolderCPF">CPF (somente n&uacute;meros) <font color="red">*</font></label>
-                            <input type="text" name="creditCardHolderCPF" id="creditCardHolderCPF" maxlength="14" />
-                          </div>-->
 
                           <div class="control-group  required" id="TelP">
                             <label class="control-label font-bold" for="creditCardHolderAreaCode">Telefone </label>
@@ -522,65 +470,7 @@
                             </div>
                           </div>
 
-                          <!--<div class="field" style="margin-top: -5px" id="TelP">
-                            <label for="creditCardHolderAreaCode">Telefone <font color="red">*</font></label>
-                            <input type="text" name="creditCardHolderAreaCode" id="creditCardHolderAreaCode" class="areaCode" maxlength="2" />
-                            <input type="text" name="creditCardHolderPhone" id="creditCardHolderPhone" class="phone" maxlength="9" />
-                          </div>-->
-
                   </fieldset>
-                  </div>
-
-
-                  <div class="span12" style="margin-top:20px">
-
-                    <div class="caixa-sombreada borda-principal">
-                      <fieldset data-recording-ignore="events">
-                        <legend class=" cor-secundaria"><i class="icon-money"></i>Endereço de Cobrança</legend>
-
-
-                          <div class="field" style="margin-top: -5px" id="CEPP">
-                            <label for="billingAddressPostalCode">CEP <font color="red">*</font></label>
-                            <input type="text" name="billingAddressPostalCode" id="billingAddressPostalCode" maxlength="9"/>
-                          </div>
-
-
-                          <div class="field" style="margin-top: -5px" id="EndP">
-                            <label for="billingAddressStreet">Endereço <font color="red">*</font></label>
-                            <input type="text" name="billingAddressStreet" id="billingAddressStreet" />
-                          </div>
-
-                          <div class="field" style="margin-top: -5px" id="NumP">
-                            <label for="billingAddressNumber">Número <font color="red">*</font></label>
-                            <input type="text" name="billingAddressNumber" id="billingAddressNumber" size="5"/>
-                          </div>
-
-                          <div class="field" style="margin-top: -5px" id="ComP">
-                            <label for="billingAddressComplement">Complemento</label>
-                            <input type="text" name="billingAddressComplement" id="billingAddressComplement" />
-                          </div>
-
-                          <div class="field" style="margin-top: -5px" id="BairP">
-                            <label for="billingAddressDistrict">Bairro <font color="red">*</font></label>
-                            <input type="text" name="billingAddressDistrict" id="billingAddressDistrict" />
-                          </div>
-
-                          <div class="field" style="margin-top: -5px" id="CidP">
-                            <label for="billingAddressCity">Cidade <font color="red">*</font></label>
-                            <input type="text" name="billingAddressCity" id="billingAddressCity" />
-                          </div>
-
-                          <div class="field" style="margin-top: -5px" id="EstP">
-                            <label for="billingAddressState">Estado <font color="red">*</font></label>
-                            <input type="text" name="billingAddressState" id="billingAddressState" class="addressState" maxlength="2" style="text-transform: uppercase;" onBlur="this.value=this.value.toUpperCase()"/>
-                          </div>
-
-                          <div class="field" style="display: none">
-                            <label for="billingAddressCountry">País</label>
-                            <input type="text" name="billingAddressCountry" id="billingAddressCountry" value="Brasil" readonly="readonly" />
-                          </div>
-
-                           </fieldset>
                   </div>
 
                 </div>
@@ -613,6 +503,8 @@
 </div>
 </div>
 
+<input id="session_id_field" type="hidden"/>
+<input id="sender_hash" type="hidden"/>
 
  <div class="modal fade" id="modal-enderecos">
     <div class="modal-dialog modal-lg">
@@ -636,6 +528,7 @@
                    <tbody>
                      <?php foreach ($enderecos as $endereco): ?>
                         <tr class="endereco-item"
+                        data-cep-id="<?=$endereco['val'];?>"
                         data-cep="<?=$endereco['cep'];?>"
                         data-end="<?=$endereco['end'];?>"
                         data-bai="<?=$endereco['bai'];?>"
@@ -694,12 +587,26 @@
   });
 
   $(document).ready(function() {
+
+    var cep = $('#shippingAddressPostalCode').val();
+
+        //if ($.trim(cep) != '') {
+
+            //var post = 'cep=' + cep.replace('-', '');
+
+            getValorFrete2(post);
+
+        //}
+    });
+
     $.ajax({
       type: 'GET',
       url: '/compras/session',
       cache: false,
       success: function(data) {
         PagSeguroDirectPayment.setSessionId(data);
+        $("#session_id_field").val(data);
+        $('#sender_hash').val(PagSeguroDirectPayment.getSenderHash());
       }
     });
   });
@@ -840,15 +747,17 @@ $("input[type='text']").on('blur', function(e) {
       $("#aguarde").modal("show");
   }
 
+  //#'{url}compras/carrinho/finalizar/compra';
+
   function pagarBoleto(senderHash) {
-    alert('click');
+    
     showModal();
     $.ajax({
       type: 'POST',
       url: '/ajax/vendas/pagamentoboleto',
       cache: false,
       data: {
-        id: <?php echo $_GET['id']; ?>,
+        id: $("#session_id_field").val(),
         email: $("#senderEmail").val(),
         nome: $("#senderName").val(),
         cpf: $("#senderCPF").val(),
@@ -883,7 +792,43 @@ $("input[type='text']").on('blur', function(e) {
 
           });
         } else {
-          window.location = data.paymentLink;
+
+              $.ajax({
+                  type: 'POST',
+                  url: '{url}compras/carrinho/finalizar/compra',
+                  cache: false,
+                  data: {
+                    id: $("#session_id_field").val(),
+                    email: $("#senderEmail").val(),
+                    nome: $("#senderName").val(),
+                    cpf: $("#senderCPF").val(),
+                    ddd: $("#senderAreaCode").val(),
+                    telefone: $("#senderPhone").val(),
+                    cep: $("#shippingAddressPostalCode").val(),
+                    endereco: $("#shippingAddressStreet").val(),
+                    numero: $("#shippingAddressNumber").val(),
+                    complemento: $("#shippingAddressComplement").val(),
+                    bairro: $("#shippingAddressDistrict").val(),
+                    cidade: $("#shippingAddressCity").val(),
+                    estado: $("#shippingAddressState").val(),
+                    pais: "BRA",
+                    senderHash: senderHash,
+                  },
+                  success: function(data) {
+
+                    console.log(data)
+
+                     /*setTimeout(function (data) {
+                        $("#modal-body").html("");
+                        $("#modal-title").html("<font color='red'>Erro!</font>")
+
+                        $("#modal-body").html(data);
+                      }, 3500);,*/
+
+                  }
+                });
+
+          //window.location = data.paymentLink;
           setTimeout(function () {
             $("#modal-body").html("");
             $("#modal-title").html("<font color='green'>Sucesso!</font>")
@@ -935,7 +880,7 @@ $("input[type='text']").on('blur', function(e) {
         url: 'pagamentoCartao.php',
         cache: false,
         data: {
-          id: <?php echo $_GET['id']; ?>,
+          id: $("#session_id_field").val(),
           email: $("#senderEmail").val(),
           nome: $("#senderName").val(),
           cpf: $("#senderCPF").val(),
@@ -1029,125 +974,7 @@ $("input[type='text']").on('blur', function(e) {
 
     }
 
-function tratarError(id) {
-  if (id.charAt(0) == '2') id = id.substr(1);
-  if (id == "53020" || id == '53021') {
-    $("#modal-body").append("<p>Verifique telefone inserido</p>");
-    $("#senderPhone").css('border', '2px solid red');
 
-  } else if (id == "53010" || id == '53011' || id == '53012') {
-    $("#modal-body").append("<p>Verifique o e-mail inserido</p>");
-    $("#senderEmail").css('border', '2px solid red');
-
-  } else if (id == "53017") {
-    $("#modal-body").append("<p>Verifique o CPF inserido</p>");
-    $("#senderCPF").css('border', '2px solid red');
-
-  } else if (id == "53018" || id == "53019") {
-    $("#modal-body").append("<p>Verifique o DDD inserido</p>");
-    $("#senderAreaCode").css('border', '2px solid red');
-
-  } else if (id == "53013" || id == '53014' || id == '53015') {
-    $("#modal-body").append("<p>Verifique o nome inserido</p>");
-    $("#senderName").css('border', '2px solid red');
-
-  } else if (id == "53029" || id == '53030') {
-    $("#modal-body").append("<p>Verifique o bairro inserido</p>");
-    $("#shippingAddressDistrict").css('border', '2px solid red');
-
-  } else if (id == "53022" || id == '53023') {
-    $("#modal-body").append("<p>Verifique o CEP inserido</p>");
-    $("#shippingAddressPostalCode").css('border', '2px solid red');
-
-  } else if (id == "53024" || id == '53025') {
-    $("#modal-body").append("<p>Verifique a rua inserido</p>");
-    $("#shippingAddressStreet").css('border', '2px solid red');
-
-  } else if (id == "53026" || id == '53027') {
-    $("#modal-body").append("<p>Verifique o número inserido</p>");
-    $("#shippingAddressNumber").css('border', '2px solid red');
-
-  } else if (id == "53033" || id == '53034') {
-    $("#modal-body").append("<p>Verifique o estado inserido</p>");
-    $("#shippingAddressState").css('border', '2px solid red');
-
-  } else if (id == "53031" || id == '53032') {
-    $("#modal-body").append("<p>Verifique a cidade informada</p>");
-    $("#shippingAddressCity").css('border', '2px solid red');
-
-  } else if (id == '10001') {
-    $("#modal-body").append("<p>Verifique o número do cartão inserido</p>");
-    $("#cardNumber").css('border', '2px solid red');
-
-  } else if (id == '10002' || id == '30405') {
-    $("#modal-body").append("<p>Verifique a data de validade do cartão inserido</p>");
-    $("#cardExpirationMonth").css('border', '2px solid red');
-    $("#cardExpirationYear").css('border', '2px solid red');
-
-  } else if (id == '10004') {
-    $("#modal-body").append("<p>É obrigatorio informar o código de segurança, que se encontra no verso, do cartão</p>");
-    $("#cardCvv").css('border', '2px solid red');
-
-  } else if (id == '10006' || id == '10003' || id == '53037') {
-    $("#modal-body").append("<p>Verifique o código de segurança do cartão informado</p>");
-    $("#cardCvv").css('border', '2px solid red');
-
-  } else if (id == '30404') {
-    $("#modal-body").append("<p>Ocorreu um erro. Atualize a página e tente novamente!</p>");
-
-  } else if (id == '53047') {
-    $("#modal-body").append("<p>Verifique a data de nascimento do titular do cartão informada</p>");
-    $("#creditCardHolderBirthDate").css('border', '2px solid red');
-
-  } else if (id == '53053' || id == '53054') {
-    $("#modal-body").append("<p>Verifique o CEP inserido</p>");
-    $("#billingAddressPostalCode").css('border', '2px solid red');
-
-  } else if (id == '53055' || id == '53056') {
-    $("#modal-body").append("<p>Verifique a rua inserido</p>");
-    $("#billingAddressStreet").css('border', '2px solid red');
-
-  } else if (id == '53042' || id == '53043' || id == '53044') {
-    $("#modal-body").append("<p>Verifique o nome inserido</p>");
-    $("#creditCardHolderName").css('border', '2px solid red');
-
-  } else if (id == '53057' || id == '53058') {
-    $("#modal-body").append("<p>Verifique o número inserido</p>");
-    $("#billingAddressNumber").css('border', '2px solid red');
-
-  } else if (id == '53062' || id == '53063') {
-    $("#modal-body").append("<p>Verifique a cidade informada</p>");
-    $("#billingAddressCity").css('border', '2px solid red');
-
-  } else if (id == '53045' || id == '53046') {
-    $("#modal-body").append("<p>Verifique o CPF inserido</p>");
-    $("#creditCardHolderCPF").css('border', '2px solid red');
-
-  } else if (id == '53060' || id == '53061') {
-    $("#modal-body").append("<p>Verifique o bairro inserido</p>");
-    $("#billingAddressDistrict").css('border', '2px solid red');
-
-  } else if (id == '53064' || id == '53065') {
-    $("#modal-body").append("<p>Verifique o estado inserido</p>");
-    $("#billingAddressState").css('border', '2px solid red');
-
-  } else if (id == '53051' || id == '53052') {
-    $("#modal-body").append("<p>Verifique telefone inserido</p>");
-    $("#billingAddressState").css('border', '2px solid red');
-
-  } else if (id == '53049' || id == '53050') {
-    $("#modal-body").append("<p>Verifique o código de área informado</p>");
-    $("#creditCardHolderAreaCode").css('border', '2px solid red');
-
-  } else if (id == '53122') {
-    $("#modal-body").append("<p>Enquanto na sandbox do PagSeguro, o e-mail deve ter o domínio '@sandbox.pagseguro.com.br' (ex.: comprador@sandbox.pagseguro.com.br)</p>");
-
-  }
-
-  // else {
-  //   $("#modal-body").append("<p>"+ id + "</p>");
-  // }
-}
 
 </script>
 
@@ -1159,6 +986,7 @@ function tratarError(id) {
       //PagSeguroDirectPayment.getPaymentMethods({});});
 
       $('.endereco-item').click(function() {
+          $("#shippingAddressPostalCodeId").val($(this).data('cep-id'))
           $("#shippingAddressPostalCode").val($(this).data('cep'))
           $("#shippingAddressStreet").val($(this).data('end'))
           $("#shippingAddressDistrict").val($(this).data('bai'))
@@ -1173,15 +1001,135 @@ function tratarError(id) {
         brandCard();
       });
 
+      function tratarError(id) {
+        if (id.charAt(0) == '2') id = id.substr(1);
+        if (id == "53020" || id == '53021') {
+          $("#modal-body").append("<p>Verifique telefone inserido</p>");
+          $("#senderPhone").css('border', '2px solid red');
+
+        } else if (id == "53010" || id == '53011' || id == '53012') {
+          $("#modal-body").append("<p>Verifique o e-mail inserido</p>");
+          $("#senderEmail").css('border', '2px solid red');
+
+        } else if (id == "53017") {
+          $("#modal-body").append("<p>Verifique o CPF inserido</p>");
+          $("#senderCPF").css('border', '2px solid red');
+
+        } else if (id == "53018" || id == "53019") {
+          $("#modal-body").append("<p>Verifique o DDD inserido</p>");
+          $("#senderAreaCode").css('border', '2px solid red');
+
+        } else if (id == "53013" || id == '53014' || id == '53015') {
+          $("#modal-body").append("<p>Verifique o nome inserido</p>");
+          $("#senderName").css('border', '2px solid red');
+
+        } else if (id == "53029" || id == '53030') {
+          $("#modal-body").append("<p>Verifique o bairro inserido</p>");
+          $("#shippingAddressDistrict").css('border', '2px solid red');
+
+        } else if (id == "53022" || id == '53023') {
+          $("#modal-body").append("<p>Verifique o CEP inserido</p>");
+          $("#shippingAddressPostalCode").css('border', '2px solid red');
+
+        } else if (id == "53024" || id == '53025') {
+          $("#modal-body").append("<p>Verifique a rua inserido</p>");
+          $("#shippingAddressStreet").css('border', '2px solid red');
+
+        } else if (id == "53026" || id == '53027') {
+          $("#modal-body").append("<p>Verifique o número inserido</p>");
+          $("#shippingAddressNumber").css('border', '2px solid red');
+
+        } else if (id == "53033" || id == '53034') {
+          $("#modal-body").append("<p>Verifique o estado inserido</p>");
+          $("#shippingAddressState").css('border', '2px solid red');
+
+        } else if (id == "53031" || id == '53032') {
+          $("#modal-body").append("<p>Verifique a cidade informada</p>");
+          $("#shippingAddressCity").css('border', '2px solid red');
+
+        } else if (id == '10001') {
+          $("#modal-body").append("<p>Verifique o número do cartão inserido</p>");
+          $("#cardNumber").css('border', '2px solid red');
+
+        } else if (id == '10002' || id == '30405') {
+          $("#modal-body").append("<p>Verifique a data de validade do cartão inserido</p>");
+          $("#cardExpirationMonth").css('border', '2px solid red');
+          $("#cardExpirationYear").css('border', '2px solid red');
+
+        } else if (id == '10004') {
+          $("#modal-body").append("<p>É obrigatorio informar o código de segurança, que se encontra no verso, do cartão</p>");
+          $("#cardCvv").css('border', '2px solid red');
+
+        } else if (id == '10006' || id == '10003' || id == '53037') {
+          $("#modal-body").append("<p>Verifique o código de segurança do cartão informado</p>");
+          $("#cardCvv").css('border', '2px solid red');
+
+        } else if (id == '30404') {
+          $("#modal-body").append("<p>Ocorreu um erro. Atualize a página e tente novamente!</p>");
+
+        } else if (id == '53047') {
+          $("#modal-body").append("<p>Verifique a data de nascimento do titular do cartão informada</p>");
+          $("#creditCardHolderBirthDate").css('border', '2px solid red');
+
+        } else if (id == '53053' || id == '53054') {
+          $("#modal-body").append("<p>Verifique o CEP inserido</p>");
+          $("#billingAddressPostalCode").css('border', '2px solid red');
+
+        } else if (id == '53055' || id == '53056') {
+          $("#modal-body").append("<p>Verifique a rua inserido</p>");
+          $("#billingAddressStreet").css('border', '2px solid red');
+
+        } else if (id == '53042' || id == '53043' || id == '53044') {
+          $("#modal-body").append("<p>Verifique o nome inserido</p>");
+          $("#creditCardHolderName").css('border', '2px solid red');
+
+        } else if (id == '53057' || id == '53058') {
+          $("#modal-body").append("<p>Verifique o número inserido</p>");
+          $("#billingAddressNumber").css('border', '2px solid red');
+
+        } else if (id == '53062' || id == '53063') {
+          $("#modal-body").append("<p>Verifique a cidade informada</p>");
+          $("#billingAddressCity").css('border', '2px solid red');
+
+        } else if (id == '53045' || id == '53046') {
+          $("#modal-body").append("<p>Verifique o CPF inserido</p>");
+          $("#creditCardHolderCPF").css('border', '2px solid red');
+
+        } else if (id == '53060' || id == '53061') {
+          $("#modal-body").append("<p>Verifique o bairro inserido</p>");
+          $("#billingAddressDistrict").css('border', '2px solid red');
+
+        } else if (id == '53064' || id == '53065') {
+          $("#modal-body").append("<p>Verifique o estado inserido</p>");
+          $("#billingAddressState").css('border', '2px solid red');
+
+        } else if (id == '53051' || id == '53052') {
+          $("#modal-body").append("<p>Verifique telefone inserido</p>");
+          $("#billingAddressState").css('border', '2px solid red');
+
+        } else if (id == '53049' || id == '53050') {
+          $("#modal-body").append("<p>Verifique o código de área informado</p>");
+          $("#creditCardHolderAreaCode").css('border', '2px solid red');
+
+        } else if (id == '53122') {
+          $("#modal-body").append("<p>Enquanto na sandbox do PagSeguro, o e-mail deve ter o domínio '@sandbox.pagseguro.com.br' (ex.: comprador@sandbox.pagseguro.com.br)</p>");
+
+        }
+
+        // else {
+        //   $("#modal-body").append("<p>"+ id + "</p>");
+        // }
+      }
+
       $('#boletoButton').click(function() {
-        alert('clicado')
+        //alert('clicado')
           showModal();
           $.ajax({
             type: 'POST',
-            url: '/ajax/vendas/pagamentoboleto',
+            url: '/compras/checkout/pagamentoboleto',
             cache: false,
             data: {
-              id: <?php echo $_GET['id']; ?>,
+              id: $("#session_id_field").val(),
               email: $("#senderEmail").val(),
               nome: $("#senderName").val(),
               cpf: $("#senderCPF").val(),
@@ -1196,6 +1144,9 @@ function tratarError(id) {
               estado: $("#shippingAddressState").val(),
               pais: "BRA",
               senderHash: PagSeguroDirectPayment.getSenderHash(),
+              tpPag: 2,
+              gateway: 1,
+              enderecoId: $("#shippingAddressPostalCodeId").val()
             },
             success: function(data) {
 
@@ -1204,8 +1155,10 @@ function tratarError(id) {
                 $("#modal-title").html("<font color='red'>Erro</font>");
 
                 $("#modal-body").html("");
+
                 //console.log(data.error);
                 $.each(data.error, function (index, value) {
+
                   if (value.code) {
                     //console.log("6 " + value.code);
                     tratarError(value.code);
@@ -1216,7 +1169,8 @@ function tratarError(id) {
 
                 });
               } else {
-                window.location = data.paymentLink;
+
+                //window.location = data.paymentLink;
                 setTimeout(function () {
                   $("#modal-body").html("");
                   $("#modal-title").html("<font color='green'>Sucesso!</font>")
@@ -1228,6 +1182,8 @@ function tratarError(id) {
             }
           });
       });
+
+    });
 
 
 

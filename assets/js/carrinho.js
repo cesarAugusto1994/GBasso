@@ -5,11 +5,13 @@ function isInt(str) {
 
 function getDataCarrinho(post) {
 
+    var baseUrl;
+
     $.ajax({
 
         type: 'POST',
 
-        url: baseUrl + 'ajax/carrinho/getDataCarrinho',
+        url: '/ajax/carrinho/getDataCarrinho',
 
         data: post,
 
@@ -327,12 +329,54 @@ $('#informarCep').change(function() {
 
 });
 
+$('#shippingAddressPostalCode').load(function() {
+
+    new PNotify({
+        title: 'Aguarde...',
+        text: 'Buscando Valores de Frete',
+        type: 'info',
+        styling: 'fontawesome'
+    });
+
+    var cep = $(this).val();
+
+
+    if ($.trim(cep) != '') {
+
+        var post = 'cep=' + cep;
+
+        getValorFrete2(post);
+
+    }
+});
+
+$('#shippingAddressPostalCode').change(function() {
+
+    new PNotify({
+        title: 'Aguarde...',
+        text: 'Buscando Valores de Frete',
+        type: 'info',
+        styling: 'fontawesome'
+    });
+
+    var cep = $(this).val();
+
+
+    if ($.trim(cep) != '') {
+
+        var post = 'cep=' + cep.replace('-', '');
+
+        getValorFrete2(post);
+
+    }
+});
+
 function getValorFrete2(post) {
     $.ajax({
 
         type: 'POST',
 
-        url: baseUrl + 'ajax/carrinho/getValorFreteCarrinho',
+        url: '/ajax/carrinho/getValorFreteCarrinho',
 
         data: post,
 
@@ -597,7 +641,7 @@ $('.btn-carrinho-relacionados').click(function() {
 
     var qtd = $("#quantity-relacionados-" + $(this).data('item')).val();
 
-    console.log(qtd);
+    //console.log(qtd);
 
     var id = $(this).attr('data-id');
 

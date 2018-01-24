@@ -185,7 +185,7 @@
                 <td class="padding-preco">
                   <span class="visible-phone">Total:</span>
                   <div class="total" data-total="364.8">
-                    <strong class="titulo cor-principal preco-carrinho-total">R$ 364,80</strong>
+                    <strong class="titulo cor-principal preco-carrinho-total">R$ <?= $total; ?></strong>
                   </div>
                 </td>
               </tr>

@@ -75,8 +75,6 @@ $route['admin/ajax/vendas/(.*)']                  =  'ajax/vendas_admin/$1';
 
 $route['ajax/carrinho/(.*)']                      =  'ajax/carrinho_site/$1';
 
-$route['ajax/vendas/pagamentoboleto']       =  'ajax/vendas_admin/pagamentoBoleto';
-
 /** AJAX SITE **/
 $route['ajax/minha/conta/atualizar/usuario']  =   'ajax/usuarios/atualizarUsuario';
 
@@ -96,6 +94,10 @@ $route['compras/carrinho']                    =   'produtos/carrinho';
 $route['compras/precheckout']                =   'produtos/preCheckout';
 
 $route['compras/checkout']                   =   'produtos/checkout';
+
+$route['compras/checkout/pagamentoboleto']   =   'checkout/pagamentoBoleto';
+
+$route['compras/checkout/notificacao']       =   'checkout/notificacao';
 
 $route['compras/session']                    =   'produtos/getSession';
 

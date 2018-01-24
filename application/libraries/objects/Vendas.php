@@ -351,8 +351,8 @@ class Vendas extends db\Querys  {
     * @return VOID
     * @access PUBLIC
     */
-    public function gravarVenda( $status, $valor, $servico, $update = false, $admin = false ) {
-
+    public function gravarVenda( $status, $valor, $servico, $update = false, $admin = false )
+    { 
         //Reset all attr of Querys class
         $this->reset();
 
@@ -400,7 +400,7 @@ class Vendas extends db\Querys  {
             //Grava a venda
             $this->insert( $gravar );
 
-        }else {
+        } else { //echo 'update';
 
             //Remove alguns campos
             unset( $gravar['gatw_id'] );
@@ -419,6 +419,8 @@ class Vendas extends db\Querys  {
             $this->update( $gravar );
 
         }
+
+        return $gravar;
 
     }
 
@@ -561,7 +563,8 @@ class Vendas extends db\Querys  {
     * @return BOOL
     * @access PUBLIC
     */
-    public function getIDVendaPagseguro() {
+    public function getIDVendaPagseguro()
+    {
 
         //Reseta os atributos de Querys
         $this->reset();

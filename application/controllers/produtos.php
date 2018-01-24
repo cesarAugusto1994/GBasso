@@ -120,8 +120,6 @@ class Produtos extends CI_Controller{
 
             $data['body']['info']           =   $this->Produtos->getInfoProdutoView();
 
-            //var_dump( $data['body']['info'] ); exit;
-
             $data['body']["url"]            =   base_url();
 
             $data['body']["id"]             =   $id;
@@ -507,10 +505,6 @@ class Produtos extends CI_Controller{
 
         $data['body']["url"]            =   base_url();
 
-        //var_dump($enderecos);
-
-
-
         $data['body']["enderecoPrincipal"]  =  $enderecoPrincipal;
 
         $data['body']["enderecos"]  =   $enderecos;
@@ -531,26 +525,48 @@ class Produtos extends CI_Controller{
 
     public function getSession()
     {
+        ini_set('display_errors', E_ALL);
+        ini_set('error_reporting', true);
+
+        //try {
+
         $ch = curl_init();
 
-        $urlPagseguro = "http://ws.sandbox.pagseguro.uol.com.br/v2/";
-        $emailPagseguro = "v41547011778302880350@sandbox.pagseguro.com.br";
-        $tokenPagseguro = "56240387G1616477";
-        $urlNotificacao = "http://www.sualoja.com.br/retornopagamento.php";
+        $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
+        #$emailPagseguro = "v41547011778302880350@sandbox.pagseguro.com.br";
+        #$tokenPagseguro = "56240387G1616477";
 
-        $scriptPagseguro = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
+        $emailPagseguro = "cezzaar@gmail.com";
+        $tokenPagseguro = "F103EDB34EC44003885F413C377F3F42";
+        #$urlNotificacao = "http://www.sualoja.com.br/retornopagamento.php";
+        $urlNotificacao = "http://localhost:8089/retornopagamento";
 
-        curl_setopt($ch, CURLOPT_URL, $urlPagseguro . 'sessions?email=' . $emailPagseguro . '&token=' . $tokenPagseguro);
+        //$scriptPagseguro = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
 
+        $formatedUri = $urlPagseguro . 'sessions?email=' . $emailPagseguro . '&token=' . $tokenPagseguro;
+
+        //echo $formatedUri;
+
+        curl_setopt($ch, CURLOPT_URL, $formatedUri);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, true);
 
-        $data = curl_exec($ch);
+        $data = curl_exec ($ch)or die(curl_errno($ch) .': '. curl_error($ch)); 
 
-        $xml = new SimpleXMLElement($data, null, true);
+        if ( ! $data) {
+            print ' ' . curl_errno($ch) .' : '. curl_error($ch);
+        }
+
+
+        $xml = new SimpleXMLElement($data);
 
         echo $xml->id;
         curl_close($ch);
+
+        //} catch(Exception $e) {
+            //echo $e->getMessage();
+        //}
 
         
     }
@@ -587,62 +603,7 @@ class Produtos extends CI_Controller{
         curl_close($ch);
     } 
 
-    public function gerarXmlBoleto($id, $produto, $valor, $nome, $cpf, $ddd, $telefone, $email, $senderHash, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado)
-    {
-        return "<payment>
-        <mode>default</mode>
-        <currency>BRL</currency>
-        <notificationURL>" . $notificationURL . "</notificationURL>
-        <receiverEmail>" . $emailPagseguro . "</receiverEmail>
-        <sender>
-            <hash>". $senderHash . "</hash>
-            <ip>" . $_SERVER['REMOTE_ADDR'] . "</ip>
-            <email>". $email . "</email>
-            <documents>
-            <document>
-                <type>CPF</type>
-                <value>" . $cpf . "</value>
-            </document>
-            </documents>
-            <phone>
-            <areaCode>" . $ddd . "</areaCode>
-            <number>" . $telefone . "</number>
-            </phone>
-            <name>" . $nome . "</name>
-        </sender>
-        <items>
-            <item>
-            <id>" . $id . "</id>
-            <description>" . $produto . "</description>
-            <amount>" . $valor . "</amount>
-            <quantity>1</quantity>
-            </item>
-        </items>
-        <reference>" . $id . "</reference>
-        <shipping>
-            <address>
-            <street>" . $endereco . "</street>
-            <number>" . $numero . "</number>
-            <complement>" . $complemento . "</complement>
-            <district>" . $bairro . "</district>
-            <city>" . $cidade . "</city>
-            <state>" . $estado . "</state>
-            <country>BRA</country>
-            <postalCode>" . $cep . "</postalCode>
-            </address>
-            <type>1</type>
-            <cost>0.00</cost>
-            <addressRequired>true</addressRequired>
-        </shipping>
-        <extraAmount>0.00</extraAmount>
-        <method>boleto</method>
-        <dynamicPaymentMethodMessage>
-            <creditCard>infoEnem</creditCard>
-            <boleto>infoEnem</boleto>
-        </dynamicPaymentMethodMessage>
-        </payment>";
 
-    }
 
     	
 	/**
@@ -726,7 +687,7 @@ class Produtos extends CI_Controller{
 					$this->data['errorList'][] = array('message' => 'Ocorreu um erro ao comunicar com o Pagseguro.' .$e->getCode() . ' - ' .  $e->getMessage());
 				}
 	
-				var_dump($this->data['errorList']);
+    
 			}
 		} else {
 			redirect(base_url('login'));
@@ -740,7 +701,8 @@ class Produtos extends CI_Controller{
 	 * @access public
 	 * @return void
 	 */
-	public function retornoPagamento() {
+	public function retornoPagamento() 
+    {
 		$transaction = false;
 	
 		// Verifica se existe a transação
