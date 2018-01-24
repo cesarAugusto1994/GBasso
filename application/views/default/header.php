@@ -11,7 +11,7 @@
 
     <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/menu-new.css' /> 
 
-    <link rel='stylesheet' type='text/css' href='http://localhost:8089/assets/css/style.css' /> 
+    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/style.css' /> 
 
     <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
 
@@ -100,7 +100,7 @@
                                             <div class="col-md-12">
                                                 Login
                                                 
-                                                <form class="formLogin" method="post" action="http://localhost:8089/ajax/minha/conta/logar">
+                                                <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
                                                         <div class="form-group">
                                                             <label class="sr-only" for="user">E-mail</label>
                                                             <input type="email" class="form-control" name="user" id="user" placeholder="E-mail" required>

@@ -198,7 +198,7 @@
       </div>
 
       
-      <form action="http://localhost:8089/compras/checkout" method="POST" id="formularioCheckout">
+      <form action="http://www.grupobasso.com.br/compras/checkout" method="POST" id="formularioCheckout">
       
         <div class="row-fluid hide" data-recording-disable="">
           <div class="span4">

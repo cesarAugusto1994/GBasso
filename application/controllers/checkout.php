@@ -28,7 +28,9 @@ class Checkout extends CI_Controller{
 
     protected $emailLoja  =  'v41547011778302880350@sandbox.pagseguro.com.br';
 
-    protected $notify     =  'http://localhost:8089/compras/checkout/notificacao';
+    #localhost:8089
+
+    protected $notify     =  'http://www.grupobasso.com.br/compras/checkout/notificacao';
 
     protected $urlPagSeg  =  'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/';
     
@@ -659,7 +661,7 @@ class Checkout extends CI_Controller{
 
         $gateway = 1; 
 
-        $this->finalizarCompra($tpPag, $gateway, $enderecoId, $request['cep'], 1);
+        //$this->finalizarCompra($tpPag, $gateway, $enderecoId, $request['cep'], 1);
 
        } catch(Exception $e) {
            echo $e->getMessage();
@@ -1014,7 +1016,10 @@ class Checkout extends CI_Controller{
         $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
         $emailPagseguro = "cezzaar@gmail.com";
         $tokenPagseguro = "F103EDB34EC44003885F413C377F3F42";
-        $urlNotificacao = "http://localhost:8089/retornopagamento";
+        $urlNotificacao = "http://www.grupobasso.com.br/compras/checkout/notificacao";
+
+        
+        #$urlNotificacao = "http://localhost:8089/retornopagamento";
 
 
         return "<payment>

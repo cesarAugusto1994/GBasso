@@ -539,7 +539,7 @@ class Produtos extends CI_Controller{
         $emailPagseguro = "cezzaar@gmail.com";
         $tokenPagseguro = "F103EDB34EC44003885F413C377F3F42";
         #$urlNotificacao = "http://www.sualoja.com.br/retornopagamento.php";
-        $urlNotificacao = "http://localhost:8089/retornopagamento";
+        $urlNotificacao = "http://www.grupobasso.com.br/retornopagamento";
 
         //$scriptPagseguro = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
 

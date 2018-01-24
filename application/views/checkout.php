@@ -573,7 +573,6 @@
   </div>
 </div>
 
-<!--<script type='text/javascript' src='http://localhost:8089/assets/js/checkout.js'></script> -->
 
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
@@ -1154,7 +1153,7 @@ $("input[type='text']").on('blur', function(e) {
                 //alert(data);
                 $("#modal-title").html("<font color='red'>Erro</font>");
 
-                $("#modal-body").html("");
+                $("#modal-body").html(data.message);
 
                 //console.log(data.error);
                 $.each(data.error, function (index, value) {
@@ -1170,7 +1169,7 @@ $("input[type='text']").on('blur', function(e) {
                 });
               } else {
 
-                //window.location = data.paymentLink;
+                window.location = data.paymentLink;
                 setTimeout(function () {
                   $("#modal-body").html("");
                   $("#modal-title").html("<font color='green'>Sucesso!</font>")
