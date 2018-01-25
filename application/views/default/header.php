@@ -100,7 +100,7 @@
                                             <div class="col-md-12">
                                                 Login
                                                 
-                                                <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
+                                                <form class="formLogin" method="post" action="/ajax/minha/conta/logar">
                                                         <div class="form-group">
                                                             <label class="sr-only" for="user">E-mail</label>
                                                             <input type="email" class="form-control" name="user" id="user" placeholder="E-mail" required>

@@ -353,15 +353,18 @@
           <div id="paymentMethodsOptions">
 
             <div class="field radio">
-              <input id="creditCardRadio" class="form-control" type="radio" name="changePaymentMethod" value="creditCard" checked>Cartão de Crédito</input>
+              <label><input type="radio" id="creditCardRadio" name="changePaymentMethod" value="creditCard">Cartão de Crédito</label>
             </div>
 
             <div class="field radio">
-              <input id="boletoRadio" type="radio" name="changePaymentMethod" value="boleto">Boleto</input>
+              <label><input type="radio" id="boletoRadio" name="changePaymentMethod" value="boleto">Boleto</label>
             </div>
+
 
           </div>
 
+          <br/>
+          <br/>
 
           <div id="creditCardData" class="paymentMethodGroup" dataMethod="creditCard">
 

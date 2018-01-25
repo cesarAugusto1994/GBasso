@@ -58,7 +58,7 @@ class Checkout extends CI_Controller{
         $this->Vendas     =   new objects\Vendas;
 
         if(!$this->Login->checkLogin()) {
-            $this->Essentials->setMessage( 'Faça login para prosseguir', 101);
+            //$this->Essentials->setMessage( 'Faça login para prosseguir', 101);
         }
 
         $this->load->config('pagseguro');
