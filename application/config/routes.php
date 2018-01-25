@@ -91,11 +91,13 @@ $route['produtos/(:num)']                     =   'produtos/index/$1';
 
 $route['compras/carrinho']                    =   'produtos/carrinho';
 
-$route['compras/precheckout']                =   'produtos/preCheckout';
+$route['compras/precheckout']                =   'checkout/preCheckout';
 
-$route['compras/checkout']                   =   'produtos/checkout';
+$route['compras/checkout']                   =   'checkout/checkout';
 
 $route['compras/checkout/pagamentoboleto']   =   'checkout/pagamentoBoleto';
+
+$route['compras/checkout/pagamentocartao']   =   'checkout/pagamentoCartao';
 
 $route['compras/checkout/notificacao']       =   'checkout/notificacao';
 
@@ -110,6 +112,10 @@ $route['minha/conta/compras/detalhes/(:num)'] =   'minha_conta/detalhes_compra/$
 $route['minha/conta/(.*)']                    =   'minha_conta/$1';
 
 $route['minha/conta']                         =   'minha_conta/inicio';
+
+$route['login']                               =   'acesso/login';
+
+$route['conta/logar']                         =   'acesso/logar';
 
 $route['atualizacao/notificacao/pagseguro']   =   'ajax/carrinho_site/notificacao';
 

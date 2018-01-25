@@ -27,24 +27,24 @@
         <tbody>
         <?php
                     $attr = 'disabled';
-                if (count($carrinho) > 0) :
+if (count($carrinho) > 0):
                     $attr = '';
                     $index = 0;
-                    foreach ($carrinho as $key => $value) :
+    foreach ($carrinho as $key => $value):
                 ?>
                   
                 <tr>
                   <td class="phone-pullleft" data-produto-id="24316594" data-produto-quantidade="1">
                     <div class="produto-info">
-                    <a href="<?= $value['link']; ?>" class="cor-secundaria">
-                            <?= $value['prod']; ?>
+	                    <a href="<?=$value['link'];?>" class="cor-secundaria">
+	                            <?=$value['prod'];?>
                         </a>
                       <ul>
                         <li>
                           <span>
                             Referencia:
                             <strong>
-                            <?= $value['refe']; ?>
+	                            <?=$value['refe'];?>
                             </strong>
                           </span>
                         </li>
@@ -53,12 +53,12 @@
                     </div>
                   </td>
                   <td class="conteiner-qtd">
-                    <div><?= $value['qtd']; ?></div>
+	                    <div><?=$value['qtd'];?></div>
                   </td>
                   <td class="conteiner-preco padding-preco">
                     <div class="preco-produto">
                       <strong class="preco-promocional cor-principal">
-                        R$ <?= number_format($value['valor_int'] * $value['qtd'], 2, ',', '.' ); ?>
+	                        R$ <?=number_format($value['valor_int'] * $value['qtd'], 2, ',', '.');?>
                       </strong>
                     </div>
                   </td>
@@ -67,7 +67,7 @@
                 <?php
                     $index++;
                     endforeach;
-                else :
+else:
                         echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
                 endif;
                 ?>
@@ -80,7 +80,7 @@
         <td class="padding-preco">
           <div class="subtotal" data-subtotal="369,90" data-float="369.9">
             <strong class=" cor-principal">
-              R$ <?= $total; ?>
+              R$ <?=$total;?>
             </strong>
           </div>
         </td>
@@ -117,20 +117,18 @@
         </td>
         <td class="padding-preco">
           <!--<span class="visible-phone">Total:</span>-->
-          <div class="total" data-total="<?= $total; ?>">
-            <strong class=" cor-principal preco-carrinho-total">R$ <?= $total; ?></strong>
+          <div class="total" data-total="<?=$total;?>">
+            <strong class=" cor-principal preco-carrinho-total">R$ <span id="totalValue"><?=$total;?></span></strong>
           </div>
         </td>
       </tr>
     </tbody></table>
-    <div class="alert alert-error" id="alertError">
-      <span></span>
-    </div>
+
   </div>
 </div>
 </div>
 
-<form action="https://www.biellissima.com.br/checkout/finalizar" method="POST" id="formularioCheckout">
+<form action="https://localhost:8089/checkout/finalizar" method="POST" id="formularioCheckout">
 
 <div class="row-fluid" style="display: block;">
   <div class="span4">
@@ -211,7 +209,7 @@
               <label class="control-label font-bold" for="shippingAddressPostalCode">CEP</label>
               <div class="controls">
                 <input  id="shippingAddressPostalCodeId" type="hidden" value="<?=$enderecoPrincipal['val']?>">
-                <input autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small" id="shippingAddressPostalCode" value="<?=$enderecoPrincipal['cep']?>" name="shippingAddressPostalCode" spellcheck="false" type="tel" maxlength="9">
+                <input readonly autocapitalize="off" autocomplete="off" autocorrect="off" class="input-small" id="shippingAddressPostalCode" value="<?=$enderecoPrincipal['cep']?>" name="shippingAddressPostalCode" spellcheck="false" type="tel" maxlength="9">
                 <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#modal-enderecos">Meus Endereços</button>
                 <p class="help-block hide">
 
@@ -239,7 +237,7 @@
               <div class="control-group span9 required" style="display: block;">
                 <label class="control-label font-bold" for="shippingAddressStreet">Endereço</label>
                 <div class="controls">
-                  <input class="input-xlarge span12" id="shippingAddressStreet" maxlength="255" value="<?=$enderecoPrincipal['end']?>" name="shippingAddressStreet" type="text">
+                  <input readonly class="input-xlarge span12" id="shippingAddressStreet" maxlength="255" value="<?=$enderecoPrincipal['end']?>" name="shippingAddressStreet" type="text">
                   <p class="help-block hide">
 
                   </p>
@@ -248,7 +246,7 @@
               <div class="control-group span3 required" style="display: block;">
                 <label class="control-label font-bold" for="shippingAddressNumber">Número</label>
                 <div class="controls">
-                  <input class="input-mini span12" id="shippingAddressNumber" maxlength="6" value="<?=$enderecoPrincipal['num']?>" name="shippingAddressNumber" type="text">
+                  <input readonly class="input-mini span12" id="shippingAddressNumber" maxlength="6" value="<?=$enderecoPrincipal['num']?>" name="shippingAddressNumber" type="text">
                   <p class="help-block hide">
 
                   </p>
@@ -259,7 +257,7 @@
               <div class="control-group" style="display: block;">
                 <label class="control-label" for="shippingAddressComplement">Complemento</label>
                 <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['com']?>" class="input-small span12" id="shippingAddressComplement" maxlength="30" name="shippingAddressComplement" spellcheck="false" type="text">
+                  <input readonly autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['com']?>" class="input-small span12" id="shippingAddressComplement" maxlength="30" name="shippingAddressComplement" spellcheck="false" type="text">
                   <p class="help-block hide">
 
                   </p>
@@ -271,7 +269,7 @@
               <div class="control-group span6 required" style="display: block;">
                 <label class="control-label font-bold" for="shippingAddressDistrict">Bairro</label>
                 <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['bai']?>" class="input-medium span12" id="shippingAddressDistrict" maxlength="128" name="shippingAddressDistrict" spellcheck="false" type="text">
+                  <input readonly autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['bai']?>" class="input-medium span12" id="shippingAddressDistrict" maxlength="128" name="shippingAddressDistrict" spellcheck="false" type="text">
                   <p class="help-block hide">
 
                   </p>
@@ -280,7 +278,7 @@
               <div class="control-group span6 required" style="display: block;">
                 <label class="control-label font-bold" for="shippingAddressCity">Cidade</label>
                 <div class="controls">
-                  <input autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['cid']?>" class="input-medium span12" id="shippingAddressCity" maxlength="128" name="shippingAddressCity" spellcheck="false" type="text">
+                  <input readonly autocapitalize="off" autocomplete="off" autocorrect="off" value="<?=$enderecoPrincipal['cid']?>" class="input-medium span12" id="shippingAddressCity" maxlength="128" name="shippingAddressCity" spellcheck="false" type="text">
                   <p class="help-block hide">
 
                   </p>
@@ -291,7 +289,7 @@
               <div class="control-group span6 required" style="display: block;">
                 <label class="control-label font-bold" for="shippingAddressState">Estado</label>
                 <div class="controls">
-                  <select class="span12" id="shippingAddressState" maxlength="2" name="shippingAddressState">
+                  <select readonly class="span12" id="shippingAddressState" maxlength="2" name="shippingAddressState">
                     <option value="AC" <?=$enderecoPrincipal['est'] == 'AC' ? 'selected' : ''?>>Acre</option>
                     <option value="AL">Alagoas</option>
                     <option value="AP">Amapá</option>
@@ -491,7 +489,7 @@
 
           <center>
             <div id="boletoData" name="boletoData" class="paymentMethodGroup" dataMethod="boleto">
-              <button type="button" id="boletoButton" value="Gerar Boleto" class="btn btn-primary btn-block" />Gerar Boleto</button>
+              <a id="boletoButton" target="_blank" class="btn btn-primary btn-block" />Gerar Boleto</a>
             </div>
 
             <br />
@@ -517,7 +515,7 @@
                  <h4 class="modal-title">Escolha um Endereço</h4>
              </div>
              <div class="modal-body">
-                 <table class="table table-border table-responsive table-hover">
+                 <table class="table table-responsive table-hover">
                    <thead>
                     <tr>
                       <th>Cep</th>
@@ -579,16 +577,16 @@
 
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
-<script> //Máscaras dos inputs
-  jQuery(function($){
+<script>
+
+
+  $(document).ready(function() {
+
   $("#creditCardHolderBirthDate").mask("99/99/9999");
   $("#senderCPF").mask("999.999.999-99");
   $("#creditCardHolderCPF").mask("999.999.999-99");
   $("#shippingAddressPostalCode").mask("99999-999");
   $("#billingAddressPostalCode").mask("99999-999");
-  });
-
-  $(document).ready(function() {
 
     var cep = $('#shippingAddressPostalCode').val();
 
@@ -616,31 +614,6 @@
 
 <script>
 
-$("input[name='changePaymentMethod']").on('click', function(e) {
-    if (e.currentTarget.value == 'creditCard') {
-      $('#boletoData').css('display', 'none');
-      $('#creditCardData').css('display', 'block');
-    } else if (e.currentTarget.value == 'boleto') {
-      $('#creditCardData').css('display', 'none');
-      $('#boletoData').css('display', 'block');
-    }
-});
-
-$("input[name='holderType']").on('click', function(e) {
-    if (e.currentTarget.value == 'sameHolder') {
-      $('#dadosOtherPagador').css('display', 'none');
-      ReInserir();
-    } else if (e.currentTarget.value == 'otherHolder') {
-      $('#dadosOtherPagador').css('display', 'block');
-    }
-});
-
-$("input[type='text']").on('blur', function(e) {
-    if ( ( $("#" + e.currentTarget.id).css('border') == '2px solid rgb(255, 0, 0)') || ($("#" + e.currentTarget.id).css('border') == '2px solid red' ) ) {
-      $("#" + e.currentTarget.id).css('border', '1px solid #999');
-    }
-});
-
   function ReInserir() {
         $("#creditCardHolderName").val($("#senderName").val());
         $("#creditCardHolderCPF").val($("#senderCPF").val());
@@ -659,11 +632,173 @@ $("input[type='text']").on('blur', function(e) {
 
 <script>
 
-  function parcelasDisponiveis() {
-    PagSeguroDirectPayment.getInstallments({
-      amount: (($("#totalValue").html()).replace(",", ".")),
+
+  function showModal() {
+      $("#modal-title").html("Aguarde");
+      $("#modal-body").html("");
+      $("#aguarde").modal("show");
+  }
+
+  function pagarCartao(senderHash) {
+    showModal();
+
+    PagSeguroDirectPayment.createCardToken({
+
+      cardNumber: $("#cardNumber").val(),
       brand: $("#creditCardBrand").val(),
-      maxInstallmentNoInterest: 2,
+      cvv: $("#cardCvv").val(),
+      expirationMonth: $("#cardExpirationMonth").val(),
+      expirationYear: $("#cardExpirationYear").val(),
+
+      success: function (response) {
+        $("#creditCardToken").val(response.card.token);
+      },
+      error: function (response) {
+        if (response.error) {
+          $("#modal-title").html("<font color='red'>Erro</font>");
+
+          $("#modal-body").html("");
+          //console.log("4" + response);
+          $.each(response.errors, function (index, value) {
+            //console.log(value);
+            tratarError(value);
+          });
+        }
+      },
+      complete: function (response) {
+
+      }
+
+    });
+
+
+    $.ajax({
+      type: 'POST',
+      url: '/compras/checkout/pagamentocartao',
+      cache: false,
+      data: {
+        id: $("#session_id_field").val(),
+        email: $("#senderEmail").val(),
+        nome: $("#senderName").val(),
+        cpf: $("#senderCPF").val(),
+        ddd: $("#senderAreaCode").val(),
+        telefone: $("#senderPhone").val(),
+        cep: $("#shippingAddressPostalCode").val(),
+        endereco: $("#shippingAddressStreet").val(),
+        numero: $("#shippingAddressNumber").val(),
+        complemento: $("#shippingAddressComplement").val(),
+        bairro: $("#shippingAddressDistrict").val(),
+        cidade: $("#shippingAddressCity").val(),
+        estado: $("#shippingAddressState").val(),
+        pais: "BRA",
+        senderHash: senderHash,
+
+        enderecoPagamento: $("#billingAddressStreet").val(),
+        numeroPagamento: $("#billingAddressNumber").val(),
+        complementoPagamento: $("#billingAddressComplement").val(),
+        bairroPagamento: $("#billingAddressDistrict").val(),
+        cepPagamento: $("#billingAddressPostalCode").val(),
+        cidadePagamento: $("#billingAddressCity").val(),
+        estadoPagamento: $("#billingAddressState").val(),
+        cardToken: $("#creditCardToken").val(),
+        cardNome: $("#creditCardHolderName").val(),
+        cardCPF: $("#creditCardHolderCPF").val(),
+        cardNasc: $("#creditCardHolderBirthDate").val(),
+        cardFoneArea: $("#creditCardHolderAreaCode").val(),
+        cardFoneNum: $("#creditCardHolderPhone").val(),
+
+        numParcelas: $("#installmentQuantity").val(),
+        valorParcelas: $("#installmentValue").val(),
+
+        tpPag: 1,
+        enderecoId: $("#shippingAddressPostalCodeId").val()
+      },
+      success: function(data) {
+        //console.log(data);
+        if (data.error) {
+          if (data.error.code == "53037") {
+            $("#creditCardPaymentButton").click();
+          } else {
+            $("#modal-title").html("<font color='red'>Erro</font>");
+
+            $("#modal-body").html("");
+            $.each(data.error, function (index, value) {
+              if (value.code) {
+                tratarError(value.code);
+
+              } else {
+                tratarError(data.error.code)
+              }
+            })
+            //console.log("2 " + data);
+          }
+        } else {
+
+
+          $.ajax({
+            type: 'POST',
+            url: '/compras/session',
+            cache: false,
+            data: {
+              id: data.code,
+            },
+            success: function(status) {
+
+              if (status == "7") {
+                //alert(data);
+                $("#modal-title").html("<font color='red'>Erro</font>");
+
+                $("#modal-body").html("Erro ao processar o seu pagamento.<br/> Não se preocupe pois esse valor <b>não será debitado de sua conta ou não constará em sua fatura</b><br /><br />Verifique se você possui limite suficiente para efetuar a transação e/ou tente um cartão diferente");
+
+              } else {
+                //window.location = "http://download.infoenem.com.br/pagamento-efetuado/";
+                setTimeout(function () {
+                  $("#modal-body").html("");
+                  $("#modal-title").html("<font color='green'>Sucesso!</font>")
+
+                  $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='#'><center><button class='btn-success btn-block btn-lg'>Ir para a página de minhas compras</button></center></a>");
+                }, 1500);
+              }
+
+            }
+          });
+
+
+          //console.log("1 " + data);
+        }
+
+        }
+
+    });
+
+  }
+
+</script>
+
+<script>
+    $(document).ready(function() {
+
+      $('.endereco-item').click(function() {
+          $("#shippingAddressPostalCodeId").val($(this).data('cep-id'))
+          $("#shippingAddressPostalCode").val($(this).data('cep'))
+          $("#shippingAddressStreet").val($(this).data('end'))
+          $("#shippingAddressDistrict").val($(this).data('bai'))
+          $("#shippingAddressNumber").val($(this).data('num'))
+          $("#shippingAddressComplement").val($(this).data('com'))
+          $("#shippingAddressCity").val($(this).data('cid'))
+          $("#shippingAddressState").val($(this).data('est'))
+          $('#modal-enderecos').modal('hide');
+      });
+
+      $('#cardNumber').blur(function() {
+        brandCard();
+      });
+
+      function parcelasDisponiveis() {
+        PagSeguroDirectPayment.getInstallments({
+        amount: (($("#totalValue").html()).replace(",", ".")),
+        brand: $("#creditCardBrand").val(),
+        maxInstallmentNoInterest: 2,
 
       success: function(response) {
         //console.log(response.installments);
@@ -689,7 +824,7 @@ $("input[type='text']").on('blur', function(e) {
       },
 
       error: function(response) {
-        //console.log(response);
+        console.log(response);
       },
 
       complete: function(response) {
@@ -743,143 +878,133 @@ $("input[type='text']").on('blur', function(e) {
 
   }
 
-  function showModal() {
-      $("#modal-title").html("Aguarde");
-      $("#modal-body").html("");
-      $("#aguarde").modal("show");
+
+  function tratarError(id) {
+    if (id.charAt(0) == '2') id = id.substr(1);
+    if (id == "53020" || id == '53021') {
+      $("#modal-body").append("<p>Verifique telefone inserido</p>");
+      $("#senderPhone").css('border', '2px solid red');
+
+    } else if (id == "53010" || id == '53011' || id == '53012') {
+      $("#modal-body").append("<p>Verifique o e-mail inserido</p>");
+      $("#senderEmail").css('border', '2px solid red');
+
+    } else if (id == "53017") {
+      $("#modal-body").append("<p>Verifique o CPF inserido</p>");
+      $("#senderCPF").css('border', '2px solid red');
+
+    } else if (id == "53018" || id == "53019") {
+      $("#modal-body").append("<p>Verifique o DDD inserido</p>");
+      $("#senderAreaCode").css('border', '2px solid red');
+
+    } else if (id == "53013" || id == '53014' || id == '53015') {
+      $("#modal-body").append("<p>Verifique o nome inserido</p>");
+      $("#senderName").css('border', '2px solid red');
+
+    } else if (id == "53029" || id == '53030') {
+      $("#modal-body").append("<p>Verifique o bairro inserido</p>");
+      $("#shippingAddressDistrict").css('border', '2px solid red');
+
+    } else if (id == "53022" || id == '53023') {
+      $("#modal-body").append("<p>Verifique o CEP inserido</p>");
+      $("#shippingAddressPostalCode").css('border', '2px solid red');
+
+    } else if (id == "53024" || id == '53025') {
+      $("#modal-body").append("<p>Verifique a rua inserido</p>");
+      $("#shippingAddressStreet").css('border', '2px solid red');
+
+    } else if (id == "53026" || id == '53027') {
+      $("#modal-body").append("<p>Verifique o número inserido</p>");
+      $("#shippingAddressNumber").css('border', '2px solid red');
+
+    } else if (id == "53033" || id == '53034') {
+      $("#modal-body").append("<p>Verifique o estado inserido</p>");
+      $("#shippingAddressState").css('border', '2px solid red');
+
+    } else if (id == "53031" || id == '53032') {
+      $("#modal-body").append("<p>Verifique a cidade informada</p>");
+      $("#shippingAddressCity").css('border', '2px solid red');
+
+    } else if (id == '10001') {
+      $("#modal-body").append("<p>Verifique o número do cartão inserido</p>");
+      $("#cardNumber").css('border', '2px solid red');
+
+    } else if (id == '10002' || id == '30405') {
+      $("#modal-body").append("<p>Verifique a data de validade do cartão inserido</p>");
+      $("#cardExpirationMonth").css('border', '2px solid red');
+      $("#cardExpirationYear").css('border', '2px solid red');
+
+    } else if (id == '10004') {
+      $("#modal-body").append("<p>É obrigatorio informar o código de segurança, que se encontra no verso, do cartão</p>");
+      $("#cardCvv").css('border', '2px solid red');
+
+    } else if (id == '10006' || id == '10003' || id == '53037') {
+      $("#modal-body").append("<p>Verifique o código de segurança do cartão informado</p>");
+      $("#cardCvv").css('border', '2px solid red');
+
+    } else if (id == '30404') {
+      $("#modal-body").append("<p>Ocorreu um erro. Atualize a página e tente novamente!</p>");
+
+    } else if (id == '53047') {
+      $("#modal-body").append("<p>Verifique a data de nascimento do titular do cartão informada</p>");
+      $("#creditCardHolderBirthDate").css('border', '2px solid red');
+
+    } else if (id == '53053' || id == '53054') {
+      $("#modal-body").append("<p>Verifique o CEP inserido</p>");
+      $("#billingAddressPostalCode").css('border', '2px solid red');
+
+    } else if (id == '53055' || id == '53056') {
+      $("#modal-body").append("<p>Verifique a rua inserido</p>");
+      $("#billingAddressStreet").css('border', '2px solid red');
+
+    } else if (id == '53042' || id == '53043' || id == '53044') {
+      $("#modal-body").append("<p>Verifique o nome inserido</p>");
+      $("#creditCardHolderName").css('border', '2px solid red');
+
+    } else if (id == '53057' || id == '53058') {
+      $("#modal-body").append("<p>Verifique o número inserido</p>");
+      $("#billingAddressNumber").css('border', '2px solid red');
+
+    } else if (id == '53062' || id == '53063') {
+      $("#modal-body").append("<p>Verifique a cidade informada</p>");
+      $("#billingAddressCity").css('border', '2px solid red');
+
+    } else if (id == '53045' || id == '53046') {
+      $("#modal-body").append("<p>Verifique o CPF inserido</p>");
+      $("#creditCardHolderCPF").css('border', '2px solid red');
+
+    } else if (id == '53060' || id == '53061') {
+      $("#modal-body").append("<p>Verifique o bairro inserido</p>");
+      $("#billingAddressDistrict").css('border', '2px solid red');
+
+    } else if (id == '53064' || id == '53065') {
+      $("#modal-body").append("<p>Verifique o estado inserido</p>");
+      $("#billingAddressState").css('border', '2px solid red');
+
+    } else if (id == '53051' || id == '53052') {
+      $("#modal-body").append("<p>Verifique telefone inserido</p>");
+      $("#billingAddressState").css('border', '2px solid red');
+
+    } else if (id == '53049' || id == '53050') {
+      $("#modal-body").append("<p>Verifique o código de área informado</p>");
+      $("#creditCardHolderAreaCode").css('border', '2px solid red');
+
+    } else if (id == '53122') {
+      $("#modal-body").append("<p>Enquanto na sandbox do PagSeguro, o e-mail deve ter o domínio '@sandbox.pagseguro.com.br' (ex.: comprador@sandbox.pagseguro.com.br)</p>");
+
+    }
+
+    // else {
+    //   $("#modal-body").append("<p>"+ id + "</p>");
+    // }
   }
 
-  //#'{url}compras/carrinho/finalizar/compra';
-
-  function pagarBoleto(senderHash) {
-    
-    showModal();
-    $.ajax({
-      type: 'POST',
-      url: '/ajax/vendas/pagamentoboleto',
-      cache: false,
-      data: {
-        id: $("#session_id_field").val(),
-        email: $("#senderEmail").val(),
-        nome: $("#senderName").val(),
-        cpf: $("#senderCPF").val(),
-        ddd: $("#senderAreaCode").val(),
-        telefone: $("#senderPhone").val(),
-        cep: $("#shippingAddressPostalCode").val(),
-        endereco: $("#shippingAddressStreet").val(),
-        numero: $("#shippingAddressNumber").val(),
-        complemento: $("#shippingAddressComplement").val(),
-        bairro: $("#shippingAddressDistrict").val(),
-        cidade: $("#shippingAddressCity").val(),
-        estado: $("#shippingAddressState").val(),
-        pais: "BRA",
-        senderHash: senderHash,
-      },
-      success: function(data) {
-
-        if (!(data.paymentLink)) {
-          //alert(data);
-          $("#modal-title").html("<font color='red'>Erro</font>");
-
-          $("#modal-body").html("");
-          //console.log(data.error);
-          $.each(data.error, function (index, value) {
-            if (value.code) {
-              //console.log("6 " + value.code);
-              tratarError(value.code);
-            } else {
-              //console.log("7 " + data.error);
-              tratarError(data.error.code);
-            }
-
-          });
-        } else {
-
-              $.ajax({
-                  type: 'POST',
-                  url: '{url}compras/carrinho/finalizar/compra',
-                  cache: false,
-                  data: {
-                    id: $("#session_id_field").val(),
-                    email: $("#senderEmail").val(),
-                    nome: $("#senderName").val(),
-                    cpf: $("#senderCPF").val(),
-                    ddd: $("#senderAreaCode").val(),
-                    telefone: $("#senderPhone").val(),
-                    cep: $("#shippingAddressPostalCode").val(),
-                    endereco: $("#shippingAddressStreet").val(),
-                    numero: $("#shippingAddressNumber").val(),
-                    complemento: $("#shippingAddressComplement").val(),
-                    bairro: $("#shippingAddressDistrict").val(),
-                    cidade: $("#shippingAddressCity").val(),
-                    estado: $("#shippingAddressState").val(),
-                    pais: "BRA",
-                    senderHash: senderHash,
-                  },
-                  success: function(data) {
-
-                    console.log(data)
-
-                     /*setTimeout(function (data) {
-                        $("#modal-body").html("");
-                        $("#modal-title").html("<font color='red'>Erro!</font>")
-
-                        $("#modal-body").html(data);
-                      }, 3500);,*/
-
-                  }
-                });
-
-          //window.location = data.paymentLink;
-          setTimeout(function () {
-            $("#modal-body").html("");
-            $("#modal-title").html("<font color='green'>Sucesso!</font>")
-
-            $("#modal-body").html("Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.<br /><br /><a href='" + data.paymentLink + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
-          }, 3500);
-        }
-
-      }
-    });
-
-  }
-
-    function pagarCartao(senderHash) {
+  $('#boletoButton').click(function() {
+    //alert('clicado')
       showModal();
-
-      PagSeguroDirectPayment.createCardToken({
-
-        cardNumber: $("#cardNumber").val(),
-        brand: $("#creditCardBrand").val(),
-        cvv: $("#cardCvv").val(),
-        expirationMonth: $("#cardExpirationMonth").val(),
-        expirationYear: $("#cardExpirationYear").val(),
-
-        success: function (response) {
-          $("#creditCardToken").val(response.card.token);
-        },
-        error: function (response) {
-          if (response.error) {
-            $("#modal-title").html("<font color='red'>Erro</font>");
-
-            $("#modal-body").html("");
-            //console.log("4" + response);
-            $.each(response.errors, function (index, value) {
-              //console.log(value);
-              tratarError(value);
-            });
-          }
-        },
-        complete: function (response) {
-
-        }
-
-      });
-
-
       $.ajax({
         type: 'POST',
-        url: 'pagamentoCartao.php',
+        url: '/compras/checkout/pagamentoboleto',
         cache: false,
         data: {
           id: $("#session_id_field").val(),
@@ -896,298 +1021,104 @@ $("input[type='text']").on('blur', function(e) {
           cidade: $("#shippingAddressCity").val(),
           estado: $("#shippingAddressState").val(),
           pais: "BRA",
-          senderHash: senderHash,
-
-          enderecoPagamento: $("#billingAddressStreet").val(),
-          numeroPagamento: $("#billingAddressNumber").val(),
-          complementoPagamento: $("#billingAddressComplement").val(),
-          bairroPagamento: $("#billingAddressDistrict").val(),
-          cepPagamento: $("#billingAddressPostalCode").val(),
-          cidadePagamento: $("#billingAddressCity").val(),
-          estadoPagamento: $("#billingAddressState").val(),
-          cardToken: $("#creditCardToken").val(),
-          cardNome: $("#creditCardHolderName").val(),
-          cardCPF: $("#creditCardHolderCPF").val(),
-          cardNasc: $("#creditCardHolderBirthDate").val(),
-          cardFoneArea: $("#creditCardHolderAreaCode").val(),
-          cardFoneNum: $("#creditCardHolderPhone").val(),
-
-          numParcelas: $("#installmentQuantity").val(),
-          valorParcelas: $("#installmentValue").val(),
-
+          senderHash: PagSeguroDirectPayment.getSenderHash(),
+          tpPag: 2,
+          gateway: 1,
+          enderecoId: $("#shippingAddressPostalCodeId").val()
         },
         success: function(data) {
-          //console.log(data);
-          if (data.error) {
-            if (data.error.code == "53037") {
-              $("#creditCardPaymentButton").click();
-            } else {
-              $("#modal-title").html("<font color='red'>Erro</font>");
 
-              $("#modal-body").html("");
-              $.each(data.error, function (index, value) {
-                if (value.code) {
-                  tratarError(value.code);
+          console.log(data);
 
-                } else {
-                  tratarError(data.error.code)
-                }
-              })
-              //console.log("2 " + data);
-            }
+          if (!(data.paymentLink)) {
+            //alert(data);
+            $("#modal-title").html("<font color='red'>Erro</font>");
+
+            $("#modal-body").html(data.message);
+
+            //console.log(data.error);
+            $.each(data.error, function (index, value) {
+
+              if (value.code) {
+                //console.log("6 " + value.code);
+                tratarError(value.code);
+              } else {
+                //console.log("7 " + data.error);
+                tratarError(data.error.code);
+              }
+
+            });
           } else {
 
-
-            $.ajax({
+              $.ajax({
               type: 'POST',
-              url: 'getStatus.php',
+              url: '{url}compras/carrinho/finalizar/compra',
               cache: false,
               data: {
-                id: data.code,
+                id: $("#session_id_field").val(),
+                email: $("#senderEmail").val(),
+                nome: $("#senderName").val(),
+                cpf: $("#senderCPF").val(),
+                ddd: $("#senderAreaCode").val(),
+                telefone: $("#senderPhone").val(),
+                cep: $("#shippingAddressPostalCode").val(),
+                endereco: $("#shippingAddressStreet").val(),
+                numero: $("#shippingAddressNumber").val(),
+                complemento: $("#shippingAddressComplement").val(),
+                bairro: $("#shippingAddressDistrict").val(),
+                cidade: $("#shippingAddressCity").val(),
+                estado: $("#shippingAddressState").val(),
+                pais: "BRA",
+                senderHash: senderHash,
               },
-              success: function(status) {
+              success: function(data2) {
 
-                if (status == "7") {
-                  //alert(data);
-                  $("#modal-title").html("<font color='red'>Erro</font>");
+                console.log(data2)
 
-                  $("#modal-body").html("Erro ao processar o seu pagamento.<br/> Não se preocupe pois esse valor <b>não será debitado de sua conta ou não constará em sua fatura</b><br /><br />Verifique se você possui limite suficiente para efetuar a transação e/ou tente um cartão diferente");
-
-                } else {
-                  window.location = "http://download.infoenem.com.br/pagamento-efetuado/";
-                  setTimeout(function () {
-                    $("#modal-body").html("");
-                    $("#modal-title").html("<font color='green'>Sucesso!</font>")
-
-                    $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='http://download.infoenem.com.br/pagamento-efetuado/'><center><button class='btn-success btn-block btn-lg'>Ir para a página de instruções</button></center></a>");
-                  }, 1500);
-                }
+                window.location = data.paymentLink;
 
               }
             });
 
+            
+            setTimeout(function () {
+              $("#modal-body").html("");
+              $("#modal-title").html("<font color='green'>Sucesso!</font>")
 
-            //console.log("1 " + data);
+              $("#modal-body").html("Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.<br /><br /><a href='" + data.paymentLink + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
+            }, 3500);
           }
-
-          }
-
-      });
-
-    }
-
-
-
-</script>
-
-<script>
-    $(document).ready(function() {
-
-      //PagSeguroDirectPayment.setSessionId('sessao');
-
-      //PagSeguroDirectPayment.getPaymentMethods({});});
-
-      $('.endereco-item').click(function() {
-          $("#shippingAddressPostalCodeId").val($(this).data('cep-id'))
-          $("#shippingAddressPostalCode").val($(this).data('cep'))
-          $("#shippingAddressStreet").val($(this).data('end'))
-          $("#shippingAddressDistrict").val($(this).data('bai'))
-          $("#shippingAddressNumber").val($(this).data('num'))
-          $("#shippingAddressComplement").val($(this).data('com'))
-          $("#shippingAddressCity").val($(this).data('cid'))
-          $("#shippingAddressState").val($(this).data('est'))
-          $('#modal-enderecos').modal('hide');
-      });
-
-      $('#creditCardBrand').blur(function() {
-        brandCard();
-      });
-
-      function tratarError(id) {
-        if (id.charAt(0) == '2') id = id.substr(1);
-        if (id == "53020" || id == '53021') {
-          $("#modal-body").append("<p>Verifique telefone inserido</p>");
-          $("#senderPhone").css('border', '2px solid red');
-
-        } else if (id == "53010" || id == '53011' || id == '53012') {
-          $("#modal-body").append("<p>Verifique o e-mail inserido</p>");
-          $("#senderEmail").css('border', '2px solid red');
-
-        } else if (id == "53017") {
-          $("#modal-body").append("<p>Verifique o CPF inserido</p>");
-          $("#senderCPF").css('border', '2px solid red');
-
-        } else if (id == "53018" || id == "53019") {
-          $("#modal-body").append("<p>Verifique o DDD inserido</p>");
-          $("#senderAreaCode").css('border', '2px solid red');
-
-        } else if (id == "53013" || id == '53014' || id == '53015') {
-          $("#modal-body").append("<p>Verifique o nome inserido</p>");
-          $("#senderName").css('border', '2px solid red');
-
-        } else if (id == "53029" || id == '53030') {
-          $("#modal-body").append("<p>Verifique o bairro inserido</p>");
-          $("#shippingAddressDistrict").css('border', '2px solid red');
-
-        } else if (id == "53022" || id == '53023') {
-          $("#modal-body").append("<p>Verifique o CEP inserido</p>");
-          $("#shippingAddressPostalCode").css('border', '2px solid red');
-
-        } else if (id == "53024" || id == '53025') {
-          $("#modal-body").append("<p>Verifique a rua inserido</p>");
-          $("#shippingAddressStreet").css('border', '2px solid red');
-
-        } else if (id == "53026" || id == '53027') {
-          $("#modal-body").append("<p>Verifique o número inserido</p>");
-          $("#shippingAddressNumber").css('border', '2px solid red');
-
-        } else if (id == "53033" || id == '53034') {
-          $("#modal-body").append("<p>Verifique o estado inserido</p>");
-          $("#shippingAddressState").css('border', '2px solid red');
-
-        } else if (id == "53031" || id == '53032') {
-          $("#modal-body").append("<p>Verifique a cidade informada</p>");
-          $("#shippingAddressCity").css('border', '2px solid red');
-
-        } else if (id == '10001') {
-          $("#modal-body").append("<p>Verifique o número do cartão inserido</p>");
-          $("#cardNumber").css('border', '2px solid red');
-
-        } else if (id == '10002' || id == '30405') {
-          $("#modal-body").append("<p>Verifique a data de validade do cartão inserido</p>");
-          $("#cardExpirationMonth").css('border', '2px solid red');
-          $("#cardExpirationYear").css('border', '2px solid red');
-
-        } else if (id == '10004') {
-          $("#modal-body").append("<p>É obrigatorio informar o código de segurança, que se encontra no verso, do cartão</p>");
-          $("#cardCvv").css('border', '2px solid red');
-
-        } else if (id == '10006' || id == '10003' || id == '53037') {
-          $("#modal-body").append("<p>Verifique o código de segurança do cartão informado</p>");
-          $("#cardCvv").css('border', '2px solid red');
-
-        } else if (id == '30404') {
-          $("#modal-body").append("<p>Ocorreu um erro. Atualize a página e tente novamente!</p>");
-
-        } else if (id == '53047') {
-          $("#modal-body").append("<p>Verifique a data de nascimento do titular do cartão informada</p>");
-          $("#creditCardHolderBirthDate").css('border', '2px solid red');
-
-        } else if (id == '53053' || id == '53054') {
-          $("#modal-body").append("<p>Verifique o CEP inserido</p>");
-          $("#billingAddressPostalCode").css('border', '2px solid red');
-
-        } else if (id == '53055' || id == '53056') {
-          $("#modal-body").append("<p>Verifique a rua inserido</p>");
-          $("#billingAddressStreet").css('border', '2px solid red');
-
-        } else if (id == '53042' || id == '53043' || id == '53044') {
-          $("#modal-body").append("<p>Verifique o nome inserido</p>");
-          $("#creditCardHolderName").css('border', '2px solid red');
-
-        } else if (id == '53057' || id == '53058') {
-          $("#modal-body").append("<p>Verifique o número inserido</p>");
-          $("#billingAddressNumber").css('border', '2px solid red');
-
-        } else if (id == '53062' || id == '53063') {
-          $("#modal-body").append("<p>Verifique a cidade informada</p>");
-          $("#billingAddressCity").css('border', '2px solid red');
-
-        } else if (id == '53045' || id == '53046') {
-          $("#modal-body").append("<p>Verifique o CPF inserido</p>");
-          $("#creditCardHolderCPF").css('border', '2px solid red');
-
-        } else if (id == '53060' || id == '53061') {
-          $("#modal-body").append("<p>Verifique o bairro inserido</p>");
-          $("#billingAddressDistrict").css('border', '2px solid red');
-
-        } else if (id == '53064' || id == '53065') {
-          $("#modal-body").append("<p>Verifique o estado inserido</p>");
-          $("#billingAddressState").css('border', '2px solid red');
-
-        } else if (id == '53051' || id == '53052') {
-          $("#modal-body").append("<p>Verifique telefone inserido</p>");
-          $("#billingAddressState").css('border', '2px solid red');
-
-        } else if (id == '53049' || id == '53050') {
-          $("#modal-body").append("<p>Verifique o código de área informado</p>");
-          $("#creditCardHolderAreaCode").css('border', '2px solid red');
-
-        } else if (id == '53122') {
-          $("#modal-body").append("<p>Enquanto na sandbox do PagSeguro, o e-mail deve ter o domínio '@sandbox.pagseguro.com.br' (ex.: comprador@sandbox.pagseguro.com.br)</p>");
 
         }
-
-        // else {
-        //   $("#modal-body").append("<p>"+ id + "</p>");
-        // }
-      }
-
-      $('#boletoButton').click(function() {
-        //alert('clicado')
-          showModal();
-          $.ajax({
-            type: 'POST',
-            url: '/compras/checkout/pagamentoboleto',
-            cache: false,
-            data: {
-              id: $("#session_id_field").val(),
-              email: $("#senderEmail").val(),
-              nome: $("#senderName").val(),
-              cpf: $("#senderCPF").val(),
-              ddd: $("#senderAreaCode").val(),
-              telefone: $("#senderPhone").val(),
-              cep: $("#shippingAddressPostalCode").val(),
-              endereco: $("#shippingAddressStreet").val(),
-              numero: $("#shippingAddressNumber").val(),
-              complemento: $("#shippingAddressComplement").val(),
-              bairro: $("#shippingAddressDistrict").val(),
-              cidade: $("#shippingAddressCity").val(),
-              estado: $("#shippingAddressState").val(),
-              pais: "BRA",
-              senderHash: PagSeguroDirectPayment.getSenderHash(),
-              tpPag: 2,
-              gateway: 1,
-              enderecoId: $("#shippingAddressPostalCodeId").val()
-            },
-            success: function(data) {
-
-              if (!(data.paymentLink)) {
-                //alert(data);
-                $("#modal-title").html("<font color='red'>Erro</font>");
-
-                $("#modal-body").html(data.message);
-
-                //console.log(data.error);
-                $.each(data.error, function (index, value) {
-
-                  if (value.code) {
-                    //console.log("6 " + value.code);
-                    tratarError(value.code);
-                  } else {
-                    //console.log("7 " + data.error);
-                    tratarError(data.error.code);
-                  }
-
-                });
-              } else {
-
-                window.location = data.paymentLink;
-                setTimeout(function () {
-                  $("#modal-body").html("");
-                  $("#modal-title").html("<font color='green'>Sucesso!</font>")
-
-                  $("#modal-body").html("Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.<br /><br /><a href='" + data.paymentLink + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
-                }, 3500);
-              }
-
-            }
-          });
       });
+  });
 
-    });
+  $("input[name='changePaymentMethod']").on('click', function(e) {
+      if (e.currentTarget.value == 'creditCard') {
+        $('#boletoData').css('display', 'none');
+        $('#creditCardData').css('display', 'block');
+      } else if (e.currentTarget.value == 'boleto') {
+        $('#creditCardData').css('display', 'none');
+        $('#boletoData').css('display', 'block');
+      }
+  });
 
+  $("input[name='holderType']").on('click', function(e) {
+      if (e.currentTarget.value == 'sameHolder') {
+        $('#dadosOtherPagador').css('display', 'none');
+        ReInserir();
+      } else if (e.currentTarget.value == 'otherHolder') {
+        $('#dadosOtherPagador').css('display', 'block');
+      }
+  });
 
+  $("input[type='text']").on('blur', function(e) {
+      if ( ( $("#" + e.currentTarget.id).css('border') == '2px solid rgb(255, 0, 0)') || ($("#" + e.currentTarget.id).css('border') == '2px solid red' ) ) {
+        $("#" + e.currentTarget.id).css('border', '1px solid #999');
+      }
+  });
+
+});
 
 </script>
 

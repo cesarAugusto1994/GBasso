@@ -301,7 +301,9 @@
         <div class="acao-editar row-fluid">
             <div class="span12">
                 <a href="/" class="botao">Continuar comprando</a>
-                <?php if($logado): ?>
+                <?php if(1==1): ?>
+                    <a href="/compras/precheckout" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
+                <?php elseif($logado): ?>
                     <button type="button" class="botao principal grande finalizarCompra"><i class="icon-ok"></i>Finalizar compra</button>
                 <?php else: ?>
                     <a href="/minha/conta/login?redirect=http://www.grupobasso.com.br/compras/carrinho" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>

@@ -1,6 +1,12 @@
 <div class="conteiner">
           
+
+          
+
+          
             <div class="secao-principal row-fluid sem-coluna">
+              
+
               
   <div class="campos-pedido">
     <div class="cabecalho-interno row-fluid hide">
@@ -13,25 +19,36 @@
 
     <div class="campos-pedido">
 
-      
-
-    
       <div id="login-content" class="">
         <div class="row-fluid identificacao">
           <div class="span12">
             <hr class="sem-margem">
             <div class="identificacao-inner">
-              <h3 class="identificacao-title">Para continuar, informe seu e-mail</h3>
-              <form action="/login" method="post" id="formularioLogin">
+              <h3 class="identificacao-title">Se já possui cadastro basta acessar com o seu usuário e senha.</h3>
+              <form action="{url}ajax/minha/conta/logar" method="post" class="formLoginCheckout" id="formLoginCheckout">
                 <div class="form-horizontal">
                   <div class="control-group">
                     <div class="email-box">
                       <label for="id_email" class="control-label hide">E-mail</label>
-                      <input type="text" name="email" id="id_email_login" autocomplete="email" placeholder="meu@email.com.br">
+                      <input type="text" name="user" id="email" autocomplete="email" value="<?= $email; ?>" required placeholder="meu@email.com.br">
                     </div>
-                    <button type="submit" class="submit-email botao principal grande">Continuar</button>
                   </div>
-                
+                  <div class="login-data">
+                    <div class="control-group">
+                      <button type="submit" id="id_botao_login" class="botao principal" data-loading-text="<i class='icon-refresh icon-animate'></i>" autocomplete="off">Entrar</button>
+                      <div class="senha-box">
+                        <label for="id_senha" class="control-label hide">Senha</label>
+                        <input type="password" name="pass" id="pass" placeholder="Senha" required autocomplete="current-password">
+                      </div>
+                      <!--<a href="https://localhost:8089/conta/login?next=/checkout/#recuperar_senha" class="esqueci-senha">
+                        <i class="icon-lock"></i> Esqueci minha senha
+                      </a>-->
+                      <a href="javascript:;" class="fazer-cadastro">
+                        <i class="icon-list"></i> Novo cadastro
+                      </a>
+                    </div>
+                    <input type="hidden" name="next" value="/checkout/">
+                  </div>
                 </div>
               </form>
             </div>
@@ -39,6 +56,10 @@
         </div>
       </div>
     
+
+
+      
+
   <div class="checkout-alerta-seguro">
     <h3 class="checkout-alerta-seguro-tit">Usamos seu e-mail de forma 100% segura para:</h3>
     <ul class="checkout-alerta-seguro-list">

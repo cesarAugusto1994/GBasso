@@ -272,10 +272,8 @@ class Produtos extends CI_Controller{
 
     }
 
-
     public function preCheckout()
-    {
-    
+    {    
         $data  =  array();
 
         $this->Carrinho            =   new sessions\Carrinho;
@@ -392,7 +390,6 @@ class Produtos extends CI_Controller{
 
     public function checkout()
     {
-    
         $data  =  array();
 
         $this->Carrinho            =   new sessions\Carrinho;

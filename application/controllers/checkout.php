@@ -28,7 +28,11 @@ class Checkout extends CI_Controller{
 
     protected $emailLoja  =  'v41547011778302880350@sandbox.pagseguro.com.br';
 
+    private $idUsuario;
+
     #localhost:8089
+
+    //protected $notify     =  'http://localhost:8089/compras/checkout/notificacao';
 
     protected $notify     =  'http://www.grupobasso.com.br/compras/checkout/notificacao';
 
@@ -69,97 +73,6 @@ class Checkout extends CI_Controller{
 	
     }
 
-
-    /**
-    * Método exibe os detalhes de um determinado produto
-    *
-    * @param  INT $id  -  ID do produto que está sendo consultado
-    * @return null
-    * @access PUBLIC
-    */
-    public function index( $id = '' ) {
-
-        $data  =  array();
-
-        //Define data info to header
-        $data['header']            =   array();
-
-        //Define data info to body
-        $data['body']              =   array();
-
-        //Define data info to footer
-        $data['footer']            =   array();
-
-        //Declara o array que vai levar todas as imagens
-        $data['body']['images']    =   array();
-
-        //Verifica o ID do produto é um número inteiro
-        $response   =   $this->Essential->onlyNumber( $id ) ? true : false;
-
-        if( $response ) {
-
-            //Atribui o ID do produto
-            $this->Produtos->idProduto   =  $id;
-
-            $js    =  array( 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14 );
-
-            $css   =  array( 0, 1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 7 );
-
-            $fJs   =  array( 18, 15, 17, 18 );
-
-            $data['header']['url']          =   base_url();
-
-            $data['header']['css']          =   $this->Header->getCss( $css );
-
-            $data['header']['js']           =   $this->Header->getJs( $js );
-
-            $data['header']['inc']          =   '';
-
-            $data['header']['menus']        =   $this->Menus->getMenusToHome();
-
-            $data['header']['catss']        =   $this->Menus->getCategorias();
-
-            $data['header']['categorias']    =   $this->Categorias->getCategoriasToHome();
-
-            $data['header']['inc']          =   $this->Header->getIncludes( array( 1 ) );
-
-            $data['header']['pesq']  =   "";
-
-            $data['header']['logado']       =   $this->Login->checkLogin() ? true :  false;
-
-            $data['body']['images']         =   $this->Produtos->getAllImages();
-
-            $data['body']['imageDefault']   =   $this->Produtos->getImageDefaultDiretory();
-
-            $data['body']['produto']        =   $this->Produtos->getNameProduto();
-
-            $data['body']['info']           =   $this->Produtos->getInfoProdutoView();
-
-            //var_dump( $data['body']['info'] ); exit;
-
-            $data['body']["url"]            =   base_url();
-
-            $data['body']["id"]             =   $id;
-
-            $data['footer']["url"]          =   base_url();
-
-            $data['footer']['js']           =   $this->Header->getJs( $fJs );
-            
-            $this->parser->parse("default/header", $data['header']);
-
-            $this->parser->parse('produto', $data['body']);
-
-            $this->parser->parse('default/footer', $data['footer']);
-
-        }else {
-
-            echo "Produto inválido";
-
-        }
-
-    }
-
-
     /**
     * Visualiza o carrinho
     *
@@ -169,7 +82,6 @@ class Checkout extends CI_Controller{
     */
     public function carrinho() 
     {
-
         $data  =  array();
 
         $this->Carrinho            =   new sessions\Carrinho;
@@ -290,7 +202,6 @@ class Checkout extends CI_Controller{
 
     }
 
-
     public function preCheckout()
     {
     
@@ -301,6 +212,10 @@ class Checkout extends CI_Controller{
         $this->Usuarios            =   new objects\Usuarios;
 
         $this->Login               =   new sessions\Login(2);
+
+        if($this->Login->checkLogin()) {
+            return redirect('http://localhost:8089/compras/checkout');
+        }
 
         $this->Usuarios->idUsuario =   $this->Login->getIdUser();
 
@@ -408,7 +323,7 @@ class Checkout extends CI_Controller{
 
     }
 
-    public function checkout()
+    public function index()
     {
         $data  =  array();
 
@@ -417,6 +332,16 @@ class Checkout extends CI_Controller{
         $this->Usuarios            =   new objects\Usuarios;
 
         $this->Login               =   new sessions\Login(2);
+
+        $produtos                       =   $this->Carrinho->getProdutos();
+
+        $produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
+
+        $total                          =   $this->Carrinho->getTotal();
+
+        if(empty($produtos)) {
+            return redirect('http://localhost:8089/');   
+        }
 
         $userEmail = $this->input->post( 'email' );
 
@@ -432,7 +357,7 @@ class Checkout extends CI_Controller{
 
             $nome  =  'Visitante';
 
-        } else {
+        }else {
 
             $bName  =   explode(' ', $nome);
 
@@ -466,11 +391,6 @@ class Checkout extends CI_Controller{
 
         $fJs   =  array( 18, 15, 17, 19 );
 
-        $produtos                       =   $this->Carrinho->getProdutos();
-
-        $produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
-
-        $total                          =   $this->Carrinho->getTotal();
 
         $enderecos = $this->Usuarios->getAllEndereco();
 
@@ -564,7 +484,6 @@ class Checkout extends CI_Controller{
         curl_close($ch);
     }
 
-
     public function getProdutos()
     {
         $this->Carrinho = new sessions\Carrinho;
@@ -577,7 +496,6 @@ class Checkout extends CI_Controller{
 
         return $produtos;
     }
-
 
     public function pagamentoBoleto()
     {
@@ -592,8 +510,6 @@ class Checkout extends CI_Controller{
         $userEmail = $this->input->post( 'email' );
 
         $enderecoId = $this->input->post( 'enderecoId' );
-
-        $gateway = $this->input->post( 'gateway' );
 
         $tpPag = $this->input->post( 'tpPag' );
 
@@ -613,11 +529,9 @@ class Checkout extends CI_Controller{
 
         $produtos = $this->Produtos->getProdutosByCart( $produtos );
 
-        //var_dump($data);exit;
+        $gateway = 1; 
 
-        $produto = current($produtos);
-
-        //var_dump($produto);exit;
+        //$this->finalizarCompra($tpPag, $gateway, $enderecoId, $data['cep'], 1);
 
         $data['ddd'] = '27'; 
         $data['telefone'] = '999502435' ; 
@@ -626,10 +540,22 @@ class Checkout extends CI_Controller{
         $data['cpf'] = str_replace("-", "", $data['cpf']);
         $data['email'] = 'v41547011778302880350@sandbox.pagseguro.com.br';
 
-        $valor = $produto['valor_int'];
-        $valor = str_replace(",", ".", $valor);
+        $arrProdutos = array();
 
-        $xml = $this->gerarXmlBoleto($produto['valu'], $produto['prod'], $valor, $data['nome'], $data['cpf'], $data['ddd'], $data['telefone'], $data['email'], $data['senderHash'], $data['endereco'], $data['numero'], $data['complemento'], $data['bairro'], $data['cep'], $data['cidade'], $data['estado']);
+        foreach($produtos as $produto) {
+
+            $valor = $produto['valor_int'];
+            $valor = str_replace(",", ".", $valor);
+
+            $arrProdutos[] = array(
+                'id' => $produto['valu'],
+                'nome' => $produto['prod'],
+                'valor' => $valor,
+                'quantidade' => $produto['qtd'],
+            );
+        }
+
+        $xml = $this->gerarXmlBoleto($data['cpf'], $arrProdutos, $data['nome'], $data['cpf'], $data['ddd'], $data['telefone'], $data['email'], $data['senderHash'], $data['endereco'], $data['numero'], $data['complemento'], $data['bairro'], $data['cep'], $data['cidade'], $data['estado']);
 
         $request = $data;
 
@@ -659,45 +585,134 @@ class Checkout extends CI_Controller{
         }
         curl_close($ch);
 
-        $gateway = 1; 
-
-        //$this->finalizarCompra($tpPag, $gateway, $enderecoId, $request['cep'], 1);
-
        } catch(Exception $e) {
            echo $e->getMessage();
        }
 
     }
 
+    public function pagamentoCartao()
+    {
+
+        $this->Carrinho            =   new sessions\Carrinho;
+
+        $this->Usuarios            =   new objects\Usuarios;
+
+        $this->Login               =   new sessions\Login(2);
+
+        $userEmail = $this->input->post( 'email' );
+
+        $enderecoId = $this->input->post( 'enderecoId' );
+
+        $tpPag = $this->input->post( 'tpPag' );
+
+        $this->Usuarios->idUsuario =   $this->Login->getIdUser();
+
+        $nome = $this->Usuarios->getFullName();
+
+        $email = $this->Usuarios->getEmail();
+
+        $cpf = $this->Usuarios->getCpf();
+
+        $data = $this->input->post(NULL, TRUE);
+
+        $usuario = $this->Usuarios->getAllDataUser();
+
+        $produtos = $this->Carrinho->getProdutos();
+
+        $produtos = $this->Produtos->getProdutosByCart( $produtos );
+
+        $this->finalizarCompra($tpPag, 1, $enderecoId, $data['cep'], 1);
+
+        //$produto = current($produtos);
+
+        $data['cpf'] = str_replace(".", "", $cpf);
+        $data['cpf'] = str_replace("-", "", $data['cpf']);
+
+        $data['cardCPF'] = str_replace(".", "", $data['cardCPF']);
+        $data['cardCPF'] = str_replace("-", "", $data['cardCPF']);
+
+        $data['ddd'] = '27'; 
+        $data['telefone'] = '999502435' ; 
+
+        //$valor = $dadosProduto->valor;
+        //$valor = str_replace(",", ".", $valor);
+
+
+        if (!(isset($data['valorParcelas'])) || empty($data['valorParcelas'])) {
+            $data['valorParcelas'] = $valor;
+        }
+
+        if (!(isset($data['numParcelas'])) || empty($data['numParcelas'])) {
+            $data['numParcelas'] = 1;
+        }
+
+        $data['valorParcelas'] = (number_format($data['valorParcelas'], 2));
+        $data['valorParcelas'] = str_replace(",", ".", $data['valorParcelas']);
+
+        $data['numParcelas'] = intval($data['numParcelas']);
+
+        $data['enderecoPagamento'] = !empty($data['enderecoPagamento']) ? $data['enderecoPagamento'] : $data['endereco'];
+        $data['numeroPagamento'] = !empty($data['numeroPagamento']) ? $data['numeroPagamento'] : $data['numero'];
+        $data['complementoPagamento'] = !empty($data['complementoPagamento']) ? $data['complementoPagamento'] : $data['complemento'];
+        $data['bairroPagamento'] = !empty($data['bairroPagamento']) ? $data['bairroPagamento'] : $data['bairro'];
+        $data['cepPagamento'] = !empty($data['cepPagamento']) ? $data['cepPagamento'] : $data['cep'];
+        $data['cidadePagamento'] = !empty($data['cidadePagamento']) ? $data['cidadePagamento'] : $data['cidade'];
+        $data['estadoPagamento'] = !empty($data['estadoPagamento']) ? $data['estadoPagamento'] : $data['estado'];
+        $data['cardNome'] = !empty($data['cardNome']) ? $data['cardNome'] : $data['nome'];
+        $data['cardCPF'] = !empty($data['cardCPF']) ? $data['cardCPF'] : $data['cpf'];
+        //!empty($data['cardNasc']) ? $data['cardNasc'] : $data['endereco'];
+        $data['cardFoneNum'] = !empty($data['cardFoneNum']) ? $data['cardFoneNum'] : $data['telefone'];
+        $data['cardFoneArea'] = !empty($data['cardFoneArea']) ? $data['cardFoneArea'] : $data['ddd'];
+
+        $data['email'] = $this->emailLoja;
+
+        $arrProdutos = array();
+
+        foreach($produtos as $produto) {
+            
+            $valor = $produto['valor_int'];
+            $valor = str_replace(",", ".", $valor);
+            $valor = number_format($valor, 2, '.', '');
+
+            $arrProdutos[] = array(
+                'id' => $produto['valu'],
+                'nome' => $produto['prod'],
+                'valor' => $valor,
+                'quantidade' => $produto['qtd'],
+            );
+        }
+
+        $xml = $this->gerarXmlCartao($data['cpf'], $arrProdutos, $data['nome'], $data['cpf'], $data['ddd'], 
+        $data['telefone'], $data['email'], $data['senderHash'], $data['endereco'], $data['numero'], 
+        $data['complemento'], $data['bairro'], $data['cep'], $data['cidade'], $data['estado'], 
+        $data['enderecoPagamento'], $data['numeroPagamento'], $data['complementoPagamento'], 
+        $data['bairroPagamento'], $data['cepPagamento'], $data['cidadePagamento'], 
+        $data['estadoPagamento'], $data['cardToken'], $data['cardNome'], $data['cardCPF'], 
+        $data['cardNasc'], $data['cardFoneArea'], $data['cardFoneNum'], $data['numParcelas'], $data['valorParcelas']);
+
+        $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->urlPagSeg . "?email=" . $this->email . "&token=" . $this->token);
+        curl_setopt($ch, CURLOPT_POST, true );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml; charset=ISO-8859-1'));
+
+        $data = curl_exec ($ch)or die(curl_errno($ch) .': '. curl_error($ch));
+        $dataXML = simplexml_load_string($data);
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($dataXML);
+            
+        curl_close($ch);
+    }
+
     public function finalizarCompra($tpPag, $gateway, $idEndereco, $cep, $servico)
     {
-        //$this->Usuarios             =   new objects\Usuarios();
-
-        //$this->Usuarios->idUsuario  =   $this->idUsuario;
-
-        //Obtem o meio de pagamento
-        //$tpPag       =    $this->input->post( 'tpPag' );
-
-        //Obtem o gateway de pagamento selecionado
-        //$gateway     =    $this->input->post( 'gateway' );
-
-        //Obtem o ID do endereço
-        //$idEndereco  =    $this->input->post( 'idEndereco' );
-
-        //Recebe o Cep
-        //$cep         =    preg_replace( '/\D/', '', $this->input->post( 'cepEntrega' ) );
-
-        //Recebe o código do serviço
-        //$servico     =    $this->input->post( 'servicoFrete' );
-
         $this->Usuarios->cep    =   $cep;
-
-        //Instancia a classe de Vendas
-        //$this->Vendas           =   new objects\Vendas;
-
-        if(!$this->Vendas->getIDVenda()) {
-            //throw new Exception('Venda não Encontrada');
-        }
 
         //Gera o valor do frete
         $valorFrete             =   $this->generateFrete( $cep, $servico );
@@ -739,7 +754,7 @@ class Checkout extends CI_Controller{
             switch ( $tpPag ) {
                 case 1:
                     //Faz a chamada para o método de pagamento de cartão de crédito
-                    //$response   =  $this->callPaymentCreditCard( $valorFrete, $parcelasSemJuros, $servico );
+                    $response   =  $this->callPaymentCreditCard( $valorFrete, $parcelasSemJuros, $servico );
                 break;
                 case 2:
                     //Faz a chamada para o método de pagamento de boleto
@@ -765,6 +780,8 @@ class Checkout extends CI_Controller{
                 #Agora vamos processar os dados retornados da venda
                 //Converte o XML para array
                 $data    =    $this->XmlParser->toArray();
+
+                //var_dump($data);exit;
 
                 //verifica se ocorreu algum erro
                 if( isset( $data['error'] ) ) {
@@ -966,7 +983,7 @@ class Checkout extends CI_Controller{
             'senderCPF'                      =>  urlencode( $cpfDono ),
             'senderAreaCode'                 =>  urlencode( $ddd ),
             'senderPhone'                    =>  urlencode( $telefone ),
-            'senderEmail'                    =>  urlencode( $email ),
+            'senderEmail'                    =>  urlencode( $this->emailLoja ),
             'senderHash'                     =>  urlencode( $senderHash ),
             'shippingAddressStreet'          =>  urlencode( $endereco['end'] ),
             'shippingAddressNumber'          =>  urlencode( $numero ),
@@ -977,7 +994,7 @@ class Checkout extends CI_Controller{
             'shippingAddressState'           =>  urlencode( $endereco['est'] ),
             'shippingAddressCountry'         =>  urlencode( 'BR' ),
             'shippingType'                   =>  urlencode( '' ),
-            'shippingCost'                   =>  urlencode( $valorFrete )
+            'shippingCost'                   =>  urlencode( number_format($valorFrete, 2) )
         );
 
         //Junta o array com os produtos ao array dos parametros
@@ -989,13 +1006,15 @@ class Checkout extends CI_Controller{
         //Prepara os parametros para o POST
         $data        =   $this->Curl->urlify( $data );
 
-        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSeg );
+        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSeg . "?email=" . $this->email . "&token=" . $this->token );
 
         $this->Curl->setOpt( 'CURLOPT_POST', $data );
 
         $this->Curl->setOpt( 'CURLOPT_POSTFIELDS', $data );
 
         $this->Curl->setOpt( 'CURLOPT_RETURNTRANSFER', true );
+
+        $this->Curl->setOpt( 'CURLOPT_SSL_VERIFYPEER', false );
 
         //faz a conexão e recebe os dados
         $response         =   $this->Curl->execute();
@@ -1011,7 +1030,219 @@ class Checkout extends CI_Controller{
 
     }
 
-    public function gerarXmlBoleto($id, $produto, $valor, $nome, $cpf, $ddd, $telefone, $email, $senderHash, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado)
+    public function callPaymentCreditCard( $valorFrete, $parcelasSemJuros, $servico ) {
+
+        //Instancia a classe de Datas
+        $this->Dates       =   new extend\Dates;
+
+        //Recebe os dados via POST
+        $email             =   $this->input->post( 'email' );
+
+        $nome              =   $this->input->post( 'nome' );
+
+        $cpfDono           =   $this->input->post( 'cpf' );
+
+        //$ddd               =   $this->input->post( 'ddd' );
+
+        $ddd = '27';
+
+        //$telefone          =   $this->input->post( 'telefone' );
+
+        $telefone = '99502435';
+
+        $senderHash        =   $this->input->post( 'senderHash' );
+
+        $numero            =   $this->input->post( 'numero' );  
+
+        $complemento       =   $this->input->post( 'complemento' ); 
+
+        $cep               =   $this->input->post( 'cep' );
+
+        $parcelas = $this->input->post( 'numParcelas' );
+        $parcelaValor = $this->input->post( 'valorParcelas' );
+
+        $ddd               =   preg_replace('/\D/', '', $ddd);
+
+        $telefone          =   preg_replace('/\D/', '', $telefone);
+
+        $cep               =   preg_replace('/\D/', '', $cep);
+
+        $cpfDono           =   preg_replace('/\D/', '', $cpfDono);
+
+        $dataNascDono = $this->input->post( 'cardNasc' );
+
+        $enderecoId = $this->input->post( 'enderecoId' );
+
+        $tpPag = $this->input->post( 'tpPag' );
+
+        //Valida o e-mail
+        !$this->Essentials->validEmail( $email ) ? $this->Essentials->setMessage( 'E-mail inválido' ) : null;
+
+        //Valida o nome do dono do cartão
+        !$this->Essentials->verify( $nome, 'Preencha o campo nome', 'empty' );
+
+        //Verifica se o usuário preencheu o nome completo
+        substr_count($nome, ' ') < 1 ? $this->Essentials->setMessage( 'Preencha seu nome completo' ) : null;
+
+        //Valida o CPF
+        !$this->Essentials->validarCPF( $cpfDono ) ? $this->Essentials->setMessage( 'CPF inválido' ) : null;
+
+        //Valida o DDD
+        strlen( $ddd ) != 2 || !is_numeric( $ddd ) ? $this->Essentials->setMessage( 'DDD inválido' ) : null;
+
+        //Valida o telefone
+        strlen( $telefone ) != 8 || !is_numeric( $telefone ) ? $this->Essentials->setMessage( 'Telefone inválido' ) : null;
+
+        //Valida o CEP
+        strlen( $cep ) != 8 || !is_numeric( $cep ) ? $this->Essentials->setMessage( 'Cep inválido' ) : null;
+
+        //Valida o número de parcelas
+        !is_numeric( $parcelas ) || $parcelas < 1 ?  $this->Essentials->setMessage( 'Selecione o número de parcelas' ) : null;
+
+        //Valida o valor da parcela
+        !is_numeric( $parcelaValor ) || $parcelaValor < 1 ?  $this->Essentials->setMessage( 'Valor da parcela inválido' ) : null;
+
+        //Valida a data de nascimento
+        $this->Dates->validateDate( $dataNascDono ) ?  $this->Essentials->setMessage( 'Data de nascimento inválida' ) : null;
+
+        //$this->finalizarCompra($tpPag, 1, $enderecoId, $cep, 1);
+
+        //Seta o ID do usuário na classe Usuários
+        $this->Vendas->idUsuario   =   $this->idUsuario;
+
+        //Seta o CEP
+        $this->Usuarios->cep       =   $cep;
+
+        //Get full endereço
+        $endereco                  =   $this->Usuarios->getFullEndereco();
+
+        //Verifica se foi retornado algum endereco
+        !isset( $endereco['est'] ) ? $this->Essentials->setMessage( 'Endereço inválido' ) : null;
+
+
+        /**
+        * Essa parte é referente ao processamento da venda
+        * 
+        **/
+        //Obtem o total da venda
+        $totalVenda                =   $this->Carrinho->getTotal();
+
+        //Seta o status da venda como 1: Aguardando pagamento
+        $status                    =   1;
+
+        
+
+        //Gera a referencia da venda
+        $this->Vendas->gerarReferencia();
+
+        //Grava a venda
+        $this->Vendas->gravarVenda( $status, $totalVenda, $servico );
+
+        //Resgata o ID da venda
+        $response    =   $this->Vendas->getIDVenda();
+
+        //Verifica se o ID da venda foi resgatado com sucesso
+        !$response   ?   $this->Essentials->setMessage( 'Ocorreu um erro, a compra não foi finalizada' ) : null;
+
+        //Salva os produtos da venda e recebe os produtos da venda
+        $itens     =  $this->salvarProdutosVenda();
+
+        //Obtem o nome completo do usuário
+        $fullName  =  $this->Usuarios->getFullName();
+
+        //Verifica se houve algum retorno
+        is_bool( $fullName ) ? $this->Essentials->setMessage( 'Ocorreu um erro ao buscar o nome do usuário cadastrado em sua conta, sua compra não foi finalizada' ) : null;
+
+        $parcelas = 1;
+
+        /**
+        * Esta parte é referente a conexão ao servidor do PAGSEGURO
+        *
+        **/
+        //Configura o array que será enviado via POST
+        $data   =  array(
+            'email'                          =>  urlencode( $this->email ),
+            'token'                          =>  urlencode( $this->token ),
+            'paymentMode'                    =>  urlencode( 'default' ),
+            'paymentMethod'                  =>  urlencode( 'creditCard' ),
+            'receiverEmail'                  =>  urlencode( $this->email ),
+            'currency'                       =>  urlencode( 'BRL' ),
+            'notificationURL'                =>  urlencode( $this->notify ),
+            'reference'                      =>  urlencode( $this->Vendas->referencia ),
+            'senderName'                     =>  urlencode( $nome ),
+            'senderCPF'                      =>  urlencode( $cpfDono ),
+            'senderAreaCode'                 =>  urlencode( $ddd ),
+            'senderPhone'                    =>  urlencode( $telefone ),
+            'senderEmail'                    =>  urlencode( $email ),
+            'senderHash'                     =>  urlencode( $senderHash ),
+            'shippingAddressStreet'          =>  urlencode( $endereco['end'] ),
+            'shippingAddressNumber'          =>  urlencode( $numero ),
+            'shippingAddressComplement'      =>  urlencode( $complemento ),
+            'shippingAddressDistrict'        =>  urlencode( $endereco['bai'] ),
+            'shippingAddressPostalCode'      =>  urlencode( $cep ),
+            'shippingAddressCity'            =>  urlencode( $endereco['cid'] ),
+            'shippingAddressState'           =>  urlencode( $endereco['est'] ),
+            'shippingAddressCountry'         =>  urlencode( 'BR' ),
+            'shippingType'                   =>  urlencode( '' ),
+            'shippingCost'                   =>  urlencode( number_format( (float) $valorFrete, 2, '.', '' ) ),
+            'creditCardToken'                =>  urlencode( $cardToken ),
+            'installmentQuantity'            =>  urlencode( $parcelas ),
+            'installmentValue'               =>  urlencode( number_format( (float) $parcelaValor, 2, '.', '' ) ),
+            'noInterestInstallmentQuantity'  =>  urlencode( $parcelasSemJuros ),
+            'creditCardHolderName'           =>  urlencode( $nome ),
+            'creditCardHolderCPF'            =>  urlencode( $cpfDono ),
+            'creditCardHolderBirthDate'      =>  urlencode( $dataNascDono ),
+            'creditCardHolderAreaCode'       =>  urlencode( $ddd ),
+            'creditCardHolderPhone'          =>  urlencode( $telefone ),
+            'billingAddressStreet'           =>  urlencode( $endereco['end'] ),
+            'billingAddressNumber'           =>  urlencode( $numero ),
+            'billingAddressComplement'       =>  urlencode( $complemento ),
+            'billingAddressDistrict'         =>  urlencode( $endereco['bai'] ),
+            'billingAddressPostalCode'       =>  urlencode( $cep ),
+            'billingAddressCity'             =>  urlencode( $endereco['cid'] ),
+            'billingAddressState'            =>  urlencode( $endereco['est'] ),
+            'billingAddressCountry'          =>  urlencode( 'BRA' )
+        );
+
+        //Junta o array com os produtos ao array dos parametros
+        $data        =   array_merge( $data, $itens );
+
+        //print_r( $data ); exit; 
+
+        //Instancia a classe Curl para conexão em outros servidores
+        $this->Curl  =   new connection\Curl( $this->urlPagSeg );
+
+        //Prepara os parametros para o POST
+        $data        =   $this->Curl->urlify( $data );
+
+        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSeg );
+
+        $this->Curl->setOpt( 'CURLOPT_POST', $data );
+
+        $this->Curl->setOpt( 'CURLOPT_POSTFIELDS', $data );
+
+        $this->Curl->setOpt( 'CURLOPT_RETURNTRANSFER', true );
+
+        $this->Curl->setOpt( 'CURLOPT_SSL_VERIFYPEER', false );
+
+        //faz a conexão e recebe os dados
+        $response         =   $this->Curl->execute();
+
+        //Seta o retorno na LIB XML
+        $this->XmlParser  =   new parser\Xml( $response );
+
+        //Verifica se o retorno é um XML válido
+        $response         =   $this->XmlParser->isXml();
+
+        //print_r( $this->XmlParser->toArray() ); exit;
+
+        //Retorna se o XML é válido ou não
+        return $response;
+
+    }
+
+
+    public function gerarXmlBoleto($referencia, $produtos, $nome, $cpf, $ddd, $telefone, $email, $senderHash, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado)
     {
         $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
         $emailPagseguro = "cezzaar@gmail.com";
@@ -1021,12 +1252,23 @@ class Checkout extends CI_Controller{
         
         #$urlNotificacao = "http://localhost:8089/retornopagamento";
 
+        $strProdutos = "";
+
+        foreach($produtos as $produto) {
+            $strProdutos .= "<item>
+                                <id>" . $produto['id'] . "</id>
+                                <description>" . $produto['nome'] . "</description>
+                                <amount>" . $produto['valor'] . "</amount>
+                                <quantity>". $produto['quantidade'] ."</quantity>
+                            </item>";
+        }
+
 
         return "<payment>
         <mode>default</mode>
         <currency>BRL</currency>
-        <notificationURL>" . $urlNotificacao . "</notificationURL>
-        <receiverEmail>" . $emailPagseguro . "</receiverEmail>
+        <notificationURL>" . $this->notify . "</notificationURL>
+        <receiverEmail>" . $this->email . "</receiverEmail>
         <sender>
             <hash>". $senderHash . "</hash>
             <ip>" . /*$_SERVER['REMOTE_ADDR']*/ '127.0.0.1' . "</ip>
@@ -1044,14 +1286,9 @@ class Checkout extends CI_Controller{
             <name>" . $nome . "</name>
         </sender>
         <items>
-            <item>
-            <id>" . $id . "</id>
-            <description>" . $produto . "</description>
-            <amount>" . $valor . "</amount>
-            <quantity>1</quantity>
-            </item>
+            ". $strProdutos ."
         </items>
-        <reference>" . $id . "</reference>
+        <reference>" . $referencia . "</reference>
         <shipping>
             <address>
             <street>" . $endereco . "</street>
@@ -1077,6 +1314,108 @@ class Checkout extends CI_Controller{
 
     }
 
+    public function gerarXmlCartao($referencia, $produtos, $nome, $cpf, $ddd, $telefone, $email, $senderHash, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado, $enderecoPagamento, $numeroPagamento, $complementoPagamento, $bairroPagamento, $cepPagamento, $cidadePagamento, $estadoPagamento, $cardToken, $holdCardNome, $holdCardCPF, $holdCardNasc, $holdCardArea, $holdCardFone, $parcelas, $valorParcelas)
+    {
+        $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
+        $emailPagseguro = "cezzaar@gmail.com";
+        $tokenPagseguro = "F103EDB34EC44003885F413C377F3F42";
+        $urlNotificacao = "http://www.grupobasso.com.br/compras/checkout/notificacao";
+
+        $strProdutos = "";
+
+        foreach($produtos as $produto) {
+            $strProdutos .= "<item>
+                                <id>" . $produto['id'] . "</id>
+                                <description>" . $produto['nome'] . "</description>
+                                <amount>" . $$produto['valor'] . "</amount>
+                                <quantity>". $produto['quantidade'] ."</quantity>
+                            </item>";
+        }
+
+        
+        #$urlNotificacao = "http://localhost:8089/retornopagamento";
+
+          return "<payment>
+            <mode>default</mode>
+            <currency>BRL</currency>
+            <notificationURL>" . $this->notify . "</notificationURL>
+            <receiverEmail>" . $emailPagseguro . "</receiverEmail>
+            <sender>
+                <hash>". $senderHash . "</hash>
+                <ip>" . /*$_SERVER['REMOTE_ADDR']*/ '127.0.0.1' . "</ip>
+                <email>". $email . "</email>
+                <documents>
+                <document>
+                    <type>CPF</type>
+                    <value>" . $cpf . "</value>
+                </document>
+                </documents>
+                <phone>
+                <areaCode>" . $ddd . "</areaCode>
+                <number>" . $telefone . "</number>
+                </phone>
+                <name>" . $nome . "</name>
+            </sender>
+            <creditCard>
+                <token>". $cardToken ."</token>
+                <holder>
+                <name>" . $holdCardNome . "</name>
+                <birthDate>" . $holdCardNasc ."</birthDate>
+                    <documents>
+                    <document>
+                        <type>CPF</type>
+                        <value>" . $holdCardCPF . "</value>
+                    </document>
+                    </documents>
+                <phone>
+                    <areaCode>" . $holdCardArea . "</areaCode>
+                    <number>" . $holdCardFone . "</number>
+                </phone>
+                </holder>
+                <billingAddress>
+                    <street>" . $enderecoPagamento . "</street>
+                    <number>" . $numeroPagamento . "</number>
+                    <complement>" . $complementoPagamento . "</complement>
+                    <district>" . $bairroPagamento . "</district>
+                    <city>" . $cidadePagamento . "</city>
+                    <state>" . $estadoPagamento . "</state>
+                    <postalCode>" . $cepPagamento . "</postalCode>
+                    <country>BRA</country>
+                </billingAddress>
+                <installment>
+                <quantity>" . $parcelas . "</quantity>
+                <value>" . $valorParcelas . "</value>
+                <noInterestInstallmentQuantity>2</noInterestInstallmentQuantity>
+                </installment>
+            </creditCard>
+            <items>
+            ". $strProdutos ."
+            </items>
+            <reference>" . $referencia . "</reference>
+            <shipping>
+                <address>
+                <street>" . $endereco . "</street>
+                <number>" . $numero . "</number>
+                <complement>" . $complemento . "</complement>
+                <district>" . $bairro . "</district>
+                <city>" . $cidade . "</city>
+                <state>" . $estado . "</state>
+                <country>BRA</country>
+                <postalCode>" . $cep . "</postalCode>
+                </address>
+                <type>1</type>
+                <cost>0.00</cost>
+                <addressRequired>true</addressRequired>
+            </shipping>
+            <extraAmount>0.00</extraAmount>
+            <method>creditCard</method>
+            <dynamicPaymentMethodMessage>
+                <creditCard>infoEnem</creditCard>
+                <boleto>infoEnem</boleto>
+            </dynamicPaymentMethodMessage>
+            </payment>";
+    }
+
     public function notificacao() {
 
         //Instancia a classe de vendas
@@ -1098,7 +1437,7 @@ class Checkout extends CI_Controller{
         $ip           =   $this->Essentials->getUserIP();
 
         //Verifica se o tipo de notificação é transaction
-        if( $type != 'transaction' ){
+        if( $type != 'transaction' ) {
 
             //Grava o log de erro
             $this->Vendas->gravarLogErrorNotificacao( $ip, 'Tipo de notificação inválido', '200' );
