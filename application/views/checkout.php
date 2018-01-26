@@ -78,7 +78,7 @@ else:
           <span>Subtotal:</span>
         </td>
         <td class="padding-preco">
-          <div class="subtotal" data-subtotal="369,90" data-float="369.9">
+          <div class="subtotal" data-subtotal="<?=$total;?>" data-float="<?=$total;?>">
             <strong class=" cor-principal">
               R$ <?=$total;?>
             </strong>
@@ -92,8 +92,7 @@ else:
         </td>
         <td class="padding-preco">
           <div class="frete-preco">
-            <small class="muted" style="display: none;">(defina abaixo)</small>
-            <strong class=" cor-principal hide" style="display: inline;">R$ 0,00</strong>
+            <strong class=" cor-principal" style="display: inline;">R$ <span id="valorFrete"></span></strong>
           </div>
         </td>
       </tr>
@@ -128,15 +127,14 @@ else:
 </div>
 </div>
 
-<form action="https://localhost:8089/checkout/finalizar" method="POST" id="formularioCheckout">
+<form action="#" method="POST" id="formularioCheckout">
 
 <div class="row-fluid" style="display: block;">
   <div class="span4">
     <div class="caixa-sombreada borda-principal dados-cadastro">
       <fieldset data-recording-ignore="events">
 
-        <legend class=" cor-secundaria"><i class="icon-list"></i>Novo cadastro ou <a href="javascript:;" class=" cor-secundaria fazer-login-btn" style="text-decoration: underline;">identifique-se</a></legend>
-
+        <legend class=" cor-secundaria"><i class="icon-list"></i>Cliente</legend>
 
           <input id="id_tipo" name="tipo" type="hidden" value="PF">
           <input id="id_tipo_usuario" name="tipo_usuario" type="hidden" value="PF">
@@ -346,158 +344,154 @@ else:
     <div class="caixa-sombreada borda-principal">
       <fieldset data-recording-ignore="events">
         <legend class=" cor-secundaria"><i class="icon-money"></i>Pagamento</legend>
-        <div class="groupData" id="paymentMethods">
+        <!--<form class='formPagseguro' method='POST' action='{url}compras/carrinho/finalizar/compra'>-->
+            <div class="groupData" id="paymentMethods">
 
-          <div id="paymentMethodsOptions">
+              <div id="paymentMethodsOptions">
 
-            <div class="field radio">
-              <label><input type="radio" id="creditCardRadio" name="changePaymentMethod" value="creditCard">Cartão de Crédito</label>
-            </div>
-
-            <div class="field radio">
-              <label><input type="radio" id="boletoRadio" name="changePaymentMethod" value="boleto">Boleto</label>
-            </div>
-
-
-          </div>
-
-          <br/>
-          <br/>
-
-          <div id="creditCardData" class="paymentMethodGroup" dataMethod="creditCard">
-
-            <div id="cardData" style="margin-top:-20px">
-
-            <div class="control-group  required">
-              <label class="control-label font-bold" for="cardNumber">Número</label>
-              <div class="controls">
-                <input autocomplete="nome" class="input-xlarge span12 cardDatainput" id="cardNumber" name="cardNumber" type="text">
-                  <p class="help-block hide">
-
-                  </p>
-                  <span>
-                      <img class="bandeiraCartao" id="bandeiraCartao" />
-                  </span>
-              </div>
-            </div>
-
-            <div class="control-group  required">
-              <label class="control-label font-bold" for="cardNumber">Data de Vencimento (99/9999)</label>
-              <div class="controls">
-                  <input type="text" name="cardExpirationMonth" id="cardExpirationMonth" class="cardDatainput input-xlarge span2 month" maxlength="2" /> /
-                  <input type="text" name="cardExpirationYear" id="cardExpirationYear" class="cardDatainput input-xlarge span4 year" maxlength="4" />
-                  <p class="help-block hide">
-
-                  </p>
-              </div>
-            </div>
-
-            <div class="control-group  required">
-              <label class="control-label font-bold" for="cvvCartao">Código de Segurança</label>
-              <div class="controls">
-                  <input type="text" name="cardCvv" id="cardCvv" maxlength="5" class="cardDatainput input-xlarge span12 form-control" />
-                  <p class="help-block hide">
-
-                  </p>
-              </div>
-            </div>
-
-            <div class="field" id="installmentsWrapper">
-              <label for="installmentQuantity">Parcelamento</label>
-              <select name="installmentQuantity" id="installmentQuantity"></select>
-              <input type="hidden" name="installmentValue" id="installmentValue" />
-            </div>
-
-            <div class="span12" style="margin-top:20px">
-
-              <div class="caixa-sombreada borda-principal">
-                <fieldset data-recording-ignore="events">
-                  <legend class=" cor-secundaria"><i class="icon-money"></i>Dados do Titular do Cartão</legend>
-
-                    <div id="holderDataChoice">
-
-                      <div class="field radio">
-                        <input type="radio" name="holderType" id="sameHolder" value="sameHolder" checked>mesmo que o comprador</input>
-                      </div>
-
-                      <div class="field radio">
-                        <input type="radio" name="holderType" id="otherHolder" value="otherHolder">outro</input>
-                      </div>
-
-                    </div>
-
-                    <div class="control-group field required">
-                      <label class="control-label font-bold" for="cvvCartao">Data de Nascimento do Titular do Cartão</label>
-                      <div class="controls">
-                          <input type="text" name="creditCardHolderBirthDate" id="creditCardHolderBirthDate" maxlength="10" class="cardDatainput input-xlarge span12 form-control" />
-                          <p class="help-block hide">
-
-                          </p>
-                      </div>
-                    </div>
-
-                    <div id="dadosOtherPagador" class="dadosOtherPagador">
-
-                        <div id="holderData">
-
-                          <div class="control-group field required">
-                            <label class="control-label font-bold" for="creditCardHolderName">Nome (Como está impresso no cartão)</label>
-                            <div class="controls">
-                                <input type="text" name="creditCardHolderName" id="creditCardHolderName" class="cardDatainput input-xlarge span12 form-control" />
-                                <p class="help-block hide">
-
-                                </p>
-                            </div>
-                          </div>
-                          
-                          <div class="control-group field required">
-                            <label class="control-label font-bold" for="creditCardHolderCPF">CPF (somente n&uacute;meros) </label>
-                            <div class="controls">
-                                <input type="text" name="creditCardHolderCPF" id="creditCardHolderCPF" class="cardDatainput input-xlarge span12 form-control" />
-                                <p class="help-block hide">
-
-                                </p>
-                            </div>
-                          </div>
-
-                          <div class="control-group  required" id="TelP">
-                            <label class="control-label font-bold" for="creditCardHolderAreaCode">Telefone </label>
-                            <div class="controls">
-                                <input type="text" name="creditCardHolderAreaCode" id="creditCardHolderAreaCode" class="cardDatainput input-xlarge span2 areaCode" maxlength="2" /> /
-                                <input type="text" name="creditCardHolderPhone" id="creditCardHolderPhone" class="cardDatainput input-xlarge span4 phone" maxlength="9" />
-                                <p class="help-block hide">
-
-                                </p>
-                            </div>
-                          </div>
-
-                  </fieldset>
-                  </div>
-
+                <div class="field radio">
+                  <label><input type="radio" id="creditCardRadio" name="changePaymentMethod" value="creditCard">Cartão de Crédito</label>
                 </div>
-            </div>
+
+                <div class="field radio">
+                  <label><input type="radio" id="boletoRadio" name="changePaymentMethod" value="boleto">Boleto</label>
+                </div>
 
 
-              <input type="hidden" name="creditCardToken" id="creditCardToken"  />
-              <input type="hidden" name="creditCardBrand" id="creditCardBrand"  />
+              </div>
+
+              <br/>
+              <br/>
+
+              <div id="creditCardData" class="paymentMethodGroup" dataMethod="creditCard">
+
+                <div id="cardData" style="margin-top:-20px">
+
+                <div class="control-group  required">
+                  <label class="control-label font-bold" for="cardNumber">Número</label>
+                  <div class="controls">
+                    <input autocomplete="nome" class="input-xlarge span12 cardDatainput" id="cardNumber" name="cardNumber" type="text">
+                      <p class="help-block hide">
+
+                      </p>
+                      <span>
+                          <img class="bandeiraCartao" id="bandeiraCartao" />
+                      </span>
+                  </div>
+                </div>
+
+                <div class="control-group  required">
+                  <label class="control-label font-bold" for="cardNumber">Data de Vencimento (99/9999)</label>
+                  <div class="controls">
+                      <input type="text" name="cardExpirationMonth" id="cardExpirationMonth" class="cardDatainput input-xlarge span2 month" maxlength="2" /> /
+                      <input type="text" name="cardExpirationYear" id="cardExpirationYear" class="cardDatainput input-xlarge span4 year" maxlength="4" />
+                      <p class="help-block hide">
+
+                      </p>
+                  </div>
+                </div>
+
+                <div class="control-group  required">
+                  <label class="control-label font-bold" for="cvvCartao">Código de Segurança</label>
+                  <div class="controls">
+                      <input type="text" name="cardCvv" id="cardCvv" maxlength="5" class="cardDatainput input-xlarge span12 form-control" />
+                      <p class="help-block hide">
+
+                      </p>
+                  </div>
+                </div>
+
+                <div class="field" id="installmentsWrapper">
+                  <label for="installmentQuantity">Parcelamento</label>
+                  <select name="installmentQuantity" id="installmentQuantity"></select>
+                  <input type="hidden" name="installmentValue" id="installmentValue" />
+                  <input type="hidden" name="totalAmount" id="totalAmount" />
+                </div>
+
+                <div class="span12" style="margin-top:20px">
+
+                  <div class="caixa-sombreada borda-principal">
+                    <fieldset data-recording-ignore="events">
+                      <legend class=" cor-secundaria"><i class="icon-money"></i>Dados do Titular do Cartão</legend>
+
+                        <div id="holderDataChoice">
+
+                          <div class="field radio">
+                            <input type="radio" name="holderType" id="sameHolder" value="sameHolder" checked>mesmo que o comprador</input>
+                          </div>
+
+                          <div class="field radio">
+                            <input type="radio" name="holderType" id="otherHolder" value="otherHolder">outro</input>
+                          </div>
+
+                        </div>
+
+                        <div class="control-group field required">
+                          <label class="control-label font-bold" for="cvvCartao">Data de Nascimento do Titular do Cartão</label>
+                          <div class="controls">
+                              <input type="text" name="creditCardHolderBirthDate" id="creditCardHolderBirthDate" maxlength="10" class="cardDatainput input-xlarge span12 form-control" />
+                              <p class="help-block hide">
+
+                              </p>
+                          </div>
+                        </div>
+
+                        <div id="dadosOtherPagador" class="dadosOtherPagador">
+
+                            <div id="holderData">
+
+                              <div class="control-group field required">
+                                <label class="control-label font-bold" for="creditCardHolderName">Nome (Como está impresso no cartão)</label>
+                                <div class="controls">
+                                    <input type="text" name="creditCardHolderName" id="creditCardHolderName" class="cardDatainput input-xlarge span12 form-control" />
+                                    <p class="help-block hide">
+
+                                    </p>
+                                </div>
+                              </div>
+                              
+                              <div class="control-group field required">
+                                <label class="control-label font-bold" for="creditCardHolderCPF">CPF (somente n&uacute;meros) </label>
+                                <div class="controls">
+                                    <input type="text" name="creditCardHolderCPF" id="creditCardHolderCPF" class="cardDatainput input-xlarge span12 form-control" />
+                                    <p class="help-block hide">
+
+                                    </p>
+                                </div>
+                              </div>
+
+                              <div class="control-group  required" id="TelP">
+                                <label class="control-label font-bold" for="creditCardHolderAreaCode">Telefone </label>
+                                <div class="controls">
+                                    <input type="text" name="creditCardHolderAreaCode" id="creditCardHolderAreaCode" class="cardDatainput input-xlarge span2 areaCode" maxlength="2" /> /
+                                    <input type="text" name="creditCardHolderPhone" id="creditCardHolderPhone" class="cardDatainput input-xlarge span4 phone" maxlength="9" />
+                                    <p class="help-block hide">
+
+                                    </p>
+                                </div>
+                              </div>
+
+                      </fieldset>
+                      </div>
+
+                    </div>
+                </div>
+                  <input type="hidden" name="creditCardToken" id="creditCardToken"  />
+                  <input type="hidden" name="creditCardBrand" id="creditCardBrand"  />
+                  <center>
+                    <button type="button" id="creditCardPaymentButton" class="btn btn-success btn-block" onclick="pagarCartao(PagSeguroDirectPayment.getSenderHash());" value="Finalizar compra" />Finalizar compra</button>
+                  </center>
+                </div>
+              </div>
               <center>
-                <button type="button" id="creditCardPaymentButton" class="btn btn-success btn-block" onclick="pagarCartao(PagSeguroDirectPayment.getSenderHash());" value="Finalizar compra" />Finalizar compra</button>
+                <div id="boletoData" name="boletoData" class="paymentMethodGroup" dataMethod="boleto">
+                  <button id="boletoButton" class="btn btn-primary btn-block" />Gerar Boleto e Finalizar Compra</button>
+                </div>
+                <br />
               </center>
 
             </div>
-          </div>
-
-          <center>
-            <div id="boletoData" name="boletoData" class="paymentMethodGroup" dataMethod="boleto">
-              <a id="boletoButton" target="_blank" class="btn btn-primary btn-block" />Gerar Boleto</a>
-            </div>
-
-            <br />
-
-          </center>
-
-        </div>
-
+        <!--</form>-->
       </fieldset>
     </div>
 
@@ -558,7 +552,7 @@ else:
 </div>
 
 <div id="aguarde" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-backdrop">
 
     <!-- Modal content-->
     <div class="modal-content">
@@ -578,7 +572,6 @@ else:
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
 <script>
-
 
   $(document).ready(function() {
 
@@ -632,7 +625,6 @@ else:
 
 <script>
 
-
   function showModal() {
       $("#modal-title").html("Aguarde");
       $("#modal-body").html("");
@@ -652,6 +644,104 @@ else:
 
       success: function (response) {
         $("#creditCardToken").val(response.card.token);
+        
+            $.ajax({
+              type: 'POST',
+              url: '/compras/checkout/pagamentocartao',
+              cache: false,
+              data: {
+                id: $("#session_id_field").val(),
+                email: $("#senderEmail").val(),
+                nome: $("#senderName").val(),
+                cpf: $("#senderCPF").val(),
+                ddd: $("#senderAreaCode").val(),
+                telefone: $("#senderPhone").val(),
+                cep: $("#shippingAddressPostalCode").val(),
+                endereco: $("#shippingAddressStreet").val(),
+                numero: $("#shippingAddressNumber").val(),
+                complemento: $("#shippingAddressComplement").val(),
+                bairro: $("#shippingAddressDistrict").val(),
+                cidade: $("#shippingAddressCity").val(),
+                estado: $("#shippingAddressState").val(),
+                pais: "BRA",
+                senderHash: senderHash,
+
+                enderecoPagamento: $("#billingAddressStreet").val(),
+                numeroPagamento: $("#billingAddressNumber").val(),
+                complementoPagamento: $("#billingAddressComplement").val(),
+                bairroPagamento: $("#billingAddressDistrict").val(),
+                cepPagamento: $("#billingAddressPostalCode").val(),
+                cidadePagamento: $("#billingAddressCity").val(),
+                estadoPagamento: $("#billingAddressState").val(),
+                cardToken: $("#creditCardToken").val(),
+                cardNome: $("#creditCardHolderName").val(),
+                cardCPF: $("#creditCardHolderCPF").val(),
+                cardNasc: $("#creditCardHolderBirthDate").val(),
+                cardFoneArea: $("#creditCardHolderAreaCode").val(),
+                cardFoneNum: $("#creditCardHolderPhone").val(),
+
+                numParcelas: $("#installmentQuantity").val(),
+                valorParcelas: $("#installmentValue").val(),
+
+                tpPag: 1,
+                enderecoId: $("#shippingAddressPostalCodeId").val(),
+                servico: window.localStorage.getItem('freteId'),
+              },
+              success: function(data) {
+                //console.log(data);
+                if (data.error) {
+                  if (data.error.code == "53037") {
+                    $("#creditCardPaymentButton").click();
+                  } else {
+                    $("#modal-title").html("<font color='red'>Erro</font>");
+
+                    $("#modal-body").html("");
+                    $.each(data.error, function (index, value) {
+                      if (value.code) {
+                        tratarError(value.code);
+
+                      } else {
+                        tratarError(data.error.code)
+                      }
+                    })
+                    //console.log("2 " + data);
+                  }
+                } else {
+
+
+                  $.ajax({
+                    type: 'POST',
+                    url: '/compras/session',
+                    cache: false,
+                    data: {
+                      id: data.code,
+                    },
+                    success: function(status) {
+
+                      if (status == "7") {
+                        //alert(data);
+                        $("#modal-title").html("<font color='red'>Erro</font>");
+
+                        $("#modal-body").html("Erro ao processar o seu pagamento.<br/> Não se preocupe pois esse valor <b>não será debitado de sua conta ou não constará em sua fatura</b><br /><br />Verifique se você possui limite suficiente para efetuar a transação e/ou tente um cartão diferente");
+
+                      } else {
+                        window.location = "http://www.grupobasso.com.br/minha/conta/compras";
+                        setTimeout(function () {
+                          $("#modal-body").html("");
+                          $("#modal-title").html("<font color='green'>Sucesso!</font>")
+
+                          $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='#'><center><button class='btn-success btn-block btn-lg'>Ir para a página de minhas compras</button></center></a>");
+                        }, 1500);
+                      }
+
+                    }
+                  });
+
+                }
+
+                }
+
+            });                         
       },
       error: function (response) {
         if (response.error) {
@@ -672,104 +762,6 @@ else:
     });
 
 
-    $.ajax({
-      type: 'POST',
-      url: '/compras/checkout/pagamentocartao',
-      cache: false,
-      data: {
-        id: $("#session_id_field").val(),
-        email: $("#senderEmail").val(),
-        nome: $("#senderName").val(),
-        cpf: $("#senderCPF").val(),
-        ddd: $("#senderAreaCode").val(),
-        telefone: $("#senderPhone").val(),
-        cep: $("#shippingAddressPostalCode").val(),
-        endereco: $("#shippingAddressStreet").val(),
-        numero: $("#shippingAddressNumber").val(),
-        complemento: $("#shippingAddressComplement").val(),
-        bairro: $("#shippingAddressDistrict").val(),
-        cidade: $("#shippingAddressCity").val(),
-        estado: $("#shippingAddressState").val(),
-        pais: "BRA",
-        senderHash: senderHash,
-
-        enderecoPagamento: $("#billingAddressStreet").val(),
-        numeroPagamento: $("#billingAddressNumber").val(),
-        complementoPagamento: $("#billingAddressComplement").val(),
-        bairroPagamento: $("#billingAddressDistrict").val(),
-        cepPagamento: $("#billingAddressPostalCode").val(),
-        cidadePagamento: $("#billingAddressCity").val(),
-        estadoPagamento: $("#billingAddressState").val(),
-        cardToken: $("#creditCardToken").val(),
-        cardNome: $("#creditCardHolderName").val(),
-        cardCPF: $("#creditCardHolderCPF").val(),
-        cardNasc: $("#creditCardHolderBirthDate").val(),
-        cardFoneArea: $("#creditCardHolderAreaCode").val(),
-        cardFoneNum: $("#creditCardHolderPhone").val(),
-
-        numParcelas: $("#installmentQuantity").val(),
-        valorParcelas: $("#installmentValue").val(),
-
-        tpPag: 1,
-        enderecoId: $("#shippingAddressPostalCodeId").val()
-      },
-      success: function(data) {
-        //console.log(data);
-        if (data.error) {
-          if (data.error.code == "53037") {
-            $("#creditCardPaymentButton").click();
-          } else {
-            $("#modal-title").html("<font color='red'>Erro</font>");
-
-            $("#modal-body").html("");
-            $.each(data.error, function (index, value) {
-              if (value.code) {
-                tratarError(value.code);
-
-              } else {
-                tratarError(data.error.code)
-              }
-            })
-            //console.log("2 " + data);
-          }
-        } else {
-
-
-          $.ajax({
-            type: 'POST',
-            url: '/compras/session',
-            cache: false,
-            data: {
-              id: data.code,
-            },
-            success: function(status) {
-
-              if (status == "7") {
-                //alert(data);
-                $("#modal-title").html("<font color='red'>Erro</font>");
-
-                $("#modal-body").html("Erro ao processar o seu pagamento.<br/> Não se preocupe pois esse valor <b>não será debitado de sua conta ou não constará em sua fatura</b><br /><br />Verifique se você possui limite suficiente para efetuar a transação e/ou tente um cartão diferente");
-
-              } else {
-                //window.location = "http://download.infoenem.com.br/pagamento-efetuado/";
-                setTimeout(function () {
-                  $("#modal-body").html("");
-                  $("#modal-title").html("<font color='green'>Sucesso!</font>")
-
-                  $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='#'><center><button class='btn-success btn-block btn-lg'>Ir para a página de minhas compras</button></center></a>");
-                }, 1500);
-              }
-
-            }
-          });
-
-
-          //console.log("1 " + data);
-        }
-
-        }
-
-    });
 
   }
 
@@ -790,6 +782,14 @@ else:
           $('#modal-enderecos').modal('hide');
       });
 
+      var formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }
+
+      var freteValor = window.localStorage.getItem('freteValor');
+      $("#valorFrete").html(freteValor.replace(".", ','));
+
+      var valorTotal = $("#totalValue").html().replace(',', ".");
+      $("#totalValue").html((+valorTotal + +freteValor).toFixed(2).replace(".", ','))
+
       $('#cardNumber').blur(function() {
         brandCard();
       });
@@ -798,7 +798,7 @@ else:
         PagSeguroDirectPayment.getInstallments({
         amount: (($("#totalValue").html()).replace(",", ".")),
         brand: $("#creditCardBrand").val(),
-        maxInstallmentNoInterest: 2,
+        maxInstallmentNoInterest: 5,
 
       success: function(response) {
         //console.log(response.installments);
@@ -815,11 +815,13 @@ else:
           var optionAmount   = optionItem.installmentAmount;
           var optionLabel    = (optionQuantity + " x R$ " + (optionAmount.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace(".", ',')));
 
-          options += ('<option value="' + optionItem.quantity + '" valorparcela="' + optionAmount +'">'+ optionLabel +'</option>');
+          options += ('<option value="' + optionItem.quantity + '" totalAmount="' + optionItem.totalAmount + '" valorparcela="' + optionAmount +'">'+ optionLabel +'</option>');
 
         };
 
         $("#installmentQuantity").html(options);
+        $("#installmentValue").val( installments[0].installmentAmount );
+        $("#totalAmount").val( installments[0].totalAmount );
 
       },
 
@@ -836,6 +838,7 @@ else:
     var option = $(this).find("option:selected");
     if (option.length) {
       $("#installmentValue").val( option.attr("valorparcela") );
+      $("#totalAmount").val( option.attr("totalAmount") );
     }
   });
 
@@ -877,7 +880,6 @@ else:
     });
 
   }
-
 
   function tratarError(id) {
     if (id.charAt(0) == '2') id = id.substr(1);
@@ -999,9 +1001,52 @@ else:
     // }
   }
 
-  $('#boletoButton').click(function() {
-    //alert('clicado')
+  function finalizarVenda() {
+     $.ajax({
+        type: 'POST',
+        url: '/compras/checkout/finalizar',
+        cache: false,
+        data: {
+          tpPag: 2,
+          gateway: 1,
+          cep: $("#shippingAddressPostalCode").val(),
+          enderecoId: $("#shippingAddressPostalCodeId").val(),
+          servico: 1,
+          id: $("#session_id_field").val(),
+          email: $("#senderEmail").val(),
+          nome: $("#senderName").val(),
+          cpf: $("#senderCPF").val(),
+          ddd: $("#senderAreaCode").val(),
+          telefone: $("#senderPhone").val(),
+          cep: $("#shippingAddressPostalCode").val(),
+          endereco: $("#shippingAddressStreet").val(),
+          numero: $("#shippingAddressNumber").val(),
+          complemento: $("#shippingAddressComplement").val(),
+          bairro: $("#shippingAddressDistrict").val(),
+          cidade: $("#shippingAddressCity").val(),
+          estado: $("#shippingAddressState").val(),
+          pais: "BRA",
+          senderHash: PagSeguroDirectPayment.getSenderHash()
+        },
+        dataType: 'json',
+        success: function(data2) {
+
+          console.log(data2)
+
+
+          //window.location = data.paymentLink;
+
+        }
+
+      });
+  }
+
+  $('#boletoButton').click(function(e) {
+
       showModal();
+
+      e.preventDefault();
+
       $.ajax({
         type: 'POST',
         url: '/compras/checkout/pagamentoboleto',
@@ -1024,13 +1069,15 @@ else:
           senderHash: PagSeguroDirectPayment.getSenderHash(),
           tpPag: 2,
           gateway: 1,
-          enderecoId: $("#shippingAddressPostalCodeId").val()
+          cep: $("#shippingAddressPostalCode").val(),
+          enderecoId: $("#shippingAddressPostalCodeId").val(),
+          servico: window.localStorage.getItem('freteId'),
         },
         success: function(data) {
 
           console.log(data);
 
-          if (!(data.paymentLink)) {
+          if (!(data.link)) {
             //alert(data);
             $("#modal-title").html("<font color='red'>Erro</font>");
 
@@ -1050,47 +1097,21 @@ else:
             });
           } else {
 
-              $.ajax({
-              type: 'POST',
-              url: '{url}compras/carrinho/finalizar/compra',
-              cache: false,
-              data: {
-                id: $("#session_id_field").val(),
-                email: $("#senderEmail").val(),
-                nome: $("#senderName").val(),
-                cpf: $("#senderCPF").val(),
-                ddd: $("#senderAreaCode").val(),
-                telefone: $("#senderPhone").val(),
-                cep: $("#shippingAddressPostalCode").val(),
-                endereco: $("#shippingAddressStreet").val(),
-                numero: $("#shippingAddressNumber").val(),
-                complemento: $("#shippingAddressComplement").val(),
-                bairro: $("#shippingAddressDistrict").val(),
-                cidade: $("#shippingAddressCity").val(),
-                estado: $("#shippingAddressState").val(),
-                pais: "BRA",
-                senderHash: senderHash,
-              },
-              success: function(data2) {
+            console.log(data);
 
-                console.log(data2)
-
-                window.location = data.paymentLink;
-
-              }
-            });
-
-            
+            window.location.href = '/compras/checkout/compra-finalizada?link=' + data.link;
             setTimeout(function () {
+
               $("#modal-body").html("");
               $("#modal-title").html("<font color='green'>Sucesso!</font>")
 
-              $("#modal-body").html("Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.<br /><br /><a href='" + data.paymentLink + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
+              $("#modal-body").html("Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora.<br /><br /><p>Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.</p><br /><br /><a href='" + data.link + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
             }, 3500);
           }
 
         }
       });
+
   });
 
   $("input[name='changePaymentMethod']").on('click', function(e) {

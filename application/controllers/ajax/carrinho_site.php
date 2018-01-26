@@ -553,11 +553,6 @@ class Carrinho_site extends CI_Controller {
         //Verifica se foi retornado algum endereco
         !isset( $endereco['est'] ) ? $this->Essentials->setMessage( 'Endereço inválido' ) : null;
 
-
-        /**
-        * Essa parte é referente ao processamento da venda
-        * 
-        **/
         //Obtem o total da venda
         $totalVenda                =   $this->Carrinho->getTotal();
 

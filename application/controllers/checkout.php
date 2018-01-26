@@ -32,7 +32,7 @@ class Checkout extends CI_Controller{
 
     #localhost:8089
 
-    //protected $notify     =  'http://localhost:8089/compras/checkout/notificacao';
+    //protected $notify     =  'http://www.grupobasso.com.br/compras/checkout/notificacao';
 
     protected $notify     =  'http://www.grupobasso.com.br/compras/checkout/notificacao';
 
@@ -61,9 +61,9 @@ class Checkout extends CI_Controller{
 
         $this->Vendas     =   new objects\Vendas;
 
-        if(!$this->Login->checkLogin()) {
-            //$this->Essentials->setMessage( 'Faça login para prosseguir', 101);
-        }
+        $this->Usuarios   =   new objects\Usuarios;
+
+        $this->Carrinho   =   new sessions\Carrinho;
 
         $this->load->config('pagseguro');
 		$this->load->library('pagseguro');
@@ -213,8 +213,8 @@ class Checkout extends CI_Controller{
 
         $this->Login               =   new sessions\Login(2);
 
-        if($this->Login->checkLogin()) {
-            return redirect('http://localhost:8089/compras/checkout');
+        if($this->Login->getIdUser()) {
+            return redirect('http://www.grupobasso.com.br/compras/checkout');
         }
 
         $this->Usuarios->idUsuario =   $this->Login->getIdUser();
@@ -339,9 +339,13 @@ class Checkout extends CI_Controller{
 
         $total                          =   $this->Carrinho->getTotal();
 
-        if(empty($produtos)) {
-            return redirect('http://localhost:8089/');   
+        /*if(empty($this->Login->getIdUser())) {
+            //return redirect('http://www.grupobasso.com.br/');   
         }
+
+        if(empty($produtos)) {
+            //return redirect('http://www.grupobasso.com.br/');   
+        }*/
 
         $userEmail = $this->input->post( 'email' );
 
@@ -499,100 +503,20 @@ class Checkout extends CI_Controller{
 
     public function pagamentoBoleto()
     {
-       try {
+        $result = $this->finalizarCompra();
 
-        $this->Carrinho            =   new sessions\Carrinho;
-
-        $this->Usuarios            =   new objects\Usuarios;
-
-        $this->Login               =   new sessions\Login(2);
-
-        $userEmail = $this->input->post( 'email' );
-
-        $enderecoId = $this->input->post( 'enderecoId' );
-
-        $tpPag = $this->input->post( 'tpPag' );
-
-        $this->Usuarios->idUsuario =   $this->Login->getIdUser();
-
-        $nome = $this->Usuarios->getFullName();
-
-        $email = $this->Usuarios->getEmail();
-
-        $cpf = $this->Usuarios->getCpf();
-
-        $data = $this->input->post(NULL, TRUE);
-
-        $usuario = $this->Usuarios->getAllDataUser();
-
-        $produtos = $this->Carrinho->getProdutos();
-
-        $produtos = $this->Produtos->getProdutosByCart( $produtos );
-
-        $gateway = 1; 
-
-        //$this->finalizarCompra($tpPag, $gateway, $enderecoId, $data['cep'], 1);
-
-        $data['ddd'] = '27'; 
-        $data['telefone'] = '999502435' ; 
-
-        $data['cpf'] = str_replace(".", "", $cpf);
-        $data['cpf'] = str_replace("-", "", $data['cpf']);
-        $data['email'] = 'v41547011778302880350@sandbox.pagseguro.com.br';
-
-        $arrProdutos = array();
-
-        foreach($produtos as $produto) {
-
-            $valor = $produto['valor_int'];
-            $valor = str_replace(",", ".", $valor);
-
-            $arrProdutos[] = array(
-                'id' => $produto['valu'],
-                'nome' => $produto['prod'],
-                'valor' => $valor,
-                'quantidade' => $produto['qtd'],
-            );
-        }
-
-        $xml = $this->gerarXmlBoleto($data['cpf'], $arrProdutos, $data['nome'], $data['cpf'], $data['ddd'], $data['telefone'], $data['email'], $data['senderHash'], $data['endereco'], $data['numero'], $data['complemento'], $data['bairro'], $data['cep'], $data['cidade'], $data['estado']);
-
-        $request = $data;
-
-        $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
-        $emailPagseguro = "cezzaar@gmail.com";
-        $tokenPagseguro = "F103EDB34EC44003885F413C377F3F42";
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $urlPagseguro . "transactions/?email=" . $emailPagseguro . "&token=" . $tokenPagseguro);
-        curl_setopt($ch, CURLOPT_POST, true );
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml; charset=ISO-8859-1'));
-
-        $data = curl_exec ($ch)or die(curl_errno($ch) .': '. curl_error($ch)); 
-        $dataXML = simplexml_load_string($data);
-
-        if (empty($dataXML->paymentLink)) {
-
-            header('Content-Type: application/json; charset=UTF-8');
-            $errosOcorridos = array('erro' => '1');
-            echo json_encode($dataXML);        
-        } else {
-            header('Content-Type: application/json; charset=UTF-8');
-            echo json_encode($dataXML);
-        }
-        curl_close($ch);
-
-       } catch(Exception $e) {
-           echo $e->getMessage();
-       }
-
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($result);
+        exit;
     }
 
     public function pagamentoCartao()
     {
+        $result = $this->finalizarCompra();
+
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($result);
+        exit;
 
         $this->Carrinho            =   new sessions\Carrinho;
 
@@ -710,9 +634,27 @@ class Checkout extends CI_Controller{
         curl_close($ch);
     }
 
-    public function finalizarCompra($tpPag, $gateway, $idEndereco, $cep, $servico)
+    public function finalizarCompra()
     {
+        $this->Usuarios             =   new objects\Usuarios();
+
+        $this->Login               =   new sessions\Login(2);
+
+        $this->Essentials           =   new security\Essentials;
+
+        $this->Usuarios->idUsuario =   $this->Login->getIdUser();
+
+        $tpPag = $this->input->post( 'tpPag' ); 
+        $gateway = 1; 
+        $idEndereco = $this->input->post( 'enderecoId' ); 
+        $cep = $this->input->post( 'cep' );
+        $servico = $this->input->post( 'servico' );
+
+        $cep               =   preg_replace('/\D/', '', $cep);
+
         $this->Usuarios->cep    =   $cep;
+
+        $this->Vendas           =   new objects\Vendas;
 
         //Gera o valor do frete
         $valorFrete             =   $this->generateFrete( $cep, $servico );
@@ -735,12 +677,15 @@ class Checkout extends CI_Controller{
         $valorFreteNormal          =   $valorFrete;
 
         //Verifica se o valor da compra é menor que o valor do limite para sem frete, se sim, valor do frete normal, se não, frete grátis
-        $valorFrete                =   $this->Config->getValorSemFrete() > $this->Carrinho->getTotal() ? $valorFrete : 0.00;
+        //$valorFrete                =   $this->Config->getValorSemFrete() > $this->Carrinho->getTotal() ? $valorFrete : 0.00;
 
         $parcelasSemJuros          =   $this->Config->getParcelasSemJuros();
 
         //Determina se o frete foi cobrado ou não
         $flagFreteCobrado          =   $valorFrete > 0 ? 1 : 0;
+
+        //
+        $result = array();
 
         //var_dump( $valorFrete ); exit;
 
@@ -818,28 +763,31 @@ class Checkout extends CI_Controller{
                     }
 
                     //Deleta os dados do carrinho
-                    //$this->Carrinho->deleteAll();
+                    $this->Carrinho->deleteAll();
 
-                    if( $tpPag == 2 || $tpPag == 3 ) {
+                    if ( $tpPag == 2 || $tpPag == 3 ) {
 
                         //get link do boleto
                         $link    =  $this->Vendas->getLinkBoleto();
 
-                        $result  =  array( 'link' => $link, 'code' => 100, 'message' => 'Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora' );
+                        $result  =  array( 'link' => $link, 'code' => 100, 'message' => 'Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora.' );
 
                         //Retorna os dados em formato json
-                        echo json_encode( $result ); exit;
+                        //echo json_encode( $result ); exit;
 
-                    }else {
+                        return $result;
+
+                    } else {
 
                         $result  =  array( 
-                                        'message'  =>  'Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora',
+                                        'message'  =>  'Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora.',
                                         'code'     =>  100,
                                         'ref'      =>  $this->Vendas->referencia
                                     );
 
-                        echo json_encode( $result );
+                        //echo json_encode( $result );
 
+                        return $result;
                     }
 
                 }
@@ -848,6 +796,123 @@ class Checkout extends CI_Controller{
 
         }
 
+        return $result;
+
+    }
+
+    public function finalizado()
+    {
+         $data  =  array();
+
+        $this->Usuarios            =   new objects\Usuarios;
+
+        $this->Login               =   new sessions\Login(2);
+
+        $produtos                       =   $this->Carrinho->getProdutos();
+
+        $produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
+
+        $total                          =   $this->Carrinho->getTotal();
+
+        $this->Usuarios->idUsuario =   $this->Login->getIdUser();
+
+        $nome = $this->Usuarios->getFullName();
+
+        $email = $this->Usuarios->getEmail();
+
+        $cpf = $this->Usuarios->getCpf();
+
+        if( is_bool( $nome ) ) {
+
+            $nome  =  'Visitante';
+
+        }else {
+
+            $bName  =   explode(' ', $nome);
+
+            if( count( $bName ) >= 2 ) {
+
+                $nome   =   $bName[0] . ' ' . $bName[1];
+
+            }else {
+
+                $nome   =   $bName[0];
+
+            }
+
+        }
+
+        //Define data info to header
+        $data['header']            =   array();
+
+        //Define data info to body
+        $data['body']              =   array();
+
+        //Define data info to footer
+        $data['footer']            =   array();
+
+        //Declara o array que vai levar todas as imagens
+        $data['body']['images']    =   array();
+
+        $js    =  array( 0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 20, 22 );
+
+        $css   =  array( 0, 1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 7 );
+
+        $fJs   =  array( 18, 15, 17, 19 );
+        
+        $data['header']['url']          =   base_url();
+
+        $data['header']['css']          =   $this->Header->getCss( $css );
+
+        $data['header']['catss']        =   $this->Menus->getCategorias();
+
+        $data['header']['categorias']    =   $this->Categorias->getCategoriasToHome();
+
+        $data['header']['js']           =   $this->Header->getJs( $js );
+
+        $data['header']['inc']          =   '';
+
+        $data['header']['pesq']  =   "";
+
+        $data['header']['menus']        =   $this->Menus->getMenusToHome(); 
+
+        $data['header']['inc']          =   $this->Header->getIncludes( array( 1, 7 ) );
+
+        $data['header']['nome']         =   $nome;        
+
+        $data['header']['email']        =   $email;  
+
+        $data['header']['cpf']          =   $cpf;
+
+        $data['header']['total']        =   number_format( $total, 2, ',', '.' );
+
+        $data['header']['logado']       =   $this->Login->checkLogin() ? true :  false;
+
+        $data['body']['totalS']         =   $total;
+
+        $data['body']['images']         =   $this->Produtos->getAllImages();
+
+        $data['body']['imageDefault']   =   $this->Produtos->getImageDefaultDiretory();
+
+        $data['body']['carrinho']       =   $produtos;
+
+        $data['body']['total']          =   number_format( $this->Carrinho->getTotal(), 2, ',', '.');
+
+        $data['body']["url"]            =   base_url();
+
+        $data['body']["linkBoleto"]     =   $_GET['link'];
+
+        $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
+
+        $data['footer']["url"]          =   base_url();
+
+        $data['footer']['js']           =   $this->Header->getJs( $fJs );
+        
+        $this->parser->parse("default/header", $data['header']);
+
+        $this->parser->parse('finalizado', $data['body']);
+
+        $this->parser->parse('default/footer', $data['footer']);
     }
 
     public function callPaymentBoleto( $valorFrete, $parcelasSemJuros, $servico ) 
@@ -909,7 +974,7 @@ class Checkout extends CI_Controller{
         strlen( $cep ) != 8 || !is_numeric( $cep ) ? $this->Essentials->setMessage( 'Cep inválido' ) : null;
 
         //Seta o ID do usuário na classe Usuários
-        //$this->Vendas->idUsuario   =   $this->idUsuario;
+        $this->Vendas->idUsuario   =   $this->Login->getIdUser();
 
         //Seta o CEP
         $this->Usuarios->cep       =   $cep;
@@ -919,42 +984,26 @@ class Checkout extends CI_Controller{
 
         //Verifica se foi retornado algum endereco
         !isset( $endereco['est'] ) ? $this->Essentials->setMessage( 'Endereço inválido' ) : null;
-
-
-        /**
-        * Essa parte é referente ao processamento da venda
-        * 
-        **/
-        $this->Vendas->gerarReferencia();
-
+        
         //Obtem o total da venda
         $totalVenda                =   $this->Carrinho->getTotal();
 
         //Seta o status da venda como 1: Aguardando pagamento
-        $status                    =   1;
+        $status = 1;
 
         $servico = 1;
 
+        //Gera a referencia da venda
+        $this->Vendas->gerarReferencia();
+
         //Grava a venda
-        $dadosVenda = $this->Vendas->gravarVenda( $status, $totalVenda, $servico );
-
-        //echo $this->Vendas->getIDVenda();
-
-        //!$this->Vendas->vendaExists() ? $this->Essentials->setMessage( 'Venda inválida' ): null;
-
-        //$this->Vendas->idVenda = $id;
-
-        //echo 1; exit;
-
-        //$this->Vendas->ven_id = $id;
+        $this->Vendas->gravarVenda( $status, $totalVenda, $servico );
 
         //Resgata o ID da venda
         $response    =   $this->Vendas->getIDVenda();
 
-        //var_dump($this->Vendas->getIDEndereco());
-
         //Verifica se o ID da venda foi resgatado com sucesso
-        //!$response   ?   $this->Essentials->setMessage( 'Ocorreu um erro, a compra não foi finalizada' ) : null;
+        !$response   ?   $this->Essentials->setMessage( 'Ocorreu um erro, a compra não foi finalizada' ) : null;
 
         //Salva os produtos da venda e recebe os produtos da venda
         $itens     =  $this->salvarProdutosVenda();
@@ -970,6 +1019,7 @@ class Checkout extends CI_Controller{
         *
         **/
         //Configura o array que será enviado via POST
+
         $data   =  array(
             'email'                          =>  urlencode( $this->email ),
             'token'                          =>  urlencode( $this->token ),
@@ -1030,7 +1080,8 @@ class Checkout extends CI_Controller{
 
     }
 
-    public function callPaymentCreditCard( $valorFrete, $parcelasSemJuros, $servico ) {
+    public function callPaymentCreditCard( $valorFrete, $parcelasSemJuros, $servico ) 
+    {
 
         //Instancia a classe de Datas
         $this->Dates       =   new extend\Dates;
@@ -1058,8 +1109,8 @@ class Checkout extends CI_Controller{
 
         $cep               =   $this->input->post( 'cep' );
 
-        $parcelas = $this->input->post( 'numParcelas' );
-        $parcelaValor = $this->input->post( 'valorParcelas' );
+        $parcelas =         $this->input->post( 'numParcelas' );
+        $parcelaValor =     $this->input->post( 'valorParcelas' );
 
         $ddd               =   preg_replace('/\D/', '', $ddd);
 
@@ -1074,6 +1125,8 @@ class Checkout extends CI_Controller{
         $enderecoId = $this->input->post( 'enderecoId' );
 
         $tpPag = $this->input->post( 'tpPag' );
+
+        $cardToken = $this->input->post( 'cardToken' );
 
         //Valida o e-mail
         !$this->Essentials->validEmail( $email ) ? $this->Essentials->setMessage( 'E-mail inválido' ) : null;
@@ -1108,7 +1161,7 @@ class Checkout extends CI_Controller{
         //$this->finalizarCompra($tpPag, 1, $enderecoId, $cep, 1);
 
         //Seta o ID do usuário na classe Usuários
-        $this->Vendas->idUsuario   =   $this->idUsuario;
+        $this->Vendas->idUsuario   =  $this->Login->getIdUser();
 
         //Seta o CEP
         $this->Usuarios->cep       =   $cep;
@@ -1119,7 +1172,6 @@ class Checkout extends CI_Controller{
         //Verifica se foi retornado algum endereco
         !isset( $endereco['est'] ) ? $this->Essentials->setMessage( 'Endereço inválido' ) : null;
 
-
         /**
         * Essa parte é referente ao processamento da venda
         * 
@@ -1129,8 +1181,6 @@ class Checkout extends CI_Controller{
 
         //Seta o status da venda como 1: Aguardando pagamento
         $status                    =   1;
-
-        
 
         //Gera a referencia da venda
         $this->Vendas->gerarReferencia();
@@ -1153,7 +1203,7 @@ class Checkout extends CI_Controller{
         //Verifica se houve algum retorno
         is_bool( $fullName ) ? $this->Essentials->setMessage( 'Ocorreu um erro ao buscar o nome do usuário cadastrado em sua conta, sua compra não foi finalizada' ) : null;
 
-        $parcelas = 1;
+        $email = $this->emailLoja;
 
         /**
         * Esta parte é referente a conexão ao servidor do PAGSEGURO
@@ -1241,7 +1291,6 @@ class Checkout extends CI_Controller{
 
     }
 
-
     public function gerarXmlBoleto($referencia, $produtos, $nome, $cpf, $ddd, $telefone, $email, $senderHash, $endereco, $numero, $complemento, $bairro, $cep, $cidade, $estado)
     {
         $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
@@ -1250,7 +1299,7 @@ class Checkout extends CI_Controller{
         $urlNotificacao = "http://www.grupobasso.com.br/compras/checkout/notificacao";
 
         
-        #$urlNotificacao = "http://localhost:8089/retornopagamento";
+        #$urlNotificacao = "http://www.grupobasso.com.br/retornopagamento";
 
         $strProdutos = "";
 
@@ -1333,7 +1382,7 @@ class Checkout extends CI_Controller{
         }
 
         
-        #$urlNotificacao = "http://localhost:8089/retornopagamento";
+        #$urlNotificacao = "http://www.grupobasso.com.br/retornopagamento";
 
           return "<payment>
             <mode>default</mode>
@@ -1416,7 +1465,8 @@ class Checkout extends CI_Controller{
             </payment>";
     }
 
-    public function notificacao() {
+    public function notificacao() 
+    {
 
         //Instancia a classe de vendas
         $this->Vendas   =   new objects\Vendas();
@@ -1526,7 +1576,7 @@ class Checkout extends CI_Controller{
         $this->Vendas->gravarVendaPagseguro( true );
 
         //Atualiza o status da venda
-        $this->Vendas->gravarVenda( $status, '', true );
+        $this->Vendas->gravarVenda( $status, '', true, true );
 
         //Grava o LOG de notificação
         $this->Vendas->gravarLogNotificacao( $ip, $notifyCode );
@@ -1536,7 +1586,8 @@ class Checkout extends CI_Controller{
 
     }
 
-    protected function salvarProdutosVenda() {
+    protected function salvarProdutosVenda() 
+    {
 
         /**
         * Essa parte é referente ao processamento dos produtos da venda

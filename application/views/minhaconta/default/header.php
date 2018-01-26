@@ -112,7 +112,7 @@
                                                 </a>                                        
                                             </li>
                                             <li class="dropdown ttmenu-full no-padding-bottom no-margin-left">
-                                                <a href="{url}minha/conta/sair">
+                                                <a href="http://www.grupobasso.com.br/minha/conta/sair">
                                                     Sair
                                                 </a>                                        
                                             </li> 

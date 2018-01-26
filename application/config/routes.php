@@ -99,6 +99,10 @@ $route['compras/checkout/pagamentoboleto']   =   'checkout/pagamentoBoleto';
 
 $route['compras/checkout/pagamentocartao']   =   'checkout/pagamentoCartao';
 
+$route['compras/checkout/finalizar']         =   'checkout/finalizarCompra';
+
+$route['compras/checkout/compra-finalizada'] =   'checkout/finalizado';
+
 $route['compras/checkout/notificacao']       =   'checkout/notificacao';
 
 $route['compras/session']                    =   'produtos/getSession';

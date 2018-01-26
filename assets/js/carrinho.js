@@ -390,16 +390,16 @@ function getValorFrete2(post) {
 
                 var formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }
 
-                var retorno = "<ul>"
+                var retorno = ""
 
                 $.each(data, function(index, value) {
-                    retorno += "<li><b> " + value.nome + ", valor: " + value.valor.toLocaleString('pt-BR', formato) + "</b></li>";
+                    retorno += "<div class='field radio'><label><input type='radio' required name='inputFrete' id='inputFrete' data-id='" + (index + 1) + "' data-valor='" + value.valor + "' value='" + value.nome + ' ' + value.valor.toLocaleString('pt-BR', formato) + "'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + value.nome + ' ' + value.valor.toLocaleString('pt-BR', formato) + "<label></div>";
                 });
 
                 //retorno += "<li><b> PAC, valor: " + data.preco_pac.toLocaleString('pt-BR', formato) + "</b></li>";
                 //retorno += "<li><b> SEDEX, valor: " + data.preco_sedex.toLocaleString('pt-BR', formato) + "</b></li>";
 
-                retorno += "</ul>";
+                retorno += "";
 
                 $('.valorFrete').html(retorno);
 

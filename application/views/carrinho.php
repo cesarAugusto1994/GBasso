@@ -1,94 +1,3 @@
-<!--<div class="container margin-top padding-med-reset">
-	<div class="row">
-		<ol class="breadcrumb">
-			<li><a href='{url}'>Home</a></li>
-			<li class="active">
-				Carrinho
-			</li>
-		</ol>
-		<div class="row">
-
-			<div class="col-lg-8 col-xs-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">Seus produtos</div>
-					<div class="panel-body">
-						<table class="table">
-							<thead>
-								<th><input type='checkbox' id='chkCarrinhoAll' /></th>
-								<th>Imagem</th>
-								<th>Produto</th>
-								<th>Referência</th>
-								<th style='width: 80px;'>Qtde</th>
-								<th style='width: 200px;'>Valor</th>
-							</thead>
-							<tbody>
-								<?php
-                                    $attr = 'disabled';
-                                if (count($carrinho) > 0) {
-                                    $attr = '';
-                                    foreach ($carrinho as $key => $value) {
-                                ?>
-                                        <tr>
-                                            <td><input type='checkbox' class='chkCarrinho' id="<?= $value['valu']; ?>" /></td>
-                                            <td><a href="<?= $value['link']; ?>"><img style="min-width:64px;min-height:64px;max-width:64px;max-height:64px;" src="<?= $value['image']; ?>"/></a></td>
-                                            <td><?= $value['prod']; ?></td>
-                                            <td><?= $value['refe']; ?></td>
-                                            <td><input min="1" style="width: 45px;padding:0.2em 0.5em;background-color:#f5f5f5;border:none;font-size:12px" data-id="<?= $value['valu']; ?>" type="number" class="control-form change-quantity" value="<?= $value['qtd']; ?>" /></td>
-                                            <td><?= $value['valo']; ?></td>
-                                        </tr>
-                                <?php
-                                    }
-
-                                    echo "<tr><td colspan='5'></td><td>Total: R$ " . $total . "</td></tr>";
-                                } else {
-                                    echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
-                                }
-?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="panel-footer">
-                        <button class='btn btn-danger btn-xs deletarProduto' disabled>Remover Produtos</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-xs-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Informações Adicionais</div>
-                        <div class="panel-body">
-
-                            <div class="row">
-
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Informe o seu CEP</label>
-                                        <input type='text' class='form-control informarCep' name='cepEntregaCarrinho' />
-                                    </div>
-                                </div>
-                            
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label style='float: left; margin-bottom: 20px; width: 100%;'>Valor do frete: </label>
-                                        <span class='valorFrete'>R$ 0,00</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-                        <div class="panel-footer">
-                            <button class='btn btn-success btn-xs finalizarCompra' <?= $attr; ?>>Ir para Checkout</button>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>
--->
-
 <div class="conteiner">
 
     <div class="secao-principal row-fluid sem-coluna">
@@ -237,7 +146,7 @@
 
             <tr class="hidden-phone bg-dark">
               <td colspan="4">
-                <form class="form-horizontal" id="formCalcularFrete">
+                <div class="form-horizontal" id="formCalcularFrete">
                   <div class="control-group">
                     <label class="control-label" for="calcularFrete">
                       
@@ -245,20 +154,18 @@
                     <div class="controls text-left">
                       <div class="input-append">
                         <input type="tel" id="cep" name="cep_destino" class="input-small input-cep informarCep" style="height: 34px;width:180px" value="" placeholder="Informe o Frete" maxlength="9">
-                        <button type="button" class="btn btnCaclcularFrete"><i class="icon-truck"></i>Calcular Frete</button>
+                        <button type="button" class="btn btn-default btnCaclcularFrete"><i class="icon-truck"></i>Calcular Frete</button>
                       </div>
                       <span class="help-inline">
                         <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/" target="_blank"><i class="icon-question-sign"></i>Não sei meu CEP</a>
                       </span>
                     </div>
                   </div>
-                </form>
+                </div>
               </td>
               <td colspan="2">
                 <div class="formas-envio">
-                  <ul>
-                  </ul>
-
+                    <center><p class="lead">Informe o seu cep.</p><i><small>As suas opçoes de frete aparecerão aqui.</small><i></center>
                 </div>
               </td>
             </tr>
@@ -302,7 +209,7 @@
             <div class="span12">
                 <a href="/" class="botao">Continuar comprando</a>
                 <?php if(1==1): ?>
-                    <a href="/compras/precheckout" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
+                    <a data-redirect="/compras/precheckout" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
                 <?php elseif($logado): ?>
                     <button type="button" class="botao principal grande finalizarCompra"><i class="icon-ok"></i>Finalizar compra</button>
                 <?php else: ?>
@@ -329,7 +236,38 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        
         $("#cep").mask("99999-999");
+
+        $(".principal").click(function(e) {
+
+            e.preventDefault();
+            
+            var inputFrete = $("input[name='inputFrete']").is(':checked');
+
+            if(!inputFrete) {
+
+                alerta('Selecione uma Opção de Frete.', 102);
+
+                $('#cep').focus();
+
+                return false;
+
+            }
+
+            $url = $(this).data('redirect');
+
+            var freteId = $("input[name='inputFrete']:checked").data('id');
+            var freteValor = $("input[name='inputFrete']:checked").data('valor');
+
+            freteValor = freteValor.toFixed(2);
+
+            window.localStorage.setItem('freteId', freteId)
+            window.localStorage.setItem('freteValor', freteValor)
+
+            window.location.href = $url;
+        })
+
     });
 </script>
 

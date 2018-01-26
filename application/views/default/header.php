@@ -79,15 +79,15 @@
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="false"> <i class="glyphicon glyphicon-user mr-5"></i><span>Minha Conta</span> </a>
                             <ul class="dropdown-menu w-150" role="menu">
-                                <li><a href="/minha/conta/inicio">Painel</a></li>
-                                <li><a href="/minha/conta/compras">Minhas Compras</a></li>
+                                <li><a href="http://www.grupobasso.com.br/minha/conta/inicio">Painel</a></li>
+                                <li><a href="http://www.grupobasso.com.br/minha/conta/compras">Minhas Compras</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/minha/conta/meusdados">Minhas Informções</a>
+                                <li><a href="http://www.grupobasso.com.br/minha/conta/meusdados">Minhas Informções</a>
                                 </li>
-                                <li><a href="/minha/conta/meusenderecos">Meus Endereços</a>
+                                <li><a href="http://www.grupobasso.com.br/minha/conta/meusenderecos">Meus Endereços</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a style="color: red" href="/minha/conta/sair">Sair</a>
+                                <li><a style="color: red" href="http://www.grupobasso.com.br/minha/conta/sair">Sair</a>
                                 </li>
                             </ul>
                            
@@ -100,7 +100,7 @@
                                             <div class="col-md-12">
                                                 Login
                                                 
-                                                <form class="formLogin" method="post" action="/ajax/minha/conta/logar">
+                                                <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
                                                         <div class="form-group">
                                                             <label class="sr-only" for="user">E-mail</label>
                                                             <input type="email" class="form-control" name="user" id="user" placeholder="E-mail" required>
@@ -178,7 +178,7 @@
         </div>
     </div>
     
-    
+    <?php if(isset($categorias)): ?>
         <nav class="navbar navbar-main navbar-default" role="navigation" style="opacity: 1;">
           <div class="container-fluid">
             <!-- Brand and toggle -->
@@ -190,7 +190,7 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-        
+
             <!-- Collect the nav links,  -->
             <div class="collapse navbar-collapse navbar-1" style="margin-top: 0px;">            
               <ul class="nav navbar-nav">                  
@@ -250,9 +250,10 @@
 
               </ul>
             </div><!-- /.navbar-collapse -->
+            
           </div>
         </nav>
-
+    <?php endif; ?>
     </div>
 
     <!--

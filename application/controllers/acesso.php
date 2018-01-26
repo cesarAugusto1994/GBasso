@@ -43,37 +43,6 @@ class Acesso extends CI_Controller{
         $this->Menus       =   new objects\Menus;
 
         $this->Login       =   new sessions\Login;
-
-        //$segmento          =   substr( trim( $this->uri->slash_segment( 3 ) ), 0, -1 );
-
-        //$response          =   $this->Login->checkLogin();
-
-        /*if($response) {
-            //redirect( '/compras/checkout' );
-        }*/
-/*
-        if( $segmento != 'login' && $segmento != 'cadastrar' ) {
-            !$response ? redirect( 'minha/conta/login' ) : null;
-        }else if( $segmento == 'login' || $segmento == 'cadastrar' ) {
-            $response ? redirect( 'minha/conta/inicio' ) : null;
-        }
-*/
-    }
-
-
-    /**
-     * Método realiza a saída e destroi todos os dados de sessão
-     *
-     * @param  NULL
-     * @return VOID
-     * @access PUBLIC
-     **/
-    public function sair() {
-
-        $this->Login->logOut();
-
-        redirect( 'minha/conta/login' );
-
     }
 
 
@@ -102,6 +71,8 @@ class Acesso extends CI_Controller{
         $data['footer']  =  array();
         
         $data['header']['url']  =   base_url();
+
+        $data['header']['pesq']  =   "";
         
         $data['header']['catss']        =   $this->Menus->getCategorias();
 

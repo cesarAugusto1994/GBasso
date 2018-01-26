@@ -420,7 +420,6 @@ class Vendas extends db\Querys  {
 
         }
 
-        return $gravar;
 
     }
 
@@ -597,6 +596,11 @@ class Vendas extends db\Querys  {
 
         }
 
+    }
+
+    public function getId()
+    {
+        return $this->idVenda;
     }
 
     
