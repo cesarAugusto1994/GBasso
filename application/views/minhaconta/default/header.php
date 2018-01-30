@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title class="titulo"> VTenis - Área do usuário </title>
+    <title class="titulo"> Grupo Basso - Área do usuário </title>
 	
 	{css}
 

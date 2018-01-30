@@ -522,27 +522,15 @@ class Produtos extends CI_Controller{
 
     public function getSession()
     {
-        ini_set('display_errors', E_ALL);
-        ini_set('error_reporting', true);
-
-        //try {
-
         $ch = curl_init();
 
         $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
-        #$emailPagseguro = "v41547011778302880350@sandbox.pagseguro.com.br";
-        #$tokenPagseguro = "56240387G1616477";
-
+  
         $emailPagseguro = "cezzaar@gmail.com";
         $tokenPagseguro = "F103EDB34EC44003885F413C377F3F42";
-        #$urlNotificacao = "http://www.sualoja.com.br/retornopagamento.php";
         $urlNotificacao = "http://www.grupobasso.com.br/retornopagamento";
 
-        //$scriptPagseguro = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
-
         $formatedUri = $urlPagseguro . 'sessions?email=' . $emailPagseguro . '&token=' . $tokenPagseguro;
-
-        //echo $formatedUri;
 
         curl_setopt($ch, CURLOPT_URL, $formatedUri);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -560,11 +548,6 @@ class Produtos extends CI_Controller{
 
         echo $xml->id;
         curl_close($ch);
-
-        //} catch(Exception $e) {
-            //echo $e->getMessage();
-        //}
-
         
     }
 

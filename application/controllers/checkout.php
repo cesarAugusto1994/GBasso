@@ -30,13 +30,10 @@ class Checkout extends CI_Controller{
 
     private $idUsuario;
 
-    #localhost:8089
-
-    //protected $notify     =  'http://www.grupobasso.com.br/compras/checkout/notificacao';
-
     protected $notify     =  'http://www.grupobasso.com.br/compras/checkout/notificacao';
 
-    protected $urlPagSeg  =  'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/';
+    protected $urlPagSegTransactions  =  'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/';
+    protected $urlPagseguro  =  'https://ws.sandbox.pagseguro.uol.com.br/v2/';
     
 	public function __construct() {        		
         
@@ -339,13 +336,9 @@ class Checkout extends CI_Controller{
 
         $total                          =   $this->Carrinho->getTotal();
 
-        /*if(empty($this->Login->getIdUser())) {
-            //return redirect('http://www.grupobasso.com.br/');   
-        }
-
         if(empty($produtos)) {
-            //return redirect('http://www.grupobasso.com.br/');   
-        }*/
+            return redirect('http://www.grupobasso.com.br/');   
+        }
 
         $userEmail = $this->input->post( 'email' );
 
@@ -468,14 +461,14 @@ class Checkout extends CI_Controller{
     {
         $ch = curl_init();
 
-        $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
-        $emailPagseguro = "v41547011778302880350@sandbox.pagseguro.com.br";
-        $tokenPagseguro = "56240387G1616477";
-        $urlNotificacao = "http://www.sualoja.com.br/retornopagamento.php";
+        //$urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
+        //$emailPagseguro = "v41547011778302880350@sandbox.pagseguro.com.br";
+        //$tokenPagseguro = "56240387G1616477";
+        //$urlNotificacao = "http://www.sualoja.com.br/retornopagamento.php";
 
-        $scriptPagseguro = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
+        //$scriptPagseguro = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js";
 
-        curl_setopt($ch, CURLOPT_URL, $urlPagseguro . 'sessions?email=' . $emailPagseguro . '&token=' . $tokenPagseguro);
+        curl_setopt($ch, CURLOPT_URL, $this->urlPagseguro . 'sessions?email=' . $this->emailLoja . '&token=' . $this->token);
 
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -493,10 +486,6 @@ class Checkout extends CI_Controller{
         $this->Carrinho = new sessions\Carrinho;
 
         $produtos                       =   $this->Carrinho->getProdutos();
-
-        //$produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
-
-        //$total                          =   $this->Carrinho->getTotal();
 
         return $produtos;
     }
@@ -618,7 +607,7 @@ class Checkout extends CI_Controller{
         $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->urlPagSeg . "?email=" . $this->email . "&token=" . $this->token);
+        curl_setopt($ch, CURLOPT_URL, $this->urlPagSegTransactions . "?email=" . $this->email . "&token=" . $this->token);
         curl_setopt($ch, CURLOPT_POST, true );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
@@ -686,8 +675,6 @@ class Checkout extends CI_Controller{
 
         //
         $result = array();
-
-        //var_dump( $valorFrete ); exit;
 
         //Verifica se o gateway de pagamento é 1, sendo assim, ele escolheu pagseguro
         if( $gateway == 1 ) {
@@ -900,7 +887,7 @@ class Checkout extends CI_Controller{
 
         $data['body']["url"]            =   base_url();
 
-        $data['body']["linkBoleto"]     =   $_GET['link'];
+        $data['body']["linkBoleto"]     =   isset($_GET['link']) ? $_GET['link'] : null;
 
         $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
 
@@ -928,13 +915,9 @@ class Checkout extends CI_Controller{
 
         $cpfDono           =   $this->input->post( 'cpf' );
 
-        //$ddd               =   $this->input->post( 'ddd' );
+        $ddd               =   $this->input->post( 'ddd' );
 
-        $ddd = '27';
-
-        //$telefone          =   $this->input->post( 'telefone' );
-
-        $telefone = '99502435';
+        $telefone          =   $this->input->post( 'telefone' );
 
         $senderHash        =   $this->input->post( 'senderHash' );
 
@@ -968,7 +951,7 @@ class Checkout extends CI_Controller{
         strlen( $ddd ) != 2 || !is_numeric( $ddd ) ? $this->Essentials->setMessage( 'DDD inválido' ) : null;
 
         //Valida o telefone
-        strlen( $telefone ) != 8 || !is_numeric( $telefone ) ? $this->Essentials->setMessage( 'Telefone inválido' ) : null;
+        strlen( $telefone ) > 9 || !is_numeric( $telefone ) ? $this->Essentials->setMessage( 'Telefone inválido' ) : null;
 
         //Valida o CEP
         strlen( $cep ) != 8 || !is_numeric( $cep ) ? $this->Essentials->setMessage( 'Cep inválido' ) : null;
@@ -1051,12 +1034,12 @@ class Checkout extends CI_Controller{
         $data        =   array_merge( $data, $itens );
 
         //Instancia a classe Curl para conexão em outros servidores
-        $this->Curl  =   new connection\Curl( $this->urlPagSeg );
+        $this->Curl  =   new connection\Curl( $this->urlPagSegTransactions );
 
         //Prepara os parametros para o POST
         $data        =   $this->Curl->urlify( $data );
 
-        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSeg . "?email=" . $this->email . "&token=" . $this->token );
+        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSegTransactions . "?email=" . $this->email . "&token=" . $this->token );
 
         $this->Curl->setOpt( 'CURLOPT_POST', $data );
 
@@ -1093,13 +1076,9 @@ class Checkout extends CI_Controller{
 
         $cpfDono           =   $this->input->post( 'cpf' );
 
-        //$ddd               =   $this->input->post( 'ddd' );
+        $ddd               =   $this->input->post( 'ddd' );
 
-        $ddd = '27';
-
-        //$telefone          =   $this->input->post( 'telefone' );
-
-        $telefone = '99502435';
+        $telefone          =   $this->input->post( 'telefone' );
 
         $senderHash        =   $this->input->post( 'senderHash' );
 
@@ -1144,7 +1123,7 @@ class Checkout extends CI_Controller{
         strlen( $ddd ) != 2 || !is_numeric( $ddd ) ? $this->Essentials->setMessage( 'DDD inválido' ) : null;
 
         //Valida o telefone
-        strlen( $telefone ) != 8 || !is_numeric( $telefone ) ? $this->Essentials->setMessage( 'Telefone inválido' ) : null;
+        !is_numeric( $telefone ) ? $this->Essentials->setMessage( 'Telefone inválido' ) : null;
 
         //Valida o CEP
         strlen( $cep ) != 8 || !is_numeric( $cep ) ? $this->Essentials->setMessage( 'Cep inválido' ) : null;
@@ -1260,12 +1239,12 @@ class Checkout extends CI_Controller{
         //print_r( $data ); exit; 
 
         //Instancia a classe Curl para conexão em outros servidores
-        $this->Curl  =   new connection\Curl( $this->urlPagSeg );
+        $this->Curl  =   new connection\Curl( $this->urlPagSegTransactions );
 
         //Prepara os parametros para o POST
         $data        =   $this->Curl->urlify( $data );
 
-        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSeg );
+        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagSegTransactions );
 
         $this->Curl->setOpt( 'CURLOPT_POST', $data );
 
