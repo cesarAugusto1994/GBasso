@@ -17,9 +17,6 @@
 
     <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css' /> 
 
- 
-    
-    
     <style>
         .navbar-nav {
             margin-top: 0;
@@ -31,7 +28,7 @@
         
         .cd-dropdown {
             position: absolute;
-            margin-top: 12px;
+            margin-top: 30px;
         }
 
         body,
@@ -40,11 +37,16 @@
         }
 
         .navbar .nav>li>a {
-            color: black;
+            color: white;
+            text-shadow: none;
         }
 
         .navbar-default {
             height: 40px;
+        }
+
+        .sidemenu {
+            width: 90%;
         }
       
 
@@ -139,7 +141,6 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-center">
                     <a href="/"> <img alt="" width="100px" height="100px" class="img img-rounded" style="margin: -10px auto 50px" src="{url}assets/images/logo.png"></a>
                 </div>
-                <!-- end col -->
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 text-center">
                         <div class="row grid-space-1">
 
@@ -172,16 +173,14 @@
                         </div>
                 </div>
                 
-    <!-- end col -->
             </div>
-  <!-- end  row -->
         </div>
     </div>
     
+    <!--
     <?php if(isset($categorias)): ?>
         <nav class="navbar navbar-main navbar-default" role="navigation" style="opacity: 1;">
           <div class="container-fluid">
-            <!-- Brand and toggle -->
              <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -191,7 +190,6 @@
                 </button>
             </div>
 
-            <!-- Collect the nav links,  -->
             <div class="collapse navbar-collapse navbar-1" style="margin-top: 0px;">            
               <ul class="nav navbar-nav">                  
                 <li class="dropdown megaDropMenu">
@@ -249,18 +247,19 @@
                 <?php } } ?>
 
               </ul>
-            </div><!-- /.navbar-collapse -->
+            </div>
             
           </div>
         </nav>
-    <?php endif; ?>
+    <?php endif;  ?>
+                    -->
     </div>
 
-    <!--
+    
     <header id="header">
         <div class="container">
             <div class="row">
-
+<!--
                 <div class="row">
 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
@@ -311,12 +310,12 @@
                 </div>
 
                 </div>
-
+                    -->
                 <div class="row">
 
-                <div class='col-lg-3 col-md-3 col-sm-12 col-xs-12'>
+                <div class='col-lg-3 col-md-3 col-sm-12 col-xs-12' style="padding-right:0">
                     <div class="cd-dropdown-wrapper">
-                        <a class="cd-dropdown-trigger categorias-menu" href="{url}pesquisar/resultado/Todas as categorias/">CATEGORIAS</a>
+                        <a style="font-size:16px" class="cd-dropdown-trigger categorias-menu" href="{url}pesquisar/resultado/Todas as categorias/">CATEGORIAS</a>
                         <nav class="cd-dropdown" style='width: 100%'>
                             <h2>Title</h2>
                             <a href="#0" class="cd-close">Close</a>
@@ -327,7 +326,7 @@
                                             $class  =  count( $key['subcat'] ) > 0  ? 'has-children' : '';
                                 ?>
                                             <li class="<?php echo $class; ?> sidemenu">
-                                                <a href="{url}pesquisar/resultado/<?php echo $key['text']; ?>"><?php echo $key['text']; ?></a>
+                                                <a style="font-size:12px" href="{url}pesquisar/resultado/<?php echo $key['text']; ?>"><?php echo $key['text']; ?></a>
                                                 <?php
                                                     if( count( $key['subcat'] ) > 0 ) {
                                                 ?>
@@ -342,10 +341,10 @@
                                                                             <a href="#"><?php echo $innerKey[ 'nome' ]; ?></a>
                                                                             <ul class="is-hidden">
                                                                                 <li class="go-back"><a href="#0">Clothing</a></li>
-                                                                                <!--<li class="see-all"><a href="<?php echo $url . 'pesquisar/resultado/Todas as categorias/' . $key['text']; ?>">All Accessories</a></li>--><!--
+                                                                                <!--<li class="see-all"><a href="<?php echo $url . 'pesquisar/resultado/Todas as categorias/' . $key['text']; ?>">All Accessories</a></li>-->
                                                                                 <?php
                                                                                     foreach ($innerKey[ 'tags' ] as $tags) {
-                                                                                        echo "<li><a href='" . $url . "pesquisar/resultado/" . $key['text'] . "/" . $tags['nome'] . "'>" . $tags['nome'] . "</a></li>";
+                                                                                        echo "<li><a  style='font-size:12px' href='" . $url . "pesquisar/resultado/" . $key['text'] . "/" . $tags['nome'] . "'>" . $tags['nome'] . "</a></li>";
 
                                                                                     }
                                                                                 ?>
@@ -370,8 +369,9 @@
                             </ul> 
                         </nav> 
                     </div> 
+                    
                 </div>
-                <div class='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
+                <div class='col-lg-9 col-md-9 col-sm-12 col-xs-12' style="padding-left:0">
                     <div class="hovermenu ttmenu dark-style menu-red-gradient">
                         <div role="navigation" class="navbar navbar-default">
                             <div>
@@ -423,39 +423,6 @@
                                         }
                                     ?>
 
-                                    <li class="dropdown ttmenu-full no-padding-bottom no-margin-left">
-                                        <a id="logar-dropdown" class="no-border" href="http://www.grupobasso.com.br/minha/conta/login" class="dropdown-toggle" data-toggle="dropdown">Minha Conta</a>
-                                        <ul class="dropdown-menu dropdown-lr animated slideInRight" role="menu" style="width:300px;background-color:beige;">
-                                            <div class="col-lg-12" style="background-color:white;border: 1px solid;border-top:none;">
-                                                <br/>
-                                                <br/>
-                                                <form class="formLogin" method="post" action="http://www.grupobasso.com.br/ajax/minha/conta/logar">
-                                                    <div class="form-group">
-                                                        <label for="user">Usuário</label>
-                                                        <input type="email" name="user" id="user" tabindex="1" class="form-control" value="" required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="pass">Senha</label>
-                                                        <input type="password" name="pass" id="pass" tabindex="2" class="form-control" required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-xs-7">
-                                                                <button type="submit" name="login-submit" id="login-submit" tabindex="4" class="btn btn-success">Entrar</button>
-                                                            </div>
-                                                            <div class="col-xs-5">
-
-                                                                <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" tabindex="5" class="btn btn-link forgot-password">Cadastre-se!</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </ul>
-                                    </li>
-
                                 </ul>
                             </div>
                             </div>
@@ -466,7 +433,7 @@
                 </div>                
             </div>
         </div>		
-    </header> -->
+    </header>
 
 
     <script type="text/javascript">
