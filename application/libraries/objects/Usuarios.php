@@ -576,7 +576,11 @@ class Usuarios extends db\Querys  {
     * @return BOOL
     * @access PUBLIC
     */
-    public function emailExists() {
+    public function emailExists($email = null) {
+
+        if(!is_null($email)) {
+            $this->email = $email;
+        }
 
         $this->reset();
 

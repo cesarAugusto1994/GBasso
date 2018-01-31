@@ -638,7 +638,7 @@
         PagSeguroDirectPayment.getInstallments({
         amount: (($("#totalValue").html()).replace(",", ".")),
         brand: $("#creditCardBrand").val(),
-        maxInstallmentNoInterest: 5,
+        maxInstallmentNoInterest: 2,
 
       success: function(response) {
         //console.log(response.installments);
@@ -919,7 +919,7 @@
 
             console.log(data);
 
-            window.location.href = '/compras/checkout/compra-finalizada?link=' + data.link;
+            //window.location.href = '/compras/checkout/compra-finalizada?link=' + data.link;
             setTimeout(function () {
 
               $("#modal-body").html("");
@@ -995,6 +995,8 @@
                 tpPag: 1,
                 enderecoId: $("#shippingAddressPostalCodeId").val(),
                 servico: window.localStorage.getItem('freteId'),
+
+                total: $("#totalValue").html().replace(',', ".")
               },
               success: function(data) {
                 //console.log(data);
@@ -1036,7 +1038,7 @@
 
                       } else {
                         //window.location = "http://www.grupobasso.com.br/minha/conta/compras";
-                        window.location.href = '/compras/checkout/compra-finalizada?type=credit-card';
+                        //window.location.href = '/compras/checkout/compra-finalizada?type=credit-card';
                         setTimeout(function () {
                           $("#modal-body").html("");
                           $("#modal-title").html("<font color='green'>Sucesso!</font>")

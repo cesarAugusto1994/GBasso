@@ -506,121 +506,6 @@ class Checkout extends CI_Controller{
         header('Content-Type: application/json; charset=UTF-8');
         echo json_encode($result);
         exit;
-
-        $this->Carrinho            =   new sessions\Carrinho;
-
-        $this->Usuarios            =   new objects\Usuarios;
-
-        $this->Login               =   new sessions\Login(2);
-
-        $userEmail = $this->input->post( 'email' );
-
-        $enderecoId = $this->input->post( 'enderecoId' );
-
-        $tpPag = $this->input->post( 'tpPag' );
-
-        $this->Usuarios->idUsuario =   $this->Login->getIdUser();
-
-        $nome = $this->Usuarios->getFullName();
-
-        $email = $this->Usuarios->getEmail();
-
-        $cpf = $this->Usuarios->getCpf();
-
-        $data = $this->input->post(NULL, TRUE);
-
-        $usuario = $this->Usuarios->getAllDataUser();
-
-        $produtos = $this->Carrinho->getProdutos();
-
-        $produtos = $this->Produtos->getProdutosByCart( $produtos );
-
-        $this->finalizarCompra($tpPag, 1, $enderecoId, $data['cep'], 1);
-
-        //$produto = current($produtos);
-
-        $data['cpf'] = str_replace(".", "", $cpf);
-        $data['cpf'] = str_replace("-", "", $data['cpf']);
-
-        $data['cardCPF'] = str_replace(".", "", $data['cardCPF']);
-        $data['cardCPF'] = str_replace("-", "", $data['cardCPF']);
-
-        $data['ddd'] = '27'; 
-        $data['telefone'] = '999502435' ; 
-
-        //$valor = $dadosProduto->valor;
-        //$valor = str_replace(",", ".", $valor);
-
-
-        if (!(isset($data['valorParcelas'])) || empty($data['valorParcelas'])) {
-            $data['valorParcelas'] = $valor;
-        }
-
-        if (!(isset($data['numParcelas'])) || empty($data['numParcelas'])) {
-            $data['numParcelas'] = 1;
-        }
-
-        $data['valorParcelas'] = (number_format($data['valorParcelas'], 2));
-        $data['valorParcelas'] = str_replace(",", ".", $data['valorParcelas']);
-
-        $data['numParcelas'] = intval($data['numParcelas']);
-
-        $data['enderecoPagamento'] = !empty($data['enderecoPagamento']) ? $data['enderecoPagamento'] : $data['endereco'];
-        $data['numeroPagamento'] = !empty($data['numeroPagamento']) ? $data['numeroPagamento'] : $data['numero'];
-        $data['complementoPagamento'] = !empty($data['complementoPagamento']) ? $data['complementoPagamento'] : $data['complemento'];
-        $data['bairroPagamento'] = !empty($data['bairroPagamento']) ? $data['bairroPagamento'] : $data['bairro'];
-        $data['cepPagamento'] = !empty($data['cepPagamento']) ? $data['cepPagamento'] : $data['cep'];
-        $data['cidadePagamento'] = !empty($data['cidadePagamento']) ? $data['cidadePagamento'] : $data['cidade'];
-        $data['estadoPagamento'] = !empty($data['estadoPagamento']) ? $data['estadoPagamento'] : $data['estado'];
-        $data['cardNome'] = !empty($data['cardNome']) ? $data['cardNome'] : $data['nome'];
-        $data['cardCPF'] = !empty($data['cardCPF']) ? $data['cardCPF'] : $data['cpf'];
-        //!empty($data['cardNasc']) ? $data['cardNasc'] : $data['endereco'];
-        $data['cardFoneNum'] = !empty($data['cardFoneNum']) ? $data['cardFoneNum'] : $data['telefone'];
-        $data['cardFoneArea'] = !empty($data['cardFoneArea']) ? $data['cardFoneArea'] : $data['ddd'];
-
-        $data['email'] = $this->emailLoja;
-
-        $arrProdutos = array();
-
-        foreach($produtos as $produto) {
-            
-            $valor = $produto['valor_int'];
-            $valor = str_replace(",", ".", $valor);
-            $valor = number_format($valor, 2, '.', '');
-
-            $arrProdutos[] = array(
-                'id' => $produto['valu'],
-                'nome' => $produto['prod'],
-                'valor' => $valor,
-                'quantidade' => $produto['qtd'],
-            );
-        }
-
-        $xml = $this->gerarXmlCartao($data['cpf'], $arrProdutos, $data['nome'], $data['cpf'], $data['ddd'], 
-        $data['telefone'], $data['email'], $data['senderHash'], $data['endereco'], $data['numero'], 
-        $data['complemento'], $data['bairro'], $data['cep'], $data['cidade'], $data['estado'], 
-        $data['enderecoPagamento'], $data['numeroPagamento'], $data['complementoPagamento'], 
-        $data['bairroPagamento'], $data['cepPagamento'], $data['cidadePagamento'], 
-        $data['estadoPagamento'], $data['cardToken'], $data['cardNome'], $data['cardCPF'], 
-        $data['cardNasc'], $data['cardFoneArea'], $data['cardFoneNum'], $data['numParcelas'], $data['valorParcelas']);
-
-        $urlPagseguro = "https://ws.sandbox.pagseguro.uol.com.br/v2/";
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->urlPagSegTransactions . "?email=" . $this->email . "&token=" . $this->token);
-        curl_setopt($ch, CURLOPT_POST, true );
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/xml; charset=ISO-8859-1'));
-
-        $data = curl_exec ($ch)or die(curl_errno($ch) .': '. curl_error($ch));
-        $dataXML = simplexml_load_string($data);
-
-        header('Content-Type: application/json; charset=UTF-8');
-        echo json_encode($dataXML);
-            
-        curl_close($ch);
     }
 
     public function finalizarCompra()
@@ -1088,8 +973,29 @@ class Checkout extends CI_Controller{
 
         $cep               =   $this->input->post( 'cep' );
 
+        $total =         $this->input->post( 'total' );
+
         $parcelas =         $this->input->post( 'numParcelas' );
         $parcelaValor =     $this->input->post( 'valorParcelas' );
+        
+        $fatores = array(
+            '3' => 0.34670,
+            '4' => 0.26255,
+            '5' => 0.21210,
+            '6' => 0.17847,
+            '7' => 0.15446,
+            '8' => 0.13645,
+            '9' => 0.12246,
+            '10' => 0.11127,
+            '11' => 0.10212,
+            '12' => 0.09450,
+        );
+
+        if($parcelas > 2) {
+            //$parcelaValor = #number_format($total * $fatores[$parcelas], 2);
+        }
+
+        //echo $parcelaValor; exit;
 
         $ddd               =   preg_replace('/\D/', '', $ddd);
 
