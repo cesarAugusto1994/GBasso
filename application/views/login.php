@@ -15,31 +15,22 @@
           <div class="span12">
             <hr class="sem-margem">
             <div class="identificacao-inner">
-              <h3 class="identificacao-title">Se já possui cadastro basta acessar com o seu usuário e senha.</h3>
+              <h3 class="identificacao-title">Login</h3>
               <form action="{url}ajax/minha/conta/logar" method="post" class="formLoginCheckout" id="formLoginCheckout">
                 <div class="form-horizontal">
+
                   <div class="control-group">
-                    <div class="email-box">
-                      <label for="id_email" class="control-label hide">E-mail</label>
-                      <input type="text" name="user" id="email" autocomplete="email" value="<?= $email; ?>" required placeholder="meu@email.com.br">
-                    </div>
+                      <label for="id_email_login">E-mail</label>
+                      <input type="text" name="user" id="id_email_login" class="form-control" autocomplete="email" placeholder="meu@email.com.br">
+                       <label for="id_senha">Senha</label>
+                        <input type="password" class="form-control" name="pass" id="pass" placeholder="Senha" required autocomplete="current-password">
+                      <br/>
+                      <br/>
+                      <button type="submit" class="btn btn-success btn-block">Continuar</button>
+                       
+                      <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" class="btn btn-primary btn-block">Novo Cadastro</a>
                   </div>
-                  <div class="login-data">
-                    <div class="control-group">
-                      <button type="submit" id="id_botao_login" class="botao principal" data-loading-text="<i class='icon-refresh icon-animate'></i>" autocomplete="off">Entrar</button>
-                      <div class="senha-box">
-                        <label for="id_senha" class="control-label hide">Senha</label>
-                        <input type="password" name="pass" id="pass" placeholder="Senha" required autocomplete="current-password">
-                      </div>
-                      <!--<a href="https://localhost:8089/conta/login?next=/checkout/#recuperar_senha" class="esqueci-senha">
-                        <i class="icon-lock"></i> Esqueci minha senha
-                      </a>-->
-                      <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" class="fazer-cadastro">
-                        <p><i class="icon-user"></i> Novo cadastro</p>
-                      </a>
-                    </div>
-                    <input type="hidden" name="next" value="/checkout/">
-                  </div>
+
                 </div>
               </form>
             </div>
@@ -64,5 +55,9 @@
   </div>
   </div>
 </div>
+
+  </div>
+</div>
+
 
 

@@ -23,11 +23,11 @@
               <form action="/login" method="post" id="formularioLogin">
                 <div class="form-horizontal">
                   <div class="control-group">
-                    <div class="email-box">
-                      <label for="id_email" class="control-label hide">E-mail</label>
-                      <input type="text" name="email" id="id_email_login" autocomplete="email" placeholder="meu@email.com.br">
-                    </div>
-                    <button type="submit" class="submit-email botao principal grande">Continuar</button>
+                      <label for="id_email_login">E-mail</label>
+                      <input type="text" name="email" id="id_email_login" class="form-control" autocomplete="email" placeholder="meu@email.com.br">
+                      <br/>
+                      <br/>
+                      <button type="submit" class="btn btn-success btn-block">Continuar</button>
                   </div>
                 
                 </div>
@@ -116,49 +116,32 @@
                   <span>Subtotal:</span>
                 </td>
                 <td class="padding-preco">
-                  <div class="subtotal" data-subtotal="364,80" data-float="364.8">
+                  <div class="subtotal" data-subtotal="" data-float="">
                     <strong class="cor-principal">
                       R$ <?= $total; ?>
                     </strong>
                   </div>
                 </td>
               </tr>
-              <tr class="bg-dark esconder-mobile tr-checkout-frete hide" style="display: table-row;">
+              <tr class="bg-dark esconder-mobile tr-checkout-frete" style="display: table-row;">
                 <td>&nbsp;</td>
                 <td class="text-right">
                   <span>Frete:</span>
                 </td>
                 <td class="padding-preco">
                   <div class="frete-preco">
-                    <small class="muted" style="display: none;">(defina abaixo)</small>
-                    <strong class="titulo cor-principal hide" style="display: inline;">R$ 0,00</strong>
+                    <strong class="cor-principal" style="display: inline;">R$ <span id="valorFrete"></span></strong>
                   </div>
                 </td>
               </tr>
-
               
-              
-                <tr class="bg-dark esconder-mobile desconto-tr hide" style="">
-                  <td>&nbsp;</td>
-                  <td class="text-right">
-                    <span>Desconto à vista:</span>
-                    <small class="hide texto-aplicar-total muted">(frete não incluso)</small>
-                  </td>
-                  <td class="padding-preco">
-                    <div class="desconto-preco">
-                      <strong class="titulo cor-principal">R$ 0,00</strong>
-                    </div>
-                  </td>
-                </tr>
-              
-              <tr class="bg-dark tr-checkout-total hide" style="display: table-row;">
+              <tr class="bg-dark tr-checkout-total" style="display: table-row;">
                 <td colspan="2" class="text-right hidden-phone">
                   <span>Total:</span>
                 </td>
                 <td class="padding-preco">
-                  <span class="visible-phone">Total:</span>
-                  <div class="total" data-total="364.8">
-                    <strong class="titulo cor-principal preco-carrinho-total">R$ <?= $total; ?></strong>
+                  <div class="total">
+                    <strong class="cor-principal preco-carrinho-total">R$ <span id="totalValue"><?=$total;?></span></strong>
                   </div>
                 </td>
               </tr>
@@ -173,4 +156,18 @@
 
 </div>
 </div>
+
+<script>
+
+    $(document).ready(function() {
+
+      var freteValor = window.localStorage.getItem('freteValor');
+      $("#valorFrete").html(freteValor.replace(".", ','));
+
+      var valorTotal = $("#totalValue").html().replace(',', ".");
+      $("#totalValue").html((+valorTotal + +freteValor).toFixed(2).replace(".", ','))
+
+    });
+
+</script>
       

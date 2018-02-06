@@ -979,24 +979,35 @@ class Checkout extends CI_Controller{
         $parcelaValor =     $this->input->post( 'valorParcelas' );
         
         $fatores = array(
-            '3' => 0.34670,
-            '4' => 0.26255,
-            '5' => 0.21210,
-            '6' => 0.17847,
-            '7' => 0.15446,
-            '8' => 0.13645,
-            '9' => 0.12246,
-            '10' => 0.11127,
-            '11' => 0.10212,
-            '12' => 0.09450,
+            1  => 1,
+            2  => 0.52255,
+            3  => 0.35347,
+            4  => 0.26898,
+            5  => 0.21830,
+            6  => 0.18453,
+            7  => 0.16044,
+            8  => 0.14240,
+            9  => 0.12838,
+            10 => 0.11717,
+            11 => 0.10802,
+            12 => 0.10040,
+            13 => 0.08806,
+            14 => 0.08254,
+            15 => 0.07777,
+            16 => 0.07359,
+            17 => 0.06991,
+            18 => 0.06664
         );
 
         if($parcelas > 2) {
-            //$parcelaValor = #number_format($total * $fatores[$parcelas], 2);
+            $parcelaValor = number_format(($total) * $fatores[$parcelas], 2);
         }
-
-        //echo $parcelaValor; exit;
-
+/*
+        echo $total . '<br/>';
+        echo $fatores[$parcelas] . '<br/>';
+        echo $parcelas . '<br/>';
+        echo $parcelaValor; exit;
+*/
         $ddd               =   preg_replace('/\D/', '', $ddd);
 
         $telefone          =   preg_replace('/\D/', '', $telefone);

@@ -89,7 +89,7 @@
                                 <li><a href="http://www.grupobasso.com.br/minha/conta/meusenderecos">Meus Endereços</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a style="color: red" href="http://www.grupobasso.com.br/minha/conta/sair">Sair</a>
+                                <li><a style="color: red" href="/minha/conta/sair">Sair</a>
                                 </li>
                             </ul>
                            
@@ -136,10 +136,10 @@
             </nav>
         </div>
 
-        <div class="col-lg-12" style="margin-top:60px;">
+        <div class="col-lg-12" style="margin-top:30px;">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-center">
-                    <a href="/"> <img alt="" width="100px" height="100px" class="img img-rounded" style="margin: -10px auto 50px" src="{url}assets/images/logo.png"></a>
+                    <a href="/"> <img alt="" width="100px" height="100px" class="img img-rounded" style="margin: -10px auto 25px" src="{url}assets/images/logo.png"></a>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 text-center">
                         <div class="row grid-space-1">
@@ -259,59 +259,6 @@
     <header id="header">
         <div class="container">
             <div class="row">
-<!--
-                <div class="row">
-
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <div class="logo">
-                        <a href='{url}'>
-                            <img alt="" width="100px" height="100px" style="margin: 0 auto" src="{url}assets/images/logo.png">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="z-index: 1;">
-                    <div class="header-search">
-                        <div class="search col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                            <div class="col-lg-5 col-md-5 col-sm-4 col-xs-12">
-                                <select class="selectpicker index-big btn-search-reset">$class  =  count( $key['subcat'] ) > 0  ? 'has-children' : '';
-                                    <option>Todas as categorias</option>
-                                    {catss}
-                                        <option value='{value}'>{name}</option>
-                                    {/catss}
-                                </select>
-                            </div>
-
-                            <div class="col-lg-7 col-md-7 col-sm-8 col-xs-12 margin-min">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control border-right-reset pesquisar-data" value='{pesq}' placeholder="Procurar...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default border-left-reset btn-search-reset" type="button">
-                                                <span class="glyphicon glyphicon-search"></span>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="search col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <a href='{url}compras/carrinho'>
-                                <div class="padding-padrao background-blue carrinho pull-left">
-                                    <i class="fa fa-shopping-cart fa-lg"></i>
-                                </div>
-                            </a>
-                            <div class="pull-left margin-left">
-                                <a href='{url}compras/carrinho'>Meu Carrinho</a> <br>
-                                <a href='{url}compras/carrinho'><span class='data-carrinho'>0 itens: R$ 0,00</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                </div>
-                    -->
-                <div class="row">
 
                 <div class='col-lg-3 col-md-3 col-sm-12 col-xs-12' style="padding-right:0">
                     <div class="cd-dropdown-wrapper">
@@ -429,8 +376,7 @@
                         </div>
                     </div>            
                 </div>
-
-                </div>                
+              
             </div>
         </div>		
     </header>

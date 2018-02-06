@@ -51,9 +51,9 @@ class Minha_conta extends CI_Controller{
         $response          =   $this->Login->checkLogin();
 
         if( $segmento != 'login' && $segmento != 'cadastrar' ) {
-            !$response ? redirect( 'minha/conta/login' ) : null;
+            !$response ? redirect( '/minha/conta/login' ) : null;
         }else if( $segmento == 'login' || $segmento == 'cadastrar' ) {
-            $response ? redirect( 'minha/conta/inicio' ) : null;
+            $response ? redirect( '/minha/conta/inicio' ) : null;
         }
 
     }
@@ -70,7 +70,7 @@ class Minha_conta extends CI_Controller{
 
         $this->Login->logOut();
 
-        redirect( 'minha/conta/login' );
+        redirect( '/minha/conta/login' );
 
     }
 
