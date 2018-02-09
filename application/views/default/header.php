@@ -11,12 +11,12 @@
 
     <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/menu-new.css' /> 
 
-    <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/style.css' /> 
 
     <link rel='stylesheet' type='text/css' href='http://www.grupobasso.com.br/assets/css/pnotify.custom.min.css' /> 
 
     <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.11.0/css/alertify.min.css' /> 
 
+    <link rel='stylesheet' type='text/css' href='/assets/css/style.css' /> 
     <style>
         .navbar-nav {
             margin-top: 0;
@@ -66,6 +66,8 @@
 
 
 <div class="container">
+
+
 
     <div class="row">
 
@@ -136,45 +138,176 @@
             </nav>
         </div>
 
-        <div class="col-lg-12" style="margin-top:60px;">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4 text-center">
-                    <a href="/"> <img alt="" width="100px" height="100px" class="img img-rounded" style="margin: -10px auto 50px" src="{url}assets/images/logo.png"></a>
-                </div>
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 text-center">
-                        <div class="row grid-space-1">
+<div id="cabecalho" class="logo-centro " style="margin-top:60px;">
 
-                            <div class="col-md-3 col-sm-4">
 
-                                <select style="height: 53px" class="form-control input-lg btn-search-reset" name="category">
-                                    <option>Todas as categorias</option>
-                                    {catss}
-                                        <option value='{value}'>{name}</option>
-                                    {/catss}
-                                </select>
+<div class="conteiner">
+<div class="row-fluid">
+<div class="conteudo-topo span3 hidden-phone">
+<div class="superior row-fluid">
+    <div class="span12">
+    
+        
+        <a href="https://www.biellissima.com.br/conta/login" class="bem-vindo cor-secundaria">
+            Bem-vindo, <span class="cor-principal">identifique-se</span> para fazer pedidos
+        </a>
+        
+    
+    </div>
+</div>
+<div class="inferior row-fluid">
+    <div class="span12">
 
-                            </div>
+    <div class="busca borda-alpha">
+        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+        <input id="auto-complete" type="text" name="q" placeholder="Digite o que você procura" value="{pesq}" autocomplete="off" class="ui-autocomplete-input pesquisar-data">
+        <button class="botao botao-busca icon-search fundo-secundario btn-search-reset" type="button"></button>
 
-                            <div class="col-md-5 col-sm-7">
+    </div>
+    </div>
+</div>
+</div>
 
-                                <div id="custom-search-input">
-                                    <div class="input-group col-md-12">
-                                        <input name="q" value='{pesq}' type="text" class="form-control input-lg pesquisar-data" placeholder="Buscar" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-info btn-lg btn-search-reset" type="button">
-                                                <i class="glyphicon glyphicon-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                </div>
-                
-            </div>
+        <div class="span6">
+        <h1 class="logo cor-secundaria">
+            <a href="https://www.biellissima.com.br/" title="BIELLÍSSIMA">
+                <img alt=""  src="{url}assets/images/logo.png"/>
+            </a>
+        </h1>
         </div>
+
+<div class="conteudo-topo span3 hidden-phone">
+<div class="superior row-fluid">
+    <div class="span12">
+    
+        <ul class="acoes-conta">
+        
+            <li>
+            <i class="icon-list fundo-principal"></i>
+            <a href="https://www.biellissima.com.br/conta/pedido/listar" class="cor-secundaria">Meus Pedidos</a>
+            </li>
+
+        
+            <li>
+            <i class="icon-user fundo-principal"></i>
+            <a href="#" class="cor-secundaria">Minha Conta</a>
+
+            
+            </li>
+        
+        </ul>
+    
+    </div>
+</div>
+
+    <div class="inferior row-fluid">
+    <div class="span12">
+        
+<div class="carrinho ">
+
+<a href="https://www.biellissima.com.br/carrinho/index">
+<i class="icon-shopping-cart fundo-principal"></i>
+<strong class="qtd-carrinho titulo cor-secundaria">1</strong>
+<span>
+
+    <b class="titulo cor-secundaria"><span>Meu Carrinho</span></b>
+
+<span class="cor-secundaria">Produto adicionado</span>
+</span>
+
+<span class="titulo cor-secundaria vazio-text">Carrinho vazio</span>
+
+</a>
+
+
+<div class="carrinho-interno-ajax">
+
+
+<div class="carrinho-interno borda-principal">
+<ul>
+
+<li>
+
+    
+    
+
+
+
+<div class="preco-produto destaque-preco ">
+
+
+    
+    
+        <div>
+        <s class="preco-venda titulo">
+            R$ 165,00
+        </s>
+        <strong class="preco-promocional cor-principal titulo">
+            R$ 125,00
+        </strong>
+        </div>
+    
+    
+
+
+</div>
+
+
+
+    
+
+<a href="https://www.biellissima.com.br/camiseta-infantil-com-protecao-uv-salinas" class="imagem-produto">
+    <img src="https://cdn.awsli.com.br/64x64/448/448538/produto/24316155/1ba3a53453.jpg" alt="Camiseta Infantil com Proteção UV 50 Salinas">
+</a>
+<a href="https://www.biellissima.com.br/camiseta-infantil-com-protecao-uv-salinas" class="nome-produto cor-secundaria">
+    Camiseta Infantil com Proteção UV 50 Salinas
+</a>
+<div class="produto-sku hide">SAI17I0090JAR04</div>
+</li>
+
+</ul>
+<div class="carrinho-rodape">
+<span class="carrinho-info">
+
+    <i>1 produto no carrinho</i>
+
+
+    
+    <span class="carrino-total">
+        Total: <strong class="titulo cor-principal">R$ 125,00</strong>
+    </span>
+    
+
+</span>
+<a href="https://www.biellissima.com.br/carrinho/index" class="botao principal">
+
+    <i class="icon-shopping-cart"></i>Ir para o carrinho
+
+</a>
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+  <div class="menu superior">
+
+</div>
+</div>
+  <span id="delimitadorBarra"></span>
+</div>
+
+     
     </div>
     
     <!--

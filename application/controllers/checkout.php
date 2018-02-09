@@ -992,7 +992,7 @@ class Checkout extends CI_Controller{
         );
 
         if($parcelas > 2) {
-            //$parcelaValor = #number_format($total * $fatores[$parcelas], 2);
+            //$parcelaValor = number_format($total * $fatores[$parcelas], 2);
         }
 
         //echo $parcelaValor; exit;
@@ -1123,7 +1123,8 @@ class Checkout extends CI_Controller{
             'creditCardToken'                =>  urlencode( $cardToken ),
             'installmentQuantity'            =>  urlencode( $parcelas ),
             'installmentValue'               =>  urlencode( number_format( (float) $parcelaValor, 2, '.', '' ) ),
-            'noInterestInstallmentQuantity'  =>  urlencode( $parcelasSemJuros ),
+            #'noInterestInstallmentQuantity'  =>  urlencode( $parcelasSemJuros ),
+            'noInterestInstallmentQuantity'  =>  urlencode( 12 ),
             'creditCardHolderName'           =>  urlencode( $nome ),
             'creditCardHolderCPF'            =>  urlencode( $cpfDono ),
             'creditCardHolderBirthDate'      =>  urlencode( $dataNascDono ),
