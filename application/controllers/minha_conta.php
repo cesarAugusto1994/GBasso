@@ -28,7 +28,7 @@ class Minha_conta extends CI_Controller{
      **/
     public function __construct() {
 
-        parent::__construct();        
+        parent::__construct();
 
         //Instacia a classe Essential do package Security
         $this->Essential   =   new security\Essentials;
@@ -51,9 +51,9 @@ class Minha_conta extends CI_Controller{
         $response          =   $this->Login->checkLogin();
 
         if( $segmento != 'login' && $segmento != 'cadastrar' ) {
-            !$response ? redirect( '/minha/conta/login' ) : null;
+            !$response ? redirect( 'http://www.grupobasso.com.br/minha/conta/login' ) : null;
         }else if( $segmento == 'login' || $segmento == 'cadastrar' ) {
-            $response ? redirect( '/minha/conta/inicio' ) : null;
+            $response ? redirect( 'http://www.grupobasso.com.br/minha/conta/inicio' ) : null;
         }
 
     }
@@ -70,7 +70,7 @@ class Minha_conta extends CI_Controller{
 
         $this->Login->logOut();
 
-        redirect( '/minha/conta/login' );
+        redirect( 'http://www.grupobasso.com.br/' );
 
     }
 
@@ -84,6 +84,8 @@ class Minha_conta extends CI_Controller{
      **/
     public function login() {
 
+        $this->Login       =   new sessions\Login;
+
         $data  =  array();
 
         $js    =  array( 0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 22  );
@@ -93,14 +95,14 @@ class Minha_conta extends CI_Controller{
         //Define data info to header
         $data['header']  =  array();
 
-        //Define data info to body 
+        //Define data info to body
         $data['body']    =  array();
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']  =   base_url();
-        
+
         $data['header']['catss']        =   $this->Menus->getCategorias();
 
         $data['header']['css']  =   $this->Header->getCss( $css );
@@ -108,6 +110,12 @@ class Minha_conta extends CI_Controller{
         $data['header']['js']   =   $this->Header->getJs( $js );
 
         $data['header']['inc']  =   $this->Header->getIncludes( array( 1 ) );
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
+        $data['header']['mostrar_categorias'] = false;
+
+        $data['header']['pesq']  =   "";
 
         $data['header']['page'] =   'login';
 
@@ -117,7 +125,7 @@ class Minha_conta extends CI_Controller{
 
         $data['footer']['js']   =   $this->Header->getJs( array( 7, 18, 21, 17 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/login/login', $data['body']);
 
@@ -135,6 +143,8 @@ class Minha_conta extends CI_Controller{
      **/
     public function cadastrar() {
 
+        $this->Login       =   new sessions\Login;
+
         $data  =  array();
 
         $js    =  array( 0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 22, 24 );
@@ -149,7 +159,7 @@ class Minha_conta extends CI_Controller{
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']  =   base_url();
 
         $data['header']['catss']        =   $this->Menus->getCategorias();
@@ -160,13 +170,21 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']  =   $this->Header->getIncludes( array( 1 ) );
 
+        $data['header']['pesq']  =   "";
+
+        $data['header']['mostrar_menu_conta']  =   false;
+
+        $data['header']['mostrar_categorias']  =   false;
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']["url"]    =   base_url();
 
         $data['footer']["url"]  =   base_url();
 
         $data['footer']['js']   =   $this->Header->getJs( array( 7, 18, 21, 17, 18 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/cadastrar/cadastrar', $data['body']);
 
@@ -198,7 +216,7 @@ class Minha_conta extends CI_Controller{
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']   =   base_url();
 
         $data['header']['catss']        =   $this->Menus->getCategorias();
@@ -209,13 +227,21 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']   =   $this->Header->getIncludes( array( 1 ) );
 
+        $data['header']['pesq']  =   "";
+
+        $data['header']['mostrar_menu_conta']  =   true;
+
+        $data['header']['mostrar_categorias']  =   false;
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']["url"]     =   base_url();
 
         $data['footer']["url"]   =   base_url();
 
         $data['footer']['js']    =   $this->Header->getJs( array( 7, 18, 21, 23, 17 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/home/inicio', $data['body']);
 
@@ -256,7 +282,7 @@ class Minha_conta extends CI_Controller{
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']   =   base_url();
 
         $data['header']['css']   =   $this->Header->getCss( $css );
@@ -267,15 +293,23 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']   =   $this->Header->getIncludes( array( 1 ) );
 
+        $data['header']['pesq']  =   "";
+
+        $data['header']['mostrar_menu_conta']  =   true;
+
+        $data['header']['mostrar_categorias']  =   false;
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']            =   $this->Usuarios->getAllDataUser();
 
-        $data['body']["url"]     =   base_url();        
+        $data['body']["url"]     =   base_url();
 
         $data['footer']["url"]   =   base_url();
 
         $data['footer']['js']    =   $this->Header->getJs( array( 7, 18, 21, 23, 17 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/meusdados/editar', $data['body']);
 
@@ -316,7 +350,7 @@ class Minha_conta extends CI_Controller{
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']   =   base_url();
 
         $data['header']['css']   =   $this->Header->getCss( $css );
@@ -327,15 +361,23 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']   =   $this->Header->getIncludes( array( 1 ) );
 
+        $data['header']['pesq']  =   "";
+
+        $data['header']['mostrar_menu_conta']  =   true;
+
+        $data['header']['mostrar_categorias']  =   false;
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']            =   $this->Usuarios->getAllDataUser();
 
-        $data['body']["url"]     =   base_url();        
+        $data['body']["url"]     =   base_url();
 
         $data['footer']["url"]   =   base_url();
 
         $data['footer']['js']    =   $this->Header->getJs( array( 7, 18, 21, 23, 17 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/compras/compras', $data['body']);
 
@@ -376,7 +418,7 @@ class Minha_conta extends CI_Controller{
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']     =   base_url();
 
         $data['header']['css']     =   $this->Header->getCss( $css );
@@ -387,17 +429,25 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']     =   $this->Header->getIncludes( array( 1, 8 ) );
 
+        $data['header']['pesq']  =   "";
+
+        $data['header']['mostrar_menu_conta']  =   true;
+
+        $data['header']['mostrar_categorias']  =   false;
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']["endereco"]  =   $this->Usuarios->getAllEndereco();
 
         $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
 
-        $data['body']["url"]       =   base_url();        
+        $data['body']["url"]       =   base_url();
 
         $data['footer']["url"]     =   base_url();
 
         $data['footer']['js']      =   $this->Header->getJs( array( 7, 18, 21, 23, 17 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/meusdados/enderecos', $data['body']);
 
@@ -429,7 +479,7 @@ class Minha_conta extends CI_Controller{
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']       =  base_url();
 
         $data['header']['css']       =  $this->Header->getCss( $css );
@@ -440,6 +490,14 @@ class Minha_conta extends CI_Controller{
 
         $data['header']['inc']       =  $this->Header->getIncludes( array( 1 ) );
 
+        $data['header']['pesq']  =   "";
+
+        $data['header']['mostrar_menu_conta']  =   true;
+
+        $data['header']['mostrar_categorias']  =   false;
+
+        $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
+
         $data['body']["url"]         =  base_url();
 
         $data['body']["referencia"]  =  $ref;
@@ -448,7 +506,7 @@ class Minha_conta extends CI_Controller{
 
         $data['footer']['js']        =  $this->Header->getJs( array( 7, 18, 21, 23 ) );
 
-        $this->parser->parse("minhaconta/default/header", $data['header']);
+        $this->parser->parse("/default/header", $data['header']);
 
         $this->parser->parse('minhaconta/compras/detalhes_compra', $data['body']);
 
@@ -457,9 +515,3 @@ class Minha_conta extends CI_Controller{
     }
 
 }
-
-
-
-
-
-

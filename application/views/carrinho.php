@@ -45,9 +45,9 @@
                     $index = 0;
                     foreach ($carrinho as $key => $value) :
                 ?>
-                
+
                 <tr data-produto-quantidade="<?= $value['qtd']; ?>">
-                    
+
                     <td class="sem-borda conteiner-imagem">
                         <div class="imagem">
                             <a href="<?= $value['link']; ?>">
@@ -149,11 +149,11 @@
                 <div class="form-horizontal" id="formCalcularFrete">
                   <div class="control-group">
                     <label class="control-label" for="calcularFrete">
-                      
+
                     </label>
                     <div class="controls text-left">
                       <div class="input-append">
-                        <input type="tel" id="cep" name="cep_destino" class="input-small input-cep informarCep" style="height: 34px;width:180px" value="" placeholder="Informe o Frete" maxlength="9">
+                        <input type="tel" id="cep" name="cep_destino" class="input-small input-cep informarCep" style="height: 34px;width:180px" value="" placeholder="Informe o Frete" maxlength="8">
                         <button type="button" class="btn btn-default btnCaclcularFrete"><i class="icon-truck"></i>Calcular Frete</button>
                       </div>
                       <span class="help-inline">
@@ -174,7 +174,7 @@
               <td colspan="6" class="line-18">
                 <div class="total">
                   <span>Total:</span>
-                  <strong class="cor-principal valor-total" data-total-valor="<?= $total; ?>">R$ <?= $total; ?></strong>
+                  <strong class="cor-principal valor-total" data-total-valor="<?= $total; ?>">R$ <span id="valorTotal"><?= $total; ?></span></strong>
                 </div>
                 <div class="valores-descontos">
 
@@ -235,14 +235,42 @@
 </script>
 
 <script type="text/javascript">
+
+    function somaValorFrete()
+    {
+      freteValor = $("input[name='inputFrete']:checked").data('valor');
+
+      if(!freteValor) {
+          freteValor = window.localStorage.getItem('freteValor');;
+      }
+
+      var valorTotalOriginal = $('.valor-total').data('total-valor').replace(',', ".");
+
+      var valorTotal = valorTotalOriginal;
+      $("#valorTotal").html((+valorTotal + +freteValor).toFixed(2).replace(".", ','))
+    }
+
+
     $(document).ready(function(){
-        
-        $("#cep").mask("99999-999");
+
+        $("#cep").change(function() {
+            window.localStorage.setItem('cep', $(this).val())
+        });
+
+        var cepCodigo = window.localStorage.getItem('cep');
+
+        if(cepCodigo) {
+          $("#cep").val(cepCodigo);
+          var post = 'cep=' + $("#cep").val();
+          getValorFrete2(post);
+        }
+
+        //$("#cep").mask("99999-999");
 
         $(".principal").click(function(e) {
 
             e.preventDefault();
-            
+
             var inputFrete = $("input[name='inputFrete']").is(':checked');
 
             if(!inputFrete) {
@@ -266,15 +294,9 @@
             window.localStorage.setItem('freteValor', freteValor)
 
             window.location.href = $url;
-        })
+        });
 
     });
 </script>
 
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-
-
-
-
-
-

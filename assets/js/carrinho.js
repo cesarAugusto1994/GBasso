@@ -57,6 +57,8 @@ function addCarrinho(post) {
 
                 alerta(message, code);
 
+                window.location.href = '/compras/carrinho';
+
             } else if (code == 102) {
 
                 alerta(message, code);
@@ -227,7 +229,7 @@ function getEnderecosCadastrados(post) {
 
 }
 
-
+/*
 $('.informarCep').keyup(function(e) {
 
     var cep = $(this).val();
@@ -252,9 +254,9 @@ $('.informarCep').keyup(function(e) {
 
     }
 
-});
+});*/
 
-$('.informarCep').change(function(e) {
+$('.informarCep').keyup(function(e) {
 
     var cep = $(this).val();
 
@@ -393,7 +395,7 @@ function getValorFrete2(post) {
                 var retorno = ""
 
                 $.each(data, function(index, value) {
-                    retorno += "<div class='field radio'><label><input type='radio' required name='inputFrete' id='inputFrete' data-id='" + (index + 1) + "' data-valor='" + value.valor + "' value='" + value.nome + ' ' + value.valor.toLocaleString('pt-BR', formato) + "'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + value.nome + ' ' + value.valor.toLocaleString('pt-BR', formato) + "<label></div>";
+                    retorno += "<div class='field radio'><label><input type='radio' onClick='somaValorFrete();' required name='inputFrete' class='inputFrete' id='inputFrete" + (index + 1) + "' data-id='" + (index + 1) + "' data-valor='" + value.valor + "' value='" + value.nome + ' ' + value.valor.toLocaleString('pt-BR', formato) + "'/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + value.nome + ' ' + value.valor.toLocaleString('pt-BR', formato) + "<label></div>";
                 });
 
                 //retorno += "<li><b> PAC, valor: " + data.preco_pac.toLocaleString('pt-BR', formato) + "</b></li>";

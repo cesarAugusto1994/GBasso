@@ -1,55 +1,65 @@
 <div class="conteiner">
-          
+
   <div class="secao-principal row-fluid sem-coluna">
-              
-    <div class="campos-pedido">
-      <div class="cabecalho-interno row-fluid hide">
-        <div class="span12">
-            <h1 class="titulo cor-secundaria">
-              Finalizar compra <small> Preencha os dados necessários para finalizar o pedido.</small>
-            </h1>
-        </div>
-      </div>
-    </div>
+
+
 
     <div class="campos-pedido">
 
       <div id="login-content" class="">
-        <div class="row-fluid identificacao">
-          <div class="span12">
-            <hr class="sem-margem">
-            <div class="identificacao-inner">
-              <h3 class="identificacao-title">Para continuar, informe seu e-mail</h3>
+        <div class="row-fluid" style="display: block;">
+          <div class="col-lg-4 hidden-xs ">
+
+          </div>
+          <div class="col-lg-4 col-xs-12 " style="margin-top:40px;">
+            <h4 class="identificacao-title text-center">Para continuar, informe seu e-mail</h4>
+            <br/>
+            <div class="caixa-sombreada borda-principal">
               <form action="/login" method="post" id="formularioLogin">
-                <div class="form-horizontal">
-                  <div class="control-group">
-                      <label for="id_email_login">E-mail</label>
-                      <input type="text" name="email" id="id_email_login" class="form-control" autocomplete="email" placeholder="meu@email.com.br">
-                      <br/>
-                      <br/>
-                      <button type="submit" class="btn btn-success btn-block">Continuar</button>
+                  <fieldset data-recording-ignore="events">
+                <legend class=" cor-secundaria"><i class="icon-user"></i>Identifique-se</legend>
+                <div id="formularioEndereco" class="">
+
+                  <div class="formEndereco-conteiner">
+
+                    <div class="row-fluid">
+                      <div class="control-group span12 required" style="display: block;">
+                        <label class="control-label font-bold" for="shippingAddressStreet">E-mail</label>
+                        <div class="controls">
+                          <input type="text" name="email" id="id_email_login" class="input-xlarge span12 form-control" value="" autocomplete="email" placeholder="meu@email.com.br">
+                        </div>
+                      </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block">Continuar</button>
+                    <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" class="btn btn-default btn-block">Novo Cadastro</a>
                   </div>
-                
                 </div>
+              </fieldset>
               </form>
             </div>
+
+            <div class="checkout-alerta-seguro">
+              <h3 class="checkout-alerta-seguro-tit">Usamos seu e-mail de forma 100% segura para:</h3>
+              <ul class="checkout-alerta-seguro-list">
+                <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Identificar seu perfil</span></li>
+                <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Notificar sobre o andamento do seu pedido</span></li>
+                <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Gerenciar seu histórico de compras</span></li>
+                <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Acelerar o preenchimento de suas informações</span></li>
+              </ul>
+              <i class="icon-lock checkout-alerta-seguro-icon"></i>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4 hidden-xs ">
+
           </div>
         </div>
-      </div>
-    
-      <div class="checkout-alerta-seguro">
-        <h3 class="checkout-alerta-seguro-tit">Usamos seu e-mail de forma 100% segura para:</h3>
-        <ul class="checkout-alerta-seguro-list">
-          <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Identificar seu perfil</span></li>
-          <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Notificar sobre o andamento do seu pedido</span></li>
-          <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Gerenciar seu histórico de compras</span></li>
-          <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Acelerar o preenchimento de suas informações</span></li>
-        </ul>
-        <i class="icon-lock checkout-alerta-seguro-icon"></i>
+
       </div>
 
     </div>
-
       <div class="row-fluid">
         <div class="span12">
           <div class="resumo-compra caixa-sombreada">
@@ -59,7 +69,7 @@
                 <th width="80"><h6>Qtd.</h6></th>
                 <th width="140" class="padding-preco"><div><h6 style="margin-left: 10px;">Preço</h6></div></th>
               </tr></thead>
-              
+
                 <tbody>
 
                 <?php
@@ -69,7 +79,7 @@
                     $index = 0;
                     foreach ($carrinho as $key => $value) :
                 ?>
-                  
+
                 <tr>
                   <td class="phone-pullleft" data-produto-id="24316594" data-produto-quantidade="1">
                     <div class="produto-info">
@@ -85,7 +95,7 @@
                             </strong>
                           </span>
                         </li>
-                        
+
                       </ul>
                     </div>
                   </td>
@@ -108,7 +118,7 @@
                         echo "<tr><td colspan='6' style='text-align: center;'>Seu carrinho está vázio</td></tr>";
                 endif;
                 ?>
-              
+
 
               <tr class="bg-dark esconder-mobile">
                 <td>&nbsp;</td>
@@ -134,7 +144,7 @@
                   </div>
                 </td>
               </tr>
-              
+
               <tr class="bg-dark tr-checkout-total" style="display: table-row;">
                 <td colspan="2" class="text-right hidden-phone">
                   <span>Total:</span>
@@ -153,7 +163,6 @@
         </div>
       </div>
 
-
 </div>
 </div>
 
@@ -170,4 +179,3 @@
     });
 
 </script>
-      

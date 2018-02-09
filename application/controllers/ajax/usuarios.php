@@ -13,10 +13,10 @@ class Usuarios extends CI_Controller {
     private $Dates       =  null;
 
     private $Vendas      =  null;
-    
+
 	public function __construct() {
 
-        parent::__construct();        
+        parent::__construct();
 
         //Instacia a classe Essential do package Security
         $this->Essentials  =   new security\Essentials;
@@ -31,7 +31,7 @@ class Usuarios extends CI_Controller {
         $segmento          =   substr( trim( $this->uri->slash_segment( 4 ) ), 0, -1 );
 
         //Verifica se as páginas acessadas não é a login e nem a de cadastro, dai verifica se o usuário está logado
-        if( $segmento != 'cadastrar' && $segmento != 'logar' ) {    
+        if( $segmento != 'cadastrar' && $segmento != 'logar' ) {
 
             !$this->Login->checkLogin() ? $this->Essentials->setMessage( 'Faça login novamente', 101 ) : null;
 
@@ -46,7 +46,7 @@ class Usuarios extends CI_Controller {
     * Método cadastra um usuário em banco de dados
     *
     * @param  NULL
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function cadastrar() {
@@ -66,21 +66,27 @@ class Usuarios extends CI_Controller {
 
         $email        =   $this->Essentials->sqlInjection( $this->input->post( 'email' ) );
 
-        $destinatario =   $this->Essentials->sqlInjection( $this->input->post( 'destinatario' ) );  
+        $tipoPessoa        =    $this->Essentials->sqlInjection( $this->input->post( 'tipo' ) );
+
+        $celular        =    $this->Essentials->sqlInjection( $this->input->post( 'telefone_celular' ) );
+        $telefonePrincipal = $this->Essentials->sqlInjection( $this->input->post( 'telefone_principal' ) );
+        $telefoneComercial = $this->Essentials->sqlInjection( $this->input->post( 'telefone_comercial' ) );
+
+        $destinatario =   $this->Essentials->sqlInjection( $this->input->post( 'nome' ) );
 
         $ptReferencia =   $this->Essentials->sqlInjection( $this->input->post( 'pontoReferencia' ) );
 
         $cep          =   $this->Essentials->sqlInjection( $this->input->post( 'cep' ) );
 
         $endereco     =   $this->Essentials->sqlInjection( $this->input->post( 'endereco' ) );
- 
+
         $bairro       =   $this->Essentials->sqlInjection( $this->input->post( 'bairro' ) );
 
         $numero       =   $this->Essentials->sqlInjection( $this->input->post( 'numero' ) );
 
         $comple       =   $this->Essentials->sqlInjection( $this->input->post( 'comple' ) );
 
-        $user         =   $this->Essentials->sqlInjection( $this->input->post( 'user' ) );
+        $user         =   $this->Essentials->sqlInjection( $this->input->post( 'email' ) );
 
         $senha        =   $this->Essentials->sqlInjection( $this->input->post( 'pass' ) );
 
@@ -88,7 +94,7 @@ class Usuarios extends CI_Controller {
 
         $this->Essentials->verify( $nome, 'Preencha o campo Nome', 'empty' );
 
-        $this->Essentials->verify( $sobrenome, 'Preencha o campo Sobrenome', 'empty' );
+        //$this->Essentials->verify( $sobrenome, 'Preencha o campo Sobrenome', 'empty' );
 
         $this->Essentials->verify( $cpf, 'Preencha o campo Cpf', 'empty' );
 
@@ -142,17 +148,17 @@ class Usuarios extends CI_Controller {
 
         $this->Usuarios->email  =  $email;
 
-        $this->Usuarios->cpf    =  $cpf; 
+        $this->Usuarios->cpf    =  $cpf;
 
         $this->Usuarios->cpfExists()   ? $this->Essentials->setMessage( 'CPF existente', 102 )    : null;
 
-        $this->Usuarios->emailExists() ? $this->Essentials->setMessage( 'E-mail existente', 102 ) : null;   
+        $this->Usuarios->emailExists() ? $this->Essentials->setMessage( 'E-mail existente', 102 ) : null;
 
         (strcmp($email, $user) != 0 ) ? $this->Essentials->setMessage( 'O e-mail deve ser igual ao usuário', 102 ) : null;
 
         $dataNasc               =  $this->Dates->format( $dataNasc );
 
-        $this->Usuarios->gravarUsuario( $nome, $sobrenome, $sexo, $dataNasc );
+        $this->Usuarios->gravarUsuario( $nome, $sobrenome, $sexo, $dataNasc, false, $tipoPessoa, $celular, $telefonePrincipal, $telefoneComercial );
 
         if( strlen( $cep ) == 8 ) {
 
@@ -180,13 +186,13 @@ class Usuarios extends CI_Controller {
     * Método cadastra um usuário em banco de dados
     *
     * @param  NULL
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function logar() {
 
         //Recebe os dados via POST
-        $user    =    $this->Essentials->sqlInjection( $this->input->post( 'user' ) );
+        $user    =    $this->Essentials->sqlInjection( $this->input->post( 'email' ) );
 
         $pass    =    $this->Essentials->sqlInjection( $this->input->post( 'pass' ) );
 
@@ -221,7 +227,7 @@ class Usuarios extends CI_Controller {
     * Método obtem todas as compras do usuários
     *
     * @param  NULL
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function getCompras() {
@@ -254,7 +260,7 @@ class Usuarios extends CI_Controller {
     * Método obtem todos os dados de uma detemrinada venda
     *
     * @param  INT  $ref  -   Referência da venda
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function getDetalheCompra() {
@@ -313,7 +319,7 @@ class Usuarios extends CI_Controller {
     * @param  STRING $user       -   Nome de usuário que é o próprio email
     * @param  STRING $pass       -   Senha do usuário
     * @param  STRING $rePass     -   Senha do usuário digitada novamente
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function atualizarUsuario() {
@@ -375,7 +381,7 @@ class Usuarios extends CI_Controller {
 
             }
 
-        }        
+        }
 
         !$this->Essentials->onlyNumber( $cpf )  ? $this->Essentials->setMessage( 'CPF inválido', 102 ) : null;
 
@@ -395,7 +401,7 @@ class Usuarios extends CI_Controller {
 
         $this->Usuarios->cpfExists()   ? $this->Essentials->setMessage( 'CPF existente', 102 )    : null;
 
-        $this->Usuarios->emailExists() ? $this->Essentials->setMessage( 'E-mail existente', 102 ) : null;   
+        $this->Usuarios->emailExists() ? $this->Essentials->setMessage( 'E-mail existente', 102 ) : null;
 
         $this->Usuarios->gravarUsuario( $nome, $sobrenome, $sexo, $dataNasc, true );
 
@@ -416,7 +422,7 @@ class Usuarios extends CI_Controller {
     * Método obtem o o endereço completo com base no CEP
     *
     * @param  NULL
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function getCep() {
@@ -443,7 +449,7 @@ class Usuarios extends CI_Controller {
     * Método obtem o o endereço completo com base no CEP
     *
     * @param  INT id - ID do endereço
-    * @return ARRAY JSON 
+    * @return ARRAY JSON
     * @access PUBLIC
     **/
     public function getEnderecoById() {
@@ -659,13 +665,13 @@ class Usuarios extends CI_Controller {
 
             $this->Usuarios->idEndereco  =   $id;
 
-            !$this->Usuarios->enderecoExists() ? $this->Essentials->setMessage( 'Endereço de número ' . ($i + 1) . ' inválido' ) : null;            
+            !$this->Usuarios->enderecoExists() ? $this->Essentials->setMessage( 'Endereço de número ' . ($i + 1) . ' inválido' ) : null;
 
             $this->Usuarios->enderecoIsVenda() ? $this->Essentials->setMessage( 'Endereço de número ' . ($i + 1) . ' está associado a uma venda' ) : null;
 
             $enderecos[$i]   =  $id;
 
-        }   
+        }
 
         //Inicia o for para deletar os endereços
         for( $i = 0; $i < $qtd; $i++ ) {
@@ -700,21 +706,4 @@ class Usuarios extends CI_Controller {
 
     }
 
-}    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
