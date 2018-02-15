@@ -59,7 +59,7 @@ class Carrinho_site extends CI_Controller {
         $realizarCompra   =   substr( trim( $this->uri->slash_segment( 4 ) ), 0, -1 );
 
         //Verifica se o acesso é para notificacão de pagamentos
-        if( $segmento == 'pagseguro' ) {    
+        if( $segmento == 'pagseguro' ) {
 
             //Libera o acesso do pagseguro ao sistema de atualização
             header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
@@ -119,10 +119,10 @@ class Carrinho_site extends CI_Controller {
             $code          =   100;
 
             $result        =    array(
-                                    'id' => $id, 
-                                    'code' => $code, 
+                                    'id' => $id,
+                                    'code' => $code,
                                     'parcSemJuros' => $parcSemJuros,
-                                    'semFrete' => $valorSemFrete 
+                                    'semFrete' => $valorSemFrete
                                 );
 
             echo json_encode( $result ); exit;
@@ -219,7 +219,7 @@ class Carrinho_site extends CI_Controller {
                 case 3:
                     //Faz a chamada para o método de pagamento de Débito online
                     $response   =  $this->callPaymentDebitoOnline( $valorFrete, $parcelasSemJuros, $servico );
-                break;            
+                break;
             }
 
             //Verifica se o retorno é falso
@@ -246,10 +246,10 @@ class Carrinho_site extends CI_Controller {
                     //Ocorreu algum erro, então vamos enviar uma mensagem
                     $this->Essentials->setMessage( 'Ocorreu um erro ao processar a venda, nossa equipe foi informada e vamos entrar em contato com você cliente', 102 );
 
-                }else {                    
+                }else {
 
                     //Seta o array retornado na classe de vendas
-                    $this->Vendas->setDataReturnTransaction( $data );                    
+                    $this->Vendas->setDataReturnTransaction( $data );
 
                     //Prepara os dados da venda do pagseguro para serem gravadas
                     $this->Vendas->prepararVendaPagseguro();
@@ -264,7 +264,7 @@ class Carrinho_site extends CI_Controller {
                     $this->Vendas->getIdFrete();
 
                     foreach ($this->infoFrete as $key => $value ) {
-                        
+
                         $this->Vendas->idProduto  =   $value['id'];
 
                         $this->Vendas->gravarFreteProdutos( $value['valor'] );
@@ -286,7 +286,7 @@ class Carrinho_site extends CI_Controller {
 
                     }else {
 
-                        $result  =  array( 
+                        $result  =  array(
                                         'message'  =>  'Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora',
                                         'code'     =>  100,
                                         'ref'      =>  $this->Vendas->referencia
@@ -330,9 +330,9 @@ class Carrinho_site extends CI_Controller {
 
         $senderHash        =   $this->input->post( 'senderHash' );
 
-        $numero            =   $this->input->post( 'numero' );  
+        $numero            =   $this->input->post( 'numero' );
 
-        $complemento       =   $this->input->post( 'complemento' ); 
+        $complemento       =   $this->input->post( 'complemento' );
 
         $cep               =   $this->input->post( 'cepEntrega' );
 
@@ -387,7 +387,7 @@ class Carrinho_site extends CI_Controller {
 
         /**
         * Essa parte é referente ao processamento da venda
-        * 
+        *
         **/
         //Obtem o total da venda
         $totalVenda                =   $this->Carrinho->getTotal();
@@ -506,9 +506,9 @@ class Carrinho_site extends CI_Controller {
 
         $senderHash        =   $this->input->post( 'senderHash' );
 
-        $numero            =   $this->input->post( 'numero' );  
+        $numero            =   $this->input->post( 'numero' );
 
-        $complemento       =   $this->input->post( 'complemento' ); 
+        $complemento       =   $this->input->post( 'complemento' );
 
         $cep               =   $this->input->post( 'cepEntrega' );
 
@@ -669,9 +669,9 @@ class Carrinho_site extends CI_Controller {
 
         $senderHash        =   $this->input->post( 'senderHash' );
 
-        $numero            =   $this->input->post( 'numero' );  
+        $numero            =   $this->input->post( 'numero' );
 
-        $complemento       =   $this->input->post( 'complemento' ); 
+        $complemento       =   $this->input->post( 'complemento' );
 
         $cep               =   $this->input->post( 'cepEntrega' );
 
@@ -736,7 +736,7 @@ class Carrinho_site extends CI_Controller {
 
         /**
         * Essa parte é referente ao processamento da venda
-        * 
+        *
         **/
         //Obtem o total da venda
         $totalVenda                =   $this->Carrinho->getTotal();
@@ -817,7 +817,7 @@ class Carrinho_site extends CI_Controller {
         //Junta o array com os produtos ao array dos parametros
         $data        =   array_merge( $data, $itens );
 
-        //print_r( $data ); exit; 
+        //print_r( $data ); exit;
 
         //Instancia a classe Curl para conexão em outros servidores
         $this->Curl  =   new connection\Curl( $this->urlPagSeg );
@@ -861,11 +861,11 @@ class Carrinho_site extends CI_Controller {
 
         /**
         * Essa parte é referente ao processamento dos produtos da venda
-        * 
+        *
         **/
         //Obtem todos os produtos
         $produtos  =   $this->Carrinho->getProdutos();
-    
+
         //Array vai conter os produtos para serem enviados ao PAGSEGURO
         $itens     =   array();
 
@@ -938,10 +938,10 @@ class Carrinho_site extends CI_Controller {
         //Inicializa a API do pagseguro
         $this->pagseguro->initializePagSeguroAPI();
 
-        // Tipo de notificação recebida 
+        // Tipo de notificação recebida
         $type         =   $this->input->post( 'notificationType' );
-          
-        //Código da notificação recebida 
+
+        //Código da notificação recebida
         $notifyCode   =   $this->input->post( 'notificationCode' );
 
         //Gte IP user
@@ -959,7 +959,7 @@ class Carrinho_site extends CI_Controller {
 
         //Faz a chamada para  API de notificação requisando os dados da transação
         $transaction    =    $this->pagseguro->returnRequestNotification( $notifyCode );
-    
+
         //Verifica se o retorno dos dados é um objeto
         if( !is_object( $transaction ) ){
 
@@ -1209,7 +1209,7 @@ class Carrinho_site extends CI_Controller {
 
     }
 
-    public function deletarItem() 
+    public function deletarItem()
     {
 
         $id   =  $this->input->post( 'id' );
@@ -1274,7 +1274,7 @@ class Carrinho_site extends CI_Controller {
 
     public function getValorFreteCarrinho() {
 
-        //Recebe os dados via POST  
+        //Recebe os dados via POST
         $cepDestino                 =    $this->input->post( 'cep' );
 
         //$servico                    =    $this->input->post( 'servico' );
@@ -1316,9 +1316,8 @@ class Carrinho_site extends CI_Controller {
      * @return MIX ARRAY JSON | DECIMAL
      * @access PROTECTED
      */
-    protected function generateFrete( $cep, $servico ) 
+    protected function generateFrete( $cep, $servico )
     {
-
         //Instancia a classe General
         $this->General                =    new extend\General();
 
@@ -1341,7 +1340,7 @@ class Carrinho_site extends CI_Controller {
         //!$response  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep ) : null;
 
         //Obtem o Cep de origem
-        $cepOrigem                    =  '04205-002';  //$this->Config->getCepOrigem();
+        $cepOrigem                    =  '04205002';  //$this->Config->getCepOrigem();
 
         //Erro, cep de origem não cadastrado
         is_bool( $cepOrigem ) ?  $this->Essentials->setMessage( 'Ocorreu um erro ao obter o valor do frete' ) : null;
@@ -1369,11 +1368,13 @@ class Carrinho_site extends CI_Controller {
             //Seta o cep de origem
             $this->Correios->sCepOrigem      =    $cepOrigem;
 
+            $this->Correios->sCepDestino     =    $cep;
+
             //Seta o ID do produto na classe
             $this->Produtos->idProduto       =   $key['id'];
 
             //Recebe a quantidade do produto
-            $qtd                             =   $key['qtd'];            
+            $qtd                             =   $key['qtd'];
 
             //Obtem o valor do peso do produto
             $this->Correios->nVlPeso         =   $this->Produtos->getDataEspecificProduct( 4 );
@@ -1406,7 +1407,7 @@ class Carrinho_site extends CI_Controller {
             if( is_array( $response ) ) {
 
                 //Verifica se existe algum erro
-                $error  =   $this->Correios->getError( $response['cServico']['Erro'] );                
+                $error  =   $this->Correios->getError( $response['cServico']['Erro'] );
 
                 if( is_bool( $error ) ) {
 
@@ -1436,7 +1437,7 @@ class Carrinho_site extends CI_Controller {
         }
 
         //Obtem o valor adicional para o frete
-        $valorAddFrete   =   $this->Config->getValorAddFrete();        
+        $valorAddFrete   =   $this->Config->getValorAddFrete();
 
         //Obtem o valor do frete somando ao valor adicional do frete
         $valorFrete      =   $frete + $valorAddFrete;
@@ -1446,7 +1447,7 @@ class Carrinho_site extends CI_Controller {
 
     }
 
-    protected function generateFreteToCart( $cep ) 
+    protected function generateFreteToCart( $cep )
     {
 
         //Instancia a classe General
@@ -1459,7 +1460,7 @@ class Carrinho_site extends CI_Controller {
         $this->Config                 =    new objects\Configuracoes();
 
         //Obtem o código do servico
-        
+
         $servicos  = array();
 
         $servicos  = array(array('id' => 1,'nome' => 'PAC'),array('id' => 2,'nome' => 'SEDEX'));
@@ -1474,7 +1475,7 @@ class Carrinho_site extends CI_Controller {
         //!$response  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep ) : null;
 
         //Obtem o Cep de origem 04205-002
-        $cepOrigem                    =  '04205-002';  //$this->Config->getCepOrigem();
+        $cepOrigem                    =  '04205002';  //$this->Config->getCepOrigem();
 
         //Erro, cep de origem não cadastrado
         is_bool( $cepOrigem ) ?  $this->Essentials->setMessage( 'Ocorreu um erro ao obter o valor do frete' ) : null;
@@ -1486,7 +1487,7 @@ class Carrinho_site extends CI_Controller {
         count( $produtos ) == 0 ? $this->Essentials->setMessage( 'Seu carrinho está vázio, sua compra não foi finalizada' ) : null;
 
         $valoresFrete = array();
-       
+
         foreach($servicos as $key => $servico) {
 
              $serv  =   $this->Vendas->getCodeServicoEntrega( $servico['id'] );
@@ -1508,11 +1509,13 @@ class Carrinho_site extends CI_Controller {
                 //Seta o cep de origem
                 $this->Correios->sCepOrigem      =    $cepOrigem;
 
+                $this->Correios->sCepDestino     =    $cep;
+
                 //Seta o ID do produto na classe
                 $this->Produtos->idProduto       =   $key['id'];
 
                 //Recebe a quantidade do produto
-                $qtd                             =   $key['qtd'];            
+                $qtd                             =   $key['qtd'];
 
                 //Obtem o valor do peso do produto
                 $this->Correios->nVlPeso         =   $this->Produtos->getDataEspecificProduct( 4 );
@@ -1545,7 +1548,7 @@ class Carrinho_site extends CI_Controller {
                 if( is_array( $response ) ) {
 
                     //Verifica se existe algum erro
-                    $error  =   $this->Correios->getError( $response['cServico']['Erro'] );                
+                    $error  =   $this->Correios->getError( $response['cServico']['Erro'] );
 
                     if( is_bool( $error ) ) {
 
@@ -1575,7 +1578,7 @@ class Carrinho_site extends CI_Controller {
             }
 
          //Obtem o valor adicional para o frete
-        $valorAddFrete   =   $this->Config->getValorAddFrete();        
+        $valorAddFrete   =   $this->Config->getValorAddFrete();
 
         //Obtem o valor do frete somando ao valor adicional do frete
         $valoresFrete[]  =   array('nome' => $servico['nome'], 'valor' => $frete + $valorAddFrete);
@@ -1584,21 +1587,21 @@ class Carrinho_site extends CI_Controller {
 
         }
 
-       
+
         return $valoresFrete;
 
     }
 
-    protected function generateFreteFromCifrete( $cep ) 
+    protected function generateFreteFromCifrete( $cep )
     {
 
         $this->load->library('connection/cifrete');
-		
+
 		$this->cifrete->setCepOrigem('04205002');
 		$this->cifrete->setCepDestino($cep);
 		$this->cifrete->setMaoPropria('s');
         $this->cifrete->setAvisoRecebimento('s');
-        
+
         //Obtem os produtos do carrinho
         $produtos  =   $this->Carrinho->getProdutos();
 
@@ -1613,7 +1616,7 @@ class Carrinho_site extends CI_Controller {
         $data['preco_pac'] = 0;
         $data['preco_sedex'] = 0;
         $data['preco_esedex'] = 0;
-        
+
         $data['preco_pac_prazo'] = 0;
         $data['preco_sedex_prazo'] = 0;
         $data['preco_esedex_prazo'] = 0;
@@ -1625,14 +1628,14 @@ class Carrinho_site extends CI_Controller {
             $this->Produtos->idProduto       =   $key['id'];
 
             //Recebe a quantidade do produto
-            $qtd                             =   $key['qtd'];    
+            $qtd                             =   $key['qtd'];
 
             $altura = 0;
             $largura = 0;
             $comprimento = 0;
             $peso = 0;
             $diametro = $altura + $largura;
-            
+
             foreach(range(1, $qtd) as $item) {
 
                 $altura += (float)$this->Produtos->getDataEspecificProduct( 6 );
@@ -1656,11 +1659,11 @@ class Carrinho_site extends CI_Controller {
             $this->cifrete->setSedexRetorno(TRUE);
             $this->cifrete->setESedexRetorno(FALSE);
             $this->cifrete->calcular();
-            
+
             $data['preco_pac'] += $this->cifrete->getResultadoPac();
             $data['preco_sedex'] += $this->cifrete->getResultadoSedex();
             $data['preco_esedex'] += $this->cifrete->getResultadoESedex();
-            
+
             $data['preco_pac_prazo'] = $this->cifrete->getResultadoPacEntrega();
             $data['preco_sedex_prazo'] = $this->cifrete->getResultadoSedexEntrega();
             $data['preco_esedex_prazo'] = $this->cifrete->getResultadoESedexEntrega();
@@ -1670,7 +1673,7 @@ class Carrinho_site extends CI_Controller {
 
 
         return $data;
-    
+
     }
 
     public function irParaCheckout()
@@ -1679,20 +1682,3 @@ class Carrinho_site extends CI_Controller {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

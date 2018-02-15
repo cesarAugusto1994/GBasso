@@ -15,17 +15,17 @@
 		?>
 				<div class="col-lg-6 col-sm-7 no-padding">
 					<div class="col-lg-12 no-padding produto-imagem">
-						<img id="img_01" class="zoom-img" src="<?php echo $imageDefault; ?>" data-zoom-image="<?php echo $imageDefault; ?>"/> 
+						<img id="img_01" class="zoom-img" src="<?php echo $imageDefault; ?>" data-zoom-image="<?php echo $imageDefault; ?>"/>
 					</div>
 
 					<div class="col-lg-12 no-padding">
-						<div id="gallery_01"> 
+						<div id="gallery_01">
 						<?php
 							foreach ( $images as $key => $value ) {
 						?>
-								<a href="#" data-image="<?php echo $value; ?>" data-zoom-image="<?php echo $value; ?>"> 
-									<img width='100' id="img_01" class="produto-slide" src="<?php echo $value; ?>" /> 
-								</a> 
+								<a href="#" data-image="<?php echo $value; ?>" data-zoom-image="<?php echo $value; ?>">
+									<img width='100' id="img_01" class="produto-slide" src="<?php echo $value; ?>" />
+								</a>
 						<?php
 							}
 						?>
@@ -44,9 +44,9 @@
 			</div>
 
 			<div class="col-lg-12 padding-right-reset">
-				
+
 				<div class="produto-container-desc">
-					
+
 					<!--<p class="font-poppins color-black produto-estoque">In stock</p>-->
 
 					<p class="font-poppins color-black produto-desc">
@@ -56,7 +56,7 @@
 				</div>
 
 				<div class="produto-container-preco">
-					
+
 					<h2 class="font-poppins-bold color-price produto-preco"> <?php echo $info['valor']; ?></h2>
 
 					<hr />
@@ -66,14 +66,14 @@
 			</div>
 
 			<div class="col-lg-12 padding-right-reset">
-				
+
 
 				<div class="container-quantidade pull-left" style="margin-left:12px;width:80px;">
 					<input type="number" style="height:35px;" name="quant[<?php echo $id; ?>]" id="quantity" class="form-control" value="1" min="1" max="999">
 				</div>
 
 				<div class="container-add-carrinho ">
-					<button class="btn btn-carrinho" data-id="<?php echo $id; ?>"> Adicionar ao carrinho</button>
+					<button class="btn btn-carrinho btn-success" data-id="<?php echo $id; ?>"> Adicionar</button>
 				</div>
 
 				<hr />
@@ -87,10 +87,10 @@
 				</div>
 
 				<hr />
-				
+
 			</div>
 		</div>
-		
+
 	</div>
 
 	<div class="row no-margin margin-top margin-left-reset margin-right-reset">
@@ -124,7 +124,7 @@
 											<div class="comentario-texto">
 												<p>Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi.</p>
 											</div>
-										</div>			         					
+										</div>
 			         				</li>
 			         			</ol>
 			         		</div>
@@ -159,7 +159,7 @@
 		</div>
 	</div>
 
-	<?php 
+	<?php
 		if( count( $info['relacionados'] ) > 0 ) {
 	?>
 	<div class="row no-margin margin-top margin-left-reset margin-right-reset">
@@ -168,7 +168,7 @@
 
 			<span class="font-poppins-bold border-right-regular padding-padrao font-big titulo-produtos-relativos pull-left"> PRODUTOS RELACIONADOS </span>
 
-			<span class="padding-padrao slick-arrows-relativos pull-right relative">  </span>  
+			<span class="padding-padrao slick-arrows-relativos pull-right relative">  </span>
 
 		</div>
 
@@ -176,7 +176,7 @@
 			<?php
 
 				$relacionados  =   $info['relacionados'];
-				
+
 				foreach ($relacionados as $k => $key ) {
 			?>
 			<div class="slick-first-relativo">
@@ -221,9 +221,9 @@
 								</div>
 								<br/>
 								<br/>
-									
+
 								<div class="container-add-carrinho ">
-									<button class="btn btn-carrinho-relacionados" data-id="<?= $key['value']; ?>" data-item="<?= $k; ?>"> Adicionar ao carrinho</button>
+									<button class="btn btn-carrinho-relacionados btn-success" data-id="<?= $key['value']; ?>" data-item="<?= $k; ?>"> Adicionar</button>
 								</div>
 
 								<br/>
@@ -233,7 +233,7 @@
 					</div>
 				</div>
 			</div>
-			<?php 
+			<?php
 				}
 			?>
 
@@ -353,7 +353,7 @@
 
 		</div>
 	</div>
-	<?php 
+	<?php
 		}
 	?>
 </div>
@@ -362,9 +362,3 @@
 	var baseUrl  =  '{url}';
 	var page = 'produto';
 </script>
-
-
-
-
-
-

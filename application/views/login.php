@@ -1,68 +1,79 @@
-<div class="conteiner">  
-  <div class="secao-principal row-fluid sem-coluna">    
-  <div class="campos-pedido">
-    <div class="cabecalho-interno row-fluid hide">
-      <div class="span12">
-          <h1 class="titulo cor-secundaria">
-            Finalizar compra <small> Preencha os dados necessários para finalizar o pedido.</small>
-          </h1>
-      </div>
-    </div>
-    <div class="campos-pedido">
+<div class="conteiner">
+      <div class="secao-principal row-fluid sem-coluna">
+          <div class="campos-pedido">
+            <div class="cabecalho-interno row-fluid hide">
+              <div class="span12">
+                  <h1 class="cor-secundaria">
+                    Finalizar compra <small> Preencha os dados necessários para finalizar o pedido.</small>
+                  </h1>
+              </div>
+            </div>
+            <div class="campos-pedido">
 
-      <div id="login-content" class="">
-        <div class="row-fluid identificacao">
-          <div class="span12">
-            <hr class="sem-margem">
-            <div class="identificacao-inner">
-              <h3 class="identificacao-title">Se já possui cadastro basta acessar com o seu usuário e senha.</h3>
-              <form action="{url}ajax/minha/conta/logar" method="post" class="formLoginCheckout" id="formLoginCheckout">
-                <div class="form-horizontal">
-                  <div class="control-group">
-                    <div class="email-box">
-                      <label for="id_email" class="control-label hide">E-mail</label>
-                      <input type="text" name="user" id="email" autocomplete="email" value="<?= $email; ?>" required placeholder="meu@email.com.br">
-                    </div>
+              <div id="login-content" class="">
+                <div class="row-fluid" style="display: block;">
+                  <div class="col-lg-4 hidden-xs ">
+
                   </div>
-                  <div class="login-data">
-                    <div class="control-group">
-                      <button type="submit" id="id_botao_login" class="botao principal" data-loading-text="<i class='icon-refresh icon-animate'></i>" autocomplete="off">Entrar</button>
-                      <div class="senha-box">
-                        <label for="id_senha" class="control-label hide">Senha</label>
-                        <input type="password" name="pass" id="pass" placeholder="Senha" required autocomplete="current-password">
-                      </div>
-                      <!--<a href="https://localhost:8089/conta/login?next=/checkout/#recuperar_senha" class="esqueci-senha">
-                        <i class="icon-lock"></i> Esqueci minha senha
-                      </a>-->
-                      <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" class="fazer-cadastro">
-                        <p><i class="icon-user"></i> Novo cadastro</p>
-                      </a>
+                  <div class="col-lg-4 col-xs-12 " style="margin-top:60px;">
+                    <div class="caixa-sombreada borda-principal">
+                      <form action="{url}ajax/minha/conta/logar" method="post" class="formLoginCheckout" id="formLoginCheckout">
+                          <fieldset data-recording-ignore="events">
+                        <legend class=" cor-secundaria"><i class="icon-user"></i>Login</legend>
+                        <div id="formularioEndereco" class="">
+
+                          <div class="formEndereco-conteiner">
+
+                            <div class="row-fluid">
+                              <div class="control-group span12 required" style="display: block;">
+                                <label class="control-label font-bold" for="shippingAddressStreet">E-mail</label>
+                                <div class="controls">
+                                  <input type="text" name="user" id="id_email_login" class="input-xlarge span12 form-control" value="<?= $email; ?>" autocomplete="email" placeholder="meu@email.com.br">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row-fluid">
+                              <div class="control-group span12 required" style="display: block;">
+                                <label class="control-label font-bold" for="shippingAddressNumber">Senha</label>
+                                <div class="controls">
+                                  <input type="password" class="form-control input-mini span12" name="pass" id="pass" placeholder="Senha" required autocomplete="current-password">
+                                </div>
+                              </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block">Continuar</button>
+                            <a href="http://www.grupobasso.com.br/minha/conta/cadastrar" class="btn btn-default btn-block">Novo Cadastro</a>
+                          </div>
+                        </div>
+                      </fieldset>
+                      </form>
                     </div>
-                    <input type="hidden" name="next" value="/checkout/">
+
+                    <div class="checkout-alerta-seguro">
+                      <h3 class="checkout-alerta-seguro-tit">Usamos seu e-mail de forma 100% segura para:</h3>
+                      <ul class="checkout-alerta-seguro-list">
+                        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Identificar seu perfil</span></li>
+                        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Notificar sobre o andamento do seu pedido</span></li>
+                        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Gerenciar seu histórico de compras</span></li>
+                        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Acelerar o preenchimento de suas informações</span></li>
+                      </ul>
+                      <i class="icon-lock checkout-alerta-seguro-icon"></i>
+                    </div>
+
+                  </div>
+
+
+                  <div class="col-lg-4 hidden-xs ">
+
+
+
                   </div>
                 </div>
-              </form>
+
+              </div>
+
             </div>
           </div>
-        </div>
       </div>
-    
-
-
-      
-
-    <div class="checkout-alerta-seguro">
-      <h3 class="checkout-alerta-seguro-tit">Usamos seu e-mail de forma 100% segura para:</h3>
-      <ul class="checkout-alerta-seguro-list">
-        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Identificar seu perfil</span></li>
-        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Notificar sobre o andamento do seu pedido</span></li>
-        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Gerenciar seu histórico de compras</span></li>
-        <li class="checkout-alerta-seguro-item"><i class="icon-ok"></i> <span class="checkout-alerta-seguro-text">Acelerar o preenchimento de suas informações</span></li>
-      </ul>
-      <i class="icon-lock checkout-alerta-seguro-icon"></i>
-    </div>
-  </div>
-  </div>
 </div>
-
-

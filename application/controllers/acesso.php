@@ -30,7 +30,7 @@ class Acesso extends CI_Controller{
      **/
     public function __construct() {
 
-        parent::__construct();        
+        parent::__construct();
 
         //Instacia a classe Essential do package Security
         $this->Essential   =   new security\Essentials;
@@ -74,17 +74,17 @@ class Acesso extends CI_Controller{
         //Define data info to header
         $data['header']  =  array();
 
-        //Define data info to body 
+        //Define data info to body
         $data['body']    =  array();
 
         //Define data info to footer
         $data['footer']  =  array();
-        
+
         $data['header']['url']  =   base_url();
 
         $data['header']['pesq']  =   "";
-        
-        $data['header']['catss']        =   $this->Menus->getCategorias();
+
+        $data['header']['catss']  =   array();
 
         $data['header']['css']  =   $this->Header->getCss( $css );
 
@@ -93,6 +93,8 @@ class Acesso extends CI_Controller{
         $data['header']['inc']  =   $this->Header->getIncludes( array( 1 ) );
 
         $data['header']['page'] =   'login';
+
+        $data['header']['mostrar_categorias'] = false;
 
         $data['header']['logado']         =   $this->Login->checkLogin() ? true :  false;
 
@@ -113,9 +115,3 @@ class Acesso extends CI_Controller{
     }
 
 }
-
-
-
-
-
-

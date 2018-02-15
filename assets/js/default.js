@@ -31,14 +31,14 @@ $('.pesquisar-data').keypress(function(e) {
     if (e.which == 13) {
         var selected = $('.btn-search-reset').find('option:selected').text();
         var text = $('.pesquisar-data').val();
-        window.location.href = baseUrl + 'pesquisar/resultado/' + selected + '/' + text + '/1';
+        window.location.href = baseUrl + 'pesquisar/resultado/Todas as Categorias/' + text + '/1';
     }
 });
 
-$('.btn-search-reset').change(function() {
+$('.btn-search-reset').click(function() {
     var selected = $('.btn-search-reset').find('option:selected').text();
     var text = $('.pesquisar-data').val();
-    window.location.href = baseUrl + 'pesquisar/resultado/' + selected + '/' + text + '/1';
+    window.location.href = baseUrl + 'pesquisar/resultado/Todas as Categorias/' + text + '/1';
 })
 
 $(document).ready(function() {

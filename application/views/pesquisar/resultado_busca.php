@@ -58,7 +58,7 @@
                                     <br/>
 
                                     <div class="container-add-carrinho" style="margin-left:12px;display:none;">
-                                        <button class="btn btn-sm btn-default btn-carrinho-relacionados" title='Adicionar {name} ao carrinho' data-id="{id}" data-item="{id}"> Adicionar ao carrinho</button>
+                                        <button class="btn btn-sm btn-success btn-carrinho-relacionados" title='Adicionar {name} ao carrinho' data-id="{id}" data-item="{id}"> Adicionar</button>
                                     </div>
 
                                 </div>

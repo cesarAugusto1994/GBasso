@@ -16718,7 +16718,7 @@ x:-moz-any-link {
 }
 
 .identificacao .control-group input {
-    width: 94%;
+    /*width: 94%;*/
     padding: 15px 3%;
     font-size: 18px;
     box-shadow: inset 1px 1px 7px #e7e7e7

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace connection {
 
@@ -64,11 +64,11 @@ namespace connection {
          *  CEP de Destino Sem hífem
          * @example 05311900
          */
-        protected $sCepDestino = '01046010';
+        protected $sCepDestino = '08346575';
 
 
         /**
-         * Peso da encomenda, incluindo sua embalagem. 
+         * Peso da encomenda, incluindo sua embalagem.
          * O peso deve ser informado em quilogramas.
          */
         protected $nVlPeso = '';
@@ -120,7 +120,7 @@ namespace connection {
 
 
         /**
-         * Indica se a encomenda será entregue com o serviço 
+         * Indica se a encomenda será entregue com o serviço
          * adicional valor declarado.
          * Neste campo deve ser apresentado o valor declarado desejado, em Reais.
          * Se não optar pelo serviço informar zero.
@@ -129,7 +129,7 @@ namespace connection {
 
 
         /**
-         * Indica se a encomenda será entregue com o serviço 
+         * Indica se a encomenda será entregue com o serviço
          * adicional aviso de recebimento.
          * Valores possíveis: S ou N (S = Sim, N = Não)
          */
@@ -149,11 +149,11 @@ namespace connection {
 
         /**
          * Método inicia a classe de Correios e inicializa o Curl
-         * 
-         * @param  NONE         
+         *
+         * @param  NONE
          * @return VOID
          * @access PUBLIC
-         */        
+         */
         public function __construct() {
 
             //Inicializa o Curl
@@ -164,7 +164,7 @@ namespace connection {
 
         /**
          * SETTER único para todos os atributos da classe
-         * 
+         *
          * @param  STRING $property  -  Nome do atributo
          * @param  STRING $value     -  Valor do atributo
          * @return VOID
@@ -178,7 +178,7 @@ namespace connection {
 
         /**
          * GETTER único para todos os atributos da class
-         * 
+         *
          * @param  STRING $name - Nome do atributo
          * @return VOID
          * @access PUBLIC
@@ -190,7 +190,7 @@ namespace connection {
 
         /**
          * Calcula o diâmetro da encomenda em cm
-         * 
+         *
          * @return VOID
          * @access PUBLIC
          */
@@ -257,35 +257,35 @@ namespace connection {
 
             switch ( $error ) {
 
-                case '0': 
+                case '0':
                     //Processado com sucesso
                     return false;
                 break;
-                case '-1': 
+                case '-1':
                     return 'Código de serviço inválido';
                 break;
-                case '-2': 
+                case '-2':
                     return 'CEP de origem inválido';
                 break;
-                case '-3': 
+                case '-3':
                     return 'CEP de destino inválido';
                 break;
-                case '-4': 
+                case '-4':
                     return 'Peso excedido';
                 break;
-                case '-5': 
+                case '-5':
                     return 'O Valor Declarado não deve exceder R$ 10.000,00';
                 break;
-                case '-6': 
+                case '-6':
                     return 'Serviço indisponível para o trecho informado';
                 break;
-                case '-7': 
+                case '-7':
                     return 'O Valor Declarado é obrigatório para este serviço';
                 break;
-                case '-8': 
+                case '-8':
                     return 'Este serviço não aceita Mão Própria';
                 break;
-                case '-9': 
+                case '-9':
                     return 'Este serviço não aceita Aviso de Recebimento';
                 break;
                 case '-10':
@@ -371,7 +371,7 @@ namespace connection {
 
         /**
          * Comunica-se com os correios para obter os valores do frete
-         * 
+         *
          * @param  NONE
          * @return ARRAY
          * @access PUBLIC
@@ -421,7 +421,7 @@ namespace connection {
             $this->setOpt( 'CURLOPT_RETURNTRANSFER', true );
 
             //Executa o Curl e retorna os dados
-            $data               =    $this->execute();  
+            $data               =    $this->execute();
 
             //Instancia a classe Dom Parser
             $this->DomParser    =    new parser\simple_html_dom();
@@ -457,7 +457,7 @@ namespace connection {
             //print_r( $rows ); exit;
 
             //Inicializa o contador de interações do looping
-            $i     =  0;    
+            $i     =  0;
 
             //Inicializa o contador de indices do array principal
             $j     =  0;
@@ -478,7 +478,7 @@ namespace connection {
                  *       </tr>
                  *       <tr>
                  *          <td colspan="2">Encaminhado para CEE VILA GUILHERME - Sao Paulo/SP</td>
-                 *       </tr>                        
+                 *       </tr>
                  * <table>
                  * Desta forma a classe Simple Html Dom retorna o seguinte:
                  * array( 0 => array( 0 => '17/02/2016 07:10', 1 => 'CTE VILA MARIA - Sao Paulo/SP', 2 => 'Encaminhado' ),
@@ -486,7 +486,7 @@ namespace connection {
                  *       )
                  *
                  * Creio que não era para ser assim, era para retornar o que tem no índice 0 e acrescentar o que tem no indice 1, desta forma:
-                 * array( 0 => array( 0 => '17/02/2016 07:10', 1 => 'CTE VILA MARIA - Sao Paulo/SP', 2 => 'Encaminhado' ), 
+                 * array( 0 => array( 0 => '17/02/2016 07:10', 1 => 'CTE VILA MARIA - Sao Paulo/SP', 2 => 'Encaminhado' ),
                  *        1 => array( 0 => '17/02/2016 07:10', 1 => 'Encaminhado para CEE VILA GUILHERME - Sao Paulo/SP', 2 => 'Encaminhado' )
                  *       )
                  *
@@ -500,9 +500,9 @@ namespace connection {
                                       'data'      =>  htmlentities( trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $value[0])))),
                                       'local'     =>  htmlentities( trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $value[1])))),
                                       'situacao'  =>  htmlentities( trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $value[2]))))
-                                  );  
+                                  );
                     //Incrementa o contador
-                    $j++; 
+                    $j++;
 
                 }else if( count( $value ) == 1 ) {
 
@@ -513,7 +513,7 @@ namespace connection {
                                       'situacao'  =>  htmlentities( trim(preg_replace('/\s\s+/', ' ', str_replace("\n", " ", $data[$j-1]['situacao']))))  //Obtem o valor do indice anterior
                                   );
                     //Incrementa o contador
-                    $j++; 
+                    $j++;
 
                 }
 
@@ -527,25 +527,8 @@ namespace connection {
             //Retorna os dados
             return $data;
 
-        }  
+        }
 
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

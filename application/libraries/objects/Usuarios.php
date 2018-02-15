@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace objects;
 
@@ -39,7 +39,7 @@ class Usuarios extends db\Querys  {
     * @return VOID
     * @access PUBLIC
     */
-    public function gravarUsuario( $nome, $sobrenome, $sexo, $dataNasc, $update = false ) {
+    public function gravarUsuario( $nome, $sobrenome, $sexo, $dataNasc, $update = false, $tipoPessoa = 'PF', $celular = null, $telefonePrincipal = null, $telefoneComercial = null) {
 
         //Reset all attr of Querys class
         $this->reset();
@@ -63,6 +63,22 @@ class Usuarios extends db\Querys  {
 
         );
 
+        if(!empty($celular)) {
+            $gravar['usu_telefone_celular'] = $celular;
+        }
+
+        if(!empty($telefonePrincipal)) {
+            $gravar['usu_telefone_principal'] = $telefonePrincipal;
+        }
+
+        if(!empty($telefoneComercial)) {
+            $gravar['usu_telefone_comercial'] = $telefoneComercial;
+        }
+
+        if(!empty($tipoPessoa)) {
+            $gravar['usu_tipo_pessoa'] = $tipoPessoa;
+        }
+
         //Agora vamos remover os campos que são vazio
         foreach ($gravar as $key => $value ) {
 
@@ -77,7 +93,7 @@ class Usuarios extends db\Querys  {
         $this->table   =  'usuarios';
 
         if( !$update ) {
-            
+
             $this->insert( $gravar );
 
             $this->getIDUsuario();
@@ -141,7 +157,7 @@ class Usuarios extends db\Querys  {
         $this->table   =  'login';
 
         if( !$update ) {
-            
+
             $this->insert( $gravar );
 
         }else {
@@ -219,7 +235,7 @@ class Usuarios extends db\Querys  {
         $this->table   =  'enderecos';
 
         if( !$update ) {
-            
+
             $this->insert( $gravar );
 
         }else {
@@ -370,6 +386,50 @@ class Usuarios extends db\Querys  {
 
     }
 
+    public function getTelefoneCelular() {
+
+        //Reseta os attr de querys
+        $this->reset();
+
+        //Seta a tabela de busca
+        $this->table  =  'usuarios';
+
+        //Seta os campos que desejo retornar
+        $this->setField( 'usu_telefone_celular' );
+
+        //Seta a condição de busca pelo ID do usuário
+        $this->setWhere( "usu_id = '$this->idUsuario'" );
+
+        //Realiza a consulta
+        $data   =   $this->getRecord();
+
+        //Checa o retorno e retorna de acordo com a condição
+        return is_bool( $data ) ? false : $data;
+
+    }
+
+    public function getTelefonePrincipal() {
+
+        //Reseta os attr de querys
+        $this->reset();
+
+        //Seta a tabela de busca
+        $this->table  =  'usuarios';
+
+        //Seta os campos que desejo retornar
+        $this->setField( 'usu_telefone_principal' );
+
+        //Seta a condição de busca pelo ID do usuário
+        $this->setWhere( "usu_id = '$this->idUsuario'" );
+
+        //Realiza a consulta
+        $data   =   $this->getRecord();
+
+        //Checa o retorno e retorna de acordo com a condição
+        return is_bool( $data ) ? false : $data;
+
+    }
+
 
     /**
     * Método resgata o E-mail
@@ -465,7 +525,7 @@ class Usuarios extends db\Querys  {
         is_numeric( $this->cep ) ? $this->setWhere( "end_cep = '$this->cep'" ) : null;
 
         if( trim( $complemento ) != '' && trim( $numero ) != '' ) {
-        
+
             $this->setWhere( "end_complemento = '$complemento'" );
 
             $this->setWhere( "end_numero = '$numero'" );
@@ -492,7 +552,7 @@ class Usuarios extends db\Querys  {
 
         $gravar  =  array( 'end_principal' => 0 );
 
-        $this->setWhere( "usu_id = '$this->idUsuario'" );        
+        $this->setWhere( "usu_id = '$this->idUsuario'" );
 
         $this->update( $gravar );
 
@@ -618,7 +678,7 @@ class Usuarios extends db\Querys  {
         $id   =   $this->getRecord();
 
         if( is_numeric( $id ) ) {
-            
+
             $this->idEndereco  =   $id;
 
             return true;
@@ -641,7 +701,7 @@ class Usuarios extends db\Querys  {
     public function getFullEndereco() {
 
         $this->reset();
-        
+
         $endereco   =   $this->getEndereco( $this->cep );
 
         $result     =   array();
@@ -694,7 +754,7 @@ class Usuarios extends db\Querys  {
                 $this->cep          =   $key->end_cep;
 
                 $prov               =   $this->getFullEndereco();
-                
+
                 $result[$i]['val']  =   $key->end_id;
 
                 $result[$i]['cep']  =   substr( $key->end_cep, 0, 5 ) . '-' . substr( $key->end_cep, 5 );
@@ -713,9 +773,9 @@ class Usuarios extends db\Querys  {
 
                 $result[$i]['pri']  =   $key->end_principal == 1 ? 'Sim' : 'Não';
 
-                $result[$i]['cid']  =   $prov['cid'] ?: 'Sao Paulo';
+                $result[$i]['cid']  =   isset($prov['cid']) ? $prov['cid'] : 'Sao Paulo';
 
-                $result[$i]['est']  =   $prov['est'] ?: 'Sao Paulo';
+                $result[$i]['est']  =   isset($prov['est']) ? $prov['est'] : 'Sao Paulo';
 
                 $i++;
 
@@ -743,7 +803,7 @@ class Usuarios extends db\Querys  {
         $this->Dates  =   new extend\Dates();
 
         //Seta os campos que desejo retornar
-        $this->setField( 'usu_nome, usu_sobrenome, usu_cpf, usu_sexo, usu_nascimento, usu_email' );
+        $this->setField( 'usu_nome, usu_sobrenome, usu_cpf, usu_sexo, usu_nascimento, usu_email, usu_telefone_celular' );
 
         //Seta a condição de busca
         $this->setWhere( "usu_id = '$this->idUsuario'" );
@@ -755,13 +815,14 @@ class Usuarios extends db\Querys  {
         $data         =   $this->get();
 
         //Declara o array que vamos retornar os dados
-        $result       =   array( 
-            'nome'         =>  '', 
-            'sobrenome'    =>  '', 
-            'cpf'          =>  '', 
-            'sexo'         =>  '', 
-            'data'         =>  '', 
-            'email'        =>  ''
+        $result       =   array(
+            'nome'         =>  '',
+            'sobrenome'    =>  '',
+            'cpf'          =>  '',
+            'sexo'         =>  '',
+            'data'         =>  '',
+            'email'        =>  '',
+            'telefone'     =>  '',
         );
 
         //Verifica se o usuário foi encontrado
@@ -780,6 +841,8 @@ class Usuarios extends db\Querys  {
 
             $result['email']      =   $data[0]->usu_email;
 
+            $result['telefone']      =   $data[0]->usu_telefone_celular;
+
         }
 
         //Retorna os dados
@@ -788,10 +851,3 @@ class Usuarios extends db\Querys  {
     }
 
 }
-
-
-
-
-
-
-

@@ -42,7 +42,7 @@ function showResponse1(data, statusText, xhr, $form) {
 
         setTimeout(function() {
 
-            window.location.href = '/minha/conta/login';
+            window.location.href = 'http://www.grupobasso.com.br/minha/conta/login';
 
         }, 2400);
 
@@ -70,7 +70,7 @@ function showResponse2(data, statusText, xhr, $form) {
 
         setTimeout(function() {
 
-            window.location.href = 'minha/conta/inicio';
+            window.location.href = baseUrl + 'minha/conta/inicio';
 
         }, 2400);
 
