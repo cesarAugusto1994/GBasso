@@ -28,7 +28,7 @@ class Login_admin extends CI_Controller {
 
 
     public function logar() {         	  
-        exit;
+        
     	//Get data post
     	$user     =   $this->Essential->sqlInjection( $this->input->post( 'user' ) );
  
@@ -46,8 +46,6 @@ class Login_admin extends CI_Controller {
 
     	//Mask password
     	$pass       =   $this->Essential->maskPassword( $pass );
-
-        echo $pass; exit;
 
     	//Check credentials
     	$response   =   $this->Login->validarCredenciaisAdmin( $user, $pass );

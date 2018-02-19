@@ -100,7 +100,7 @@
                         <div class='col-lg-12'>
                             <label>Cep</label>
                             <div class='input-group'>
-                                <input type='text' name='cep' class='form-control cep' value="<?php echo $cep; ?>" title='Digite o CEP na qual será usado como CEP de origem para enviar os produtos' />
+                                <input type='text' name='cep' class='form-control cep' value="<?php echo $cepOrigem;  ?>" title='Digite o CEP na qual será usado como CEP de origem para enviar os produtos' />
                             </div>
                         </div>
                     </fieldset>

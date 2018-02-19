@@ -166,7 +166,7 @@ class Configuracoes_admin extends CI_Controller {
         $cep                      =   preg_replace('/\D/', '', $cep);
 
         //Verifica se o cep tem 8 caracteres
-        strlen( $cep ) != 8 ?  $this->Essentials->setMessage( 'Cep inválido' ) : null;
+        strlen( $cep ) != 8 ?  $this->Essentials->setMessage( 'Cep inválido' ) : null; 
 
         //Seta o valor na classe
         $this->Config->valor      =   $cep;

@@ -74,6 +74,8 @@ class Configuracoes extends CI_Controller {
         //get configurações
         $data['body']['confs']   =   $this->Config->getConfigs();
 
+        $data['body']['cepOrigem']   =   $this->Config->getCepOrigem();
+
         //Url to footer
         $data['footer']['url']   =   $url;
 
