@@ -287,7 +287,7 @@ $('.btnCaclcularFrete').click(function(e) {
 
     var cep = $('.informarCep').val();
 
-    if (cep.length != 9) {
+    if (cep.length != 8) {
         e.preventDefault();
         return false;
     }

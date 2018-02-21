@@ -1340,7 +1340,7 @@ class Carrinho_site extends CI_Controller {
         //!$response  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep ) : null;
 
         //Obtem o Cep de origem
-        $cepOrigem                    =  '04205002';  //$this->Config->getCepOrigem();
+        $cepOrigem                    =  $this->Config->getCepOrigem();
 
         //Erro, cep de origem não cadastrado
         is_bool( $cepOrigem ) ?  $this->Essentials->setMessage( 'Ocorreu um erro ao obter o valor do frete' ) : null;
@@ -1475,7 +1475,7 @@ class Carrinho_site extends CI_Controller {
         //!$response  ?  $this->Essentials->setMessage( 'Cep inválido, selecione um endereço válido, Cep informado: ' . $cep ) : null;
 
         //Obtem o Cep de origem 04205-002
-        $cepOrigem                    =  '04205002';  //$this->Config->getCepOrigem();
+        $cepOrigem                    =  $this->Config->getCepOrigem();
 
         //Erro, cep de origem não cadastrado
         is_bool( $cepOrigem ) ?  $this->Essentials->setMessage( 'Ocorreu um erro ao obter o valor do frete' ) : null;

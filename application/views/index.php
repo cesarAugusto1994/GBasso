@@ -2,116 +2,124 @@
     $number  =   array( 'one', 'two', 'three' );
 ?>
 <div class="container margin-top">
-    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 padding-left-reset slide-content-viewer">
-        <div class="row row-banner">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 "></div>
-            <div class="container-carousel col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <?php
-                        if( count( $banner1 ) > 0 ){
-                            $i  = 0;
-                            echo '<ol class="carousel-indicators">';                            
-                            foreach ( $banner1 as $key ) {
-                                $class  =  $i == 0 ? 'active' : '';
-                    ?>                
-                                <li data-target="#carousel-example-generic" data-slide-to="<?php echo $i; ?>" class="<?php echo $class; ?>"> </li>
-                    <?php
-                                $i++;
-                            }
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 padding-left-reset slide-content-viewer">
+            <div class="row row-banner">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 "></div>
+                <div class="container-carousel col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <?php
+                            if( count( $banner1 ) > 0 ){
+                                $i  = 0;
+                                echo '<ol class="carousel-indicators">';                            
+                                foreach ( $banner1 as $key ) {
+                                    $class  =  $i == 0 ? 'active' : '';
+                        ?>                
+                                    <li data-target="#carousel-example-generic" data-slide-to="<?php echo $i; ?>" class="<?php echo $class; ?>"> </li>
+                        <?php
+                                    $i++;
+                                }
 
-                            echo "</ol>";
-                    ?>
-                            <div class="carousel-inner" role="listbox">
-                    <?php
-                            $i  =  0;
-                            foreach ( $banner1 as $key ) {
-                                $classe  =  $i == 0 ? 'active' : '';
-                    ?>
-                                <div class="item <?php echo $classe; ?>">
-                                    <img src="<?php echo $url . $key['imagem']; ?>" alt="...">
-                                    <div class="carousel-caption"></div>
-                                </div>
-                    <?php
-                                $i++;
+                                echo "</ol>";
+                        ?>
+                                <div class="carousel-inner" role="listbox">
+                        <?php
+                                $i  =  0;
+                                foreach ( $banner1 as $key ) {
+                                    $classe  =  $i == 0 ? 'active' : '';
+                        ?>
+                                    <div class="item <?php echo $classe; ?>">
+                                        <img src="<?php echo $url . $key['imagem']; ?>" alt="...">
+                                        <div class="carousel-caption"></div>
+                                    </div>
+                        <?php
+                                    $i++;
+                                }
                             }
-                        }
-                    ?>
+                        ?>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                </div>
+            </div>
+            <div class="row margin-top margin-right-reset margin-left-reset "> 
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding-left-reset side-blocks banners-custom1">
+                    <div class="background-blue pull-left width banners-custom1 img-all-size">
+                        <?php if( count( $banner2 ) > 0 ){ ?>
+                            <img src="<?php echo $banner2[0]['imagem']; ?>" class='border-cinza' />
+                        <?php } ?>
+                    </div>   
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-padding side-blocks banners-custom1">
+                    <div class="background-green pull-left width banners-custom1 img-all-size">
+                        <?php if( count( $banner3 ) > 0 ){ ?>
+                            <img src="<?php echo $banner3[0]['imagem']; ?>" class='border-cinza'  />
+                        <?php } ?> 
+                    </div>   
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding-right-reset banners-custom1 side-blocks">
+                    <div class="background-orange pull-left width banners-custom1 img-all-size">
+                        <?php if( count( $banner4 ) > 0 ){ ?>
+                            <img src="<?php echo $banner4[0]['imagem']; ?>" class='border-cinza'  />
+                        <?php } ?> 
+                    </div>   
                 </div>
             </div>
         </div>
-        <div class="row margin-top margin-right-reset margin-left-reset "> 
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding-left-reset side-blocks banners-custom1">
-                <div class="background-blue pull-left width banners-custom1 img-all-size">
-                    <?php if( count( $banner2 ) > 0 ){ ?>
-                        <img src="<?php echo $banner2[0]['imagem']; ?>" class='border-cinza' />
-                    <?php } ?>
-                </div>   
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 no-padding content-produtos-viewer"> 
+            <div class="produtos pull-left">
+                <span class="font-poppins-bold border-right-regular padding-padrao font-big titulo-produtos pull-left"> PRODUTOS </span>
+                <span class="padding-padrao  pull-right slick-arrows relative">  </span>  
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-padding side-blocks banners-custom1">
-                <div class="background-green pull-left width banners-custom1 img-all-size">
-                    <?php if( count( $banner3 ) > 0 ){ ?>
-                        <img src="<?php echo $banner3[0]['imagem']; ?>" class='border-cinza'  />
-                    <?php } ?> 
-                </div>   
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padding-right-reset banners-custom1 side-blocks">
-                <div class="background-orange pull-left width banners-custom1 img-all-size">
-                    <?php if( count( $banner4 ) > 0 ){ ?>
-                        <img src="<?php echo $banner4[0]['imagem']; ?>" class='border-cinza'  />
-                    <?php } ?> 
-                </div>   
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 no-padding content-produtos-viewer"> 
-        <div class="produtos pull-left">
-            <span class="font-poppins-bold border-right-regular padding-padrao font-big titulo-produtos pull-left"> PRODUTOS </span>
-            <span class="padding-padrao  pull-right slick-arrows relative">  </span>  
-        </div>
-        <div class="slick-slider width clear">
-            <?php
-                //############# START DESTAQUES ##############
+            <div class="slick-slider width clear">
+                <?php
+                    //############# START DESTAQUES ##############
 
-                $i  = 0;
+                    $i  = 0;
 
-                foreach ($dest as $key ) {
+                    foreach ($dest as $key ) {
 
-                    $class  =  $i % 2 === 0 ? 'slick-fisrt' : 'slick-second';
+                        $class  =  $i % 2 === 0 ? 'slick-fisrt' : 'slick-second';
 
-            ?>
-                    <div class="<?php echo $class; ?> slick-border">
-                        <div class="row padding-padrao min-margin-right-reset">
-                            <div class="col-lg-6 col-md-6 padding-right-reset slick-product-image">
-                                <a href="<?php echo $key['link']; ?>">
-                                    <img src="<?php echo $key['image']; ?>" class="img-responsive" />
-                                </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 no-padding text-produto">
-                                <p class="font-poppins padding-padrao align-left">
-                                    <a href="<?php echo $key['link']; ?>"> <?php echo $key['nome']; ?> </a>
-                                </p>
-                                <p class="font-poppins-bold color-price padding-padrao align-left"> <?php echo 'R$ ' . $key['valor']; ?></p>
+                ?>
+                        <a href="<?php echo $key['link']; ?>">
+                        <div class="<?php echo $class; ?> slick-border">
+                            <div class="row padding-padrao min-margin-right-reset">
+                                <div class="col-lg-6 col-md-6 padding-right-reset slick-product-image">
+                                    <a href="<?php echo $key['link']; ?>">
+                                        <img src="<?php echo $key['image']; ?>" class="img-responsive" />
+                                    </a>
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 no-padding text-produto">
+                                    <p class="font-poppins padding-padrao align-left">
+                                        <a href="<?php echo $key['link']; ?>"> <?php echo $key['nome']; ?></a>
+                                    </p>
+                                    <a href="<?php echo $key['link']; ?>">
+                                        <p class="font-poppins-bold color-price padding-padrao align-left"> <?php echo 'R$ ' . $key['valor']; ?></p>
+                                    </a>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
-            <?php
-                    $i++;
+                        </a>
+                <?php
+                        $i++;
 
-                }
-            ?>
+                    }
+                ?>
+
+            </div>
+
 
         </div>
-
-
     </div>
 
     <?php /* if( count( $ofertas ) > 0 ) { ?>

@@ -31,7 +31,7 @@ class Configuracoes_admin extends CI_Controller {
         $this->Login->loadDataAdmin();
 
         //Login expirou por algum motivo, um código de erro difernete será enviado e a popup de login será chamada
-        if( !$this->Login->checkSessionAdmin() ) $this->Essential->setMessage( 'Faça login novamente', 103 );
+        if( !$this->Login->checkSessionAdmin() ) $this->Essentials->setMessage( 'Faça login novamente', 103 );
 
     }
 

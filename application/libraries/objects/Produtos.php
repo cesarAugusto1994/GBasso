@@ -1223,9 +1223,13 @@ class Produtos extends db\Querys  {
 
         if( count( $data ) == 1 ) {
 
-            $migalhas   =  "<li><a class='breadcump' href='#'>" . $data[0]['catName']    . "</a></li>";
+            $categoria = $data[0]['catName'];
 
-            $migalhas  .=  "<li><a class='breadcump' href='#'>" . $data[0]['subCatName'] . "</a></li>";
+            $migalhas   =  "<li><a class='breadcump' href='http://www.grupobasso.com.br/pesquisar/resultado/$categoria'>" . $data[0]['catName']    . "</a></li>";
+
+            $subcategoria = $data[0]['subCatName'];
+ 
+            $migalhas  .=  "<li><a class='breadcump' href='http://www.grupobasso.com.br/pesquisar/resultado/Todas%20as%20Categorias/$subcategoria'>" . $data[0]['subCatName'] . "</a></li>";
 
         }
 
