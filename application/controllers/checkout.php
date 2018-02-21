@@ -330,6 +330,8 @@ class Checkout extends CI_Controller{
 
         $this->Login               =   new sessions\Login(2);
 
+        $this->Config                 =    new objects\Configuracoes();
+
         $produtos                       =   $this->Carrinho->getProdutos();
 
         $produtos                       =   $this->Produtos->getProdutosByCart( $produtos );
@@ -382,6 +384,8 @@ class Checkout extends CI_Controller{
             }
 
         }
+
+        $parcelasSemJuros          =   $this->Config->getParcelasSemJuros();
 
         //Define data info to header
         $data['header']            =   array();
@@ -461,6 +465,8 @@ class Checkout extends CI_Controller{
         $data['body']["enderecos"]  =   $enderecos;
         
         $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
+        
+        $data['body']["parcelasSemJuros"]  =   $parcelasSemJuros;
 
         $data['footer']["url"]          =   base_url();
 
@@ -652,7 +658,7 @@ class Checkout extends CI_Controller{
                     }
 
                     //Deleta os dados do carrinho
-                    $this->Carrinho->deleteAll();
+                    //$this->Carrinho->deleteAll();
 
                     if ( $tpPag == 2 || $tpPag == 3 ) {
 
@@ -1081,9 +1087,19 @@ class Checkout extends CI_Controller{
 
         //Get full endereço
         $endereco                  =   $this->Usuarios->getFullEndereco();
+        
+        if(empty($endereco['est'])) {
+            $endereco['end'] = $this->input->post( 'endereco' );
+            $endereco['bai'] = $this->input->post( 'bairro' );
+            $endereco['cid'] = $this->input->post( 'cidade' );
+            $endereco['est'] = $this->input->post( 'estado' );
+        }
 
-        //Verifica se foi retornado algum endereco
         !isset( $endereco['est'] ) ? $this->Essentials->setMessage( 'Endereço inválido' ) : null;
+
+        if($endereco['est'] == 'Sao Paulo') {
+            $endereco['est'] = 'SP';
+        }
 
         /**
         * Essa parte é referente ao processamento da venda
@@ -1151,8 +1167,8 @@ class Checkout extends CI_Controller{
             'creditCardToken'                =>  urlencode( $cardToken ),
             'installmentQuantity'            =>  urlencode( $parcelas ),
             'installmentValue'               =>  urlencode( number_format( (float) $parcelaValor, 2, '.', '' ) ),
-            #'noInterestInstallmentQuantity'  =>  urlencode( $parcelasSemJuros ),
-            'noInterestInstallmentQuantity'  =>  urlencode( 12 ),
+            'noInterestInstallmentQuantity'  =>  urlencode( $parcelasSemJuros ),
+            #'noInterestInstallmentQuantity'  =>  urlencode( 2 ),
             'creditCardHolderName'           =>  urlencode( $nome ),
             'creditCardHolderCPF'            =>  urlencode( $cpfDono ),
             'creditCardHolderBirthDate'      =>  urlencode( $dataNascDono ),

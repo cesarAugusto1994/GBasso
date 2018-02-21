@@ -76,6 +76,8 @@ class Configuracoes extends CI_Controller {
 
         $data['body']['cepOrigem']   =   $this->Config->getCepOrigem();
 
+        $data['body']['parcelasSemJuros']   =   $this->Config->getConfigs()[2]['parcelas'];
+
         //Url to footer
         $data['footer']['url']   =   $url;
 

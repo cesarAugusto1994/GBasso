@@ -133,7 +133,7 @@ class Configuracoes_admin extends CI_Controller {
         $this->Config->valor      =   $valor;
 
         //Seta o ID da configuração
-        $this->Config->idConfig   =   3;
+        $this->Config->idConfig   =   2;
 
         //Grava a configuração
         $this->Config->gravarConfiguracao();

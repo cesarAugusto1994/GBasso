@@ -305,7 +305,7 @@
                             <option value="RO">Rondônia</option>
                             <option value="RR">Roraima</option>
                             <option value="SC">Santa Catarina</option>
-                            <option value="SP" <?=$enderecoPrincipal['est'] == 'SP' ? 'selected' : ''?>>São Paulo</option>
+                            <option value="Sao Paulo" <?=$enderecoPrincipal['est'] == 'SP' || $enderecoPrincipal['est'] == 'Sao Paulo' ? 'selected' : ''?>>São Paulo</option>
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
                             </select>
@@ -363,7 +363,7 @@
                         <div class="control-group  required">
                           <label class="control-label font-bold" for="cardNumber">Número</label>
                           <div class="controls">
-                            <input autocomplete="nome" class="input-xlarge span12 cardDatainput" id="cardNumber" name="cardNumber" type="text">
+                            <input autocomplete="nome" class="input-xlarge span12 cardDatainput" id="cardNumber" name="cardNumber" type="text" maxlength="16">
                               <p class="help-block hide">
 
                               </p>
@@ -387,7 +387,7 @@
                         <div class="control-group  required">
                           <label class="control-label font-bold" for="cvvCartao">Código de Segurança</label>
                           <div class="controls">
-                              <input type="text" name="cardCvv" id="cardCvv" maxlength="5" class="cardDatainput input-xlarge span12 form-control" />
+                              <input type="text" name="cardCvv" id="cardCvv" maxlength="3" class="cardDatainput input-xlarge span6 form-control"/>
                               <p class="help-block hide">
 
                               </p>
@@ -573,5 +573,7 @@
     </div>
     </div>
 
+    <input type="hidden" value="<?= $parcelasSemJuros; ?>" id="parcelas-sem-juros"/>
+
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-<script src="http://www.grupobasso.com.br/assets/js/checkout.js"></script>
+<script src="/assets/js/checkout.js"></script>

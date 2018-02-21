@@ -77,8 +77,8 @@
                         <div class='col-lg-12'>
                             <label>Valor</label>
                             <div class='input-group'>
-                                <input type='text' name='valor' class='form-control parcelas' value="<?php echo $parcelas; ?>" title='O número de parcelas sem juros, ex: 3x sem juros, 4, 5, 6, 7, 8, 9 ou 10' />
-                                <span class="input-group-addon exemplo-parcela"><?php echo $parcelas; ?>x sem juros</span>
+                                <input type='text' name='valor' class='form-control parcelas' value="<?php echo $parcelasSemJuros; ?>" title='O número de parcelas sem juros, ex: 3x sem juros, 4, 5, 6, 7, 8, 9 ou 10' />
+                                <span class="input-group-addon exemplo-parcela"><?php echo $parcelasSemJuros; ?>x sem juros</span>
                             </div>
                         </div>
                     </fieldset>
