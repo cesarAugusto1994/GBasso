@@ -478,7 +478,7 @@ $(document).ready(function() {
 
                                     } else {
                                         //window.location = "http://www.grupobasso.com.br/minha/conta/compras";
-                                        //window.location.href = '/compras/checkout/compra-finalizada?type=credit-card';
+                                        window.location.href = 'http://www.grupobasso.com.br/compras/checkout/compra-finalizada?type=credit-card';
                                         setTimeout(function() {
                                             $("#modal-body").html("");
                                             $("#modal-title").html("<font color='green'>Sucesso!</font>")
@@ -565,8 +565,8 @@ $(document).ready(function() {
         }
     });
 
-    $('#aguarde').on('hidden.bs.modal', function () {
-        if($("#venda-finalizada").val() == 1) {
+    $('#aguarde').on('hidden.bs.modal', function() {
+        if ($("#venda-finalizada").val() == 1) {
             window.location.reload();
         }
     });

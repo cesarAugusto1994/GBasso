@@ -51,9 +51,9 @@ class Minha_conta extends CI_Controller{
         $response          =   $this->Login->checkLogin();
 
         if( $segmento != 'login' && $segmento != 'cadastrar' ) {
-            !$response ? redirect( 'http://localhost:8089/minha/conta/login' ) : null;
+            !$response ? redirect( 'http://www.grupobasso.com.br/minha/conta/login' ) : null;
         }else if( $segmento == 'login' || $segmento == 'cadastrar' ) {
-            $response ? redirect( 'http://localhost:8089/minha/conta/inicio' ) : null;
+            $response ? redirect( 'http://www.grupobasso.com.br/minha/conta/inicio' ) : null;
         }
 
     }
@@ -70,7 +70,7 @@ class Minha_conta extends CI_Controller{
 
         $this->Login->logOut();
 
-        redirect( 'http://localhost:8089/' );
+        redirect( 'http://www.grupobasso.com.br/' );
 
     }
 

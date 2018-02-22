@@ -45,9 +45,9 @@ $erros     = $var_conn->mostra_erros($resultado);
 
 if($email != "")
    {
-   $assunto = "Confirmação de Cadastro";
+   $assunto = "Confirmaï¿½ï¿½o de Cadastro";
    $mensagem = "Nome:$nome\n\n"; 
-   $mensagem .= "Endereço:$endereco, Numero:$numero  ";
+   $mensagem .= "Endereï¿½o:$endereco, Numero:$numero  ";
    $mensagem .= "Bairro:$bairro Cidade:$cidade Estado:$estado\n";
    $mensagem .= "Tel: $tel_res Cel: $tel_cel Tel Com.:$tel_com\n";
    $mensagem .= "E-mail:$email\n";
@@ -59,6 +59,6 @@ if($email != "")
    @mail($email, $assunto, $mensagem, $headers); //essa linha manda o email!   
       }
    
-echo "<meta http-equiv='refresh' content='3;url=http://www.grupobasso.com.br/contato.html'>\n <font size=5><b>O cadastro foi concluído com &ecirc;xito!</b></font><br>\n";
+echo "<meta http-equiv='refresh' content='3;url=http://www.grupobasso.com.br/contato.html'>\n <font size=5><b>O cadastro foi concluï¿½do com &ecirc;xito!</b></font><br>\n";
 
 ?>
