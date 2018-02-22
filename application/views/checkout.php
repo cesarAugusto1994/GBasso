@@ -574,6 +574,7 @@
     </div>
 
     <input type="hidden" value="<?= $parcelasSemJuros; ?>" id="parcelas-sem-juros"/>
+    <input type="hidden" value="0" id="venda-finalizada"/>
 
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-<script src="/assets/js/checkout.js"></script>
+<script src="http://www.grupobasso.com.br/assets/js/checkout.js?v2"></script>

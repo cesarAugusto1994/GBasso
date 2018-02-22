@@ -658,7 +658,7 @@ class Checkout extends CI_Controller{
                     }
 
                     //Deleta os dados do carrinho
-                    //$this->Carrinho->deleteAll();
+                    $this->Carrinho->deleteAll();
 
                     if ( $tpPag == 2 || $tpPag == 3 ) {
 
@@ -873,8 +873,18 @@ class Checkout extends CI_Controller{
         //Get full endereço
         $endereco                  =   $this->Usuarios->getFullEndereco();
 
-        //Verifica se foi retornado algum endereco
+        if(empty($endereco['est'])) {
+            $endereco['end'] = $this->input->post( 'endereco' );
+            $endereco['bai'] = $this->input->post( 'bairro' );
+            $endereco['cid'] = $this->input->post( 'cidade' );
+            $endereco['est'] = $this->input->post( 'estado' );
+        }
+
         !isset( $endereco['est'] ) ? $this->Essentials->setMessage( 'Endereço inválido' ) : null;
+
+        if($endereco['est'] == 'Sao Paulo') {
+            $endereco['est'] = 'SP';
+        }
         
         //Obtem o total da venda
         $totalVenda                =   $this->Carrinho->getTotal();
@@ -1134,6 +1144,8 @@ class Checkout extends CI_Controller{
 
         $email = $this->emailLoja;
 
+        $valorParcela = number_format( (float) $parcelaValor, 2, '.', '' );
+
         /**
         * Esta parte é referente a conexão ao servidor do PAGSEGURO
         *
@@ -1166,7 +1178,7 @@ class Checkout extends CI_Controller{
             'shippingCost'                   =>  urlencode( number_format( (float) $valorFrete, 2, '.', '' ) ),
             'creditCardToken'                =>  urlencode( $cardToken ),
             'installmentQuantity'            =>  urlencode( $parcelas ),
-            'installmentValue'               =>  urlencode( number_format( (float) $parcelaValor, 2, '.', '' ) ),
+            'installmentValue'               =>  urlencode( $valorParcela ),
             'noInterestInstallmentQuantity'  =>  urlencode( $parcelasSemJuros ),
             #'noInterestInstallmentQuantity'  =>  urlencode( 2 ),
             'creditCardHolderName'           =>  urlencode( $nome ),
@@ -1632,6 +1644,8 @@ class Checkout extends CI_Controller{
             //Seta o cep de origem
             $this->Correios->sCepOrigem      =    $cepOrigem;
 
+            $this->Correios->sCepDestino     =    $cep;
+
             //Seta o ID do produto na classe
             $this->Produtos->idProduto       =   $key['id'];
 
@@ -1702,7 +1716,7 @@ class Checkout extends CI_Controller{
         $valorAddFrete   =   $this->Config->getValorAddFrete();        
 
         //Obtem o valor do frete somando ao valor adicional do frete
-        $valorFrete      =   $frete + $valorAddFrete;
+        $valorFrete      =   $frete;
 
         //Retorna os dados
         return $valorFrete;

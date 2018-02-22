@@ -21,8 +21,6 @@ function ReInserir() {
 
 $(document).ready(function() {
 
-    alert($("#parcelas-sem-juros").val());
-
     $("#creditCardHolderBirthDate").mask("99/99/9999");
     $("#senderCPF").mask("999.999.999-99");
     $("#creditCardHolderCPF").mask("999.999.999-99");
@@ -357,15 +355,15 @@ $(document).ready(function() {
                     });
                 } else {
 
-                    console.log(data);
+                    //console.log(data);
 
-                    //window.location.href = '/compras/checkout/compra-finalizada?link=' + data.link;
+                    window.location.href = 'http://www.grupobasso.com.br/compras/checkout/compra-finalizada?link=' + data.link;
                     setTimeout(function() {
 
                         $("#modal-body").html("");
                         $("#modal-title").html("<font color='green'>Sucesso!</font>")
 
-                        $("#modal-body").html("Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora.<br /><br /><p>Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.</p><br /><br /><a href='" + data.link + "'><center><img src='images/boleto.png' /><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
+                        $("#modal-body").html("Sua compra foi finalizada com sucesso, estamos aguardando a confirmação da operadora.<br /><br /><p>Caso você não seja redirecionado para o seu boleto, clique no botão abaixo.</p><br /><br /><a href='" + data.link + "'><center><br /><br /><button class='btn-success btn-block btn-lg'>Ir para o meu boleto</button></center></a>");
                     }, 3500);
                 }
 
@@ -460,6 +458,8 @@ $(document).ready(function() {
                             }
                         } else {
 
+                            $("#venda-finalizada").val(1);
+
 
                             $.ajax({
                                 type: 'POST',
@@ -483,7 +483,7 @@ $(document).ready(function() {
                                             $("#modal-body").html("");
                                             $("#modal-title").html("<font color='green'>Sucesso!</font>")
 
-                                            $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='#'><center><button class='btn-success btn-block btn-lg'>Ir para a página de minhas compras</button></center></a>");
+                                            $("#modal-body").html("Caso você não seja redirecionado para a nossa página de instruções, clique no botão abaixo.<br /><br /><a href='http://www.grupobasso.com.br/compras/checkout/compra-finalizada?type=credit-card'><center><button class='btn-success btn-block btn-lg'>Ir para a página de minhas compras</button></center></a>");
                                         }, 1500);
                                     }
 
@@ -562,6 +562,12 @@ $(document).ready(function() {
     $("input[type='text']").on('blur', function(e) {
         if (($("#" + e.currentTarget.id).css('border') == '2px solid rgb(255, 0, 0)') || ($("#" + e.currentTarget.id).css('border') == '2px solid red')) {
             $("#" + e.currentTarget.id).css('border', '1px solid #999');
+        }
+    });
+
+    $('#aguarde').on('hidden.bs.modal', function () {
+        if($("#venda-finalizada").val() == 1) {
+            window.location.reload();
         }
     });
 

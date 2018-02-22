@@ -1581,7 +1581,7 @@ class Carrinho_site extends CI_Controller {
         $valorAddFrete   =   $this->Config->getValorAddFrete();
 
         //Obtem o valor do frete somando ao valor adicional do frete
-        $valoresFrete[]  =   array('nome' => $servico['nome'], 'valor' => $frete + $valorAddFrete);
+        $valoresFrete[]  =   array('nome' => $servico['nome'], 'valor' => $frete);
 
         //Retorna os dados
 

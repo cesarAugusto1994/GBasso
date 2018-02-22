@@ -209,11 +209,11 @@
             <div class="span12">
                 <a href="/" class="botao">Continuar comprando</a>
                 <?php if(1==1): ?>
-                    <a data-redirect="/compras/precheckout" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
+                    <a data-redirect="http://www.grupobasso.com.br/compras/precheckout" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
                 <?php elseif($logado): ?>
                     <button type="button" class="botao principal grande finalizarCompra"><i class="icon-ok"></i>Finalizar compra</button>
                 <?php else: ?>
-                    <a href="/minha/conta/login?redirect=http://www.grupobasso.com.br/compras/carrinho" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
+                    <a href="http://www.grupobasso.com.br/minha/conta/login?redirect=/compras/carrinho" class="botao principal grande"><i class="icon-ok"></i>Finalizar compra</a>
                 <?php endif; ?>
 			</div>
 
