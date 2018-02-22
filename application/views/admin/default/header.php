@@ -342,7 +342,15 @@
                             </ul>
                         </li>                        
                         <li>
-                            <a href="{url}admin/configuracoes"><i class="fa fa-wrench fa-fw"></i> Configurações<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Configurações<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{url}admin/configuracoes">Geral</a>
+                                </li>
+                                <li>
+                                    <a href="{url}admin/configuracoes/gateways">Pagseguro</a>
+                                </li>
+                            </ul>
                         </li>                        
                     </ul>
                 </div>

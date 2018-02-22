@@ -50,7 +50,9 @@ $route['admin/menus/(.*)']                        =   'admin/menus/$1';
 
 $route['admin/produtos/(.*)']                     =   'admin/produtos/$1';
 
-$route['admin/categorias/(.*)']                   =   'admin/categorias/$1';
+$route['admin/produtos/(.*)']                     =   'admin/produtos/$1';
+
+$route['admin/configuracoes/gateways']            =   'admin/configuracoes/gateways';
 
 $route['admin/login/(.*)']                        =   'admin/login/$1';
 

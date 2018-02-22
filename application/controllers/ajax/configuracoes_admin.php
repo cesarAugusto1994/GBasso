@@ -133,7 +133,7 @@ class Configuracoes_admin extends CI_Controller {
         $this->Config->valor      =   $valor;
 
         //Seta o ID da configuração
-        $this->Config->idConfig   =   2;
+        $this->Config->idConfig   =   3;
 
         //Grava a configuração
         $this->Config->gravarConfiguracao();
@@ -173,6 +173,40 @@ class Configuracoes_admin extends CI_Controller {
 
         //Seta o ID da configuração
         $this->Config->idConfig   =   4;
+
+        //Grava a configuração
+        $this->Config->gravarConfiguracao();
+
+        //Envia a mensagem para o usuário
+        $this->Essentials->setMessage( 'Gravado com sucesso', 100 );
+
+    }
+
+    public function apiPagseguro() {
+
+        //Instancia a classe general
+        $this->General            =   new extend\General();
+
+        //Instancia a classe de configurações
+        $this->Config             =   new objects\Configuracoes();
+
+        //Obtem o valor do cep
+        $usuario                      =   $this->input->post( 'usuario_api' );
+        $token                      =   $this->input->post( 'token_api' );
+
+        //Seta o valor na classe
+        $this->Config->valor      =   $usuario;
+
+        //Seta o ID da configuração
+        $this->Config->idConfig   =   5;
+
+        //Grava a configuração
+        $this->Config->gravarConfiguracao();
+
+        $this->Config->valor      =   $token;
+
+        //Seta o ID da configuração
+        $this->Config->idConfig   =   6;
 
         //Grava a configuração
         $this->Config->gravarConfiguracao();

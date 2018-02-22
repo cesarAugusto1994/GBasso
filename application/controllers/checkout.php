@@ -23,9 +23,7 @@ class Checkout extends CI_Controller{
     private $Vendas = null;
 
     protected $token      =  'F103EDB34EC44003885F413C377F3F42';
-
     protected $email      =  'cezzaar@gmail.com';
-
     protected $emailLoja  =  'v41547011778302880350@sandbox.pagseguro.com.br';
 
     private $idUsuario;
@@ -50,7 +48,9 @@ class Checkout extends CI_Controller{
 
         $this->Menus      =   new objects\Menus;
         
-        $this->Categorias  =   new objects\Categorias;
+        $this->Categorias =   new objects\Categorias;
+
+        $this->Config     =    new objects\Configuracoes();
 
         $this->Login      =   new sessions\Login(2); 
 
@@ -67,6 +67,9 @@ class Checkout extends CI_Controller{
 
         $this->pgAccount = $this->config->item ( 'pagseguroAccount' );
 		$this->pgToken = $this->config->item ( 'pagseguroToken' );
+
+        $this->token      =  $this->Config->getUsuarioApiPagseguro();
+        $this->email      =  $this->Config->getTokenApiPagseguro();
 	
     }
 

@@ -76,7 +76,7 @@ class Configuracoes extends CI_Controller {
 
         $data['body']['cepOrigem']   =   $this->Config->getCepOrigem();
 
-        $data['body']['parcelasSemJuros']   =   $this->Config->getConfigs()[2]['parcelas'];
+        $data['body']['parcelasSemJuros']   =   $this->Config->getParcelasSemJuros();
 
         //Url to footer
         $data['footer']['url']   =   $url;
@@ -85,6 +85,69 @@ class Configuracoes extends CI_Controller {
         $this->parser->parse('admin/default/header', $data['header'] );
 
         $this->parser->parse('admin/configuracoes/config', $data['body'] );
+
+        $this->parser->parse('admin/default/footer', $data['footer'] );
+
+    }
+
+    public function gateways() {
+
+        $data  =  array();
+
+        $this->Config  =   new objects\Configuracoes();
+
+        $css   =  array( 0, 1, 2, 4, 6, 11, 9 );
+
+        $js    =  array( 0, 1, 10, 11, 12 );
+
+        $url   =  base_url();
+
+        //Define data info to header
+        $data['header']  =  array();
+
+        //Define data info to body 
+        $data['body']    =  array();
+
+        //Define data info to footer
+        $data['footer']  =  array();
+
+        //Get file css
+        $data['header']['css']   =   $this->Header->getCss( $css );
+
+        //Get file js
+        $data['header']['js']    =   $this->Header->getJs( $js );
+
+        //Get file inc
+        $data['header']['inc']   =   $this->Header->getIncludes( array( 0, 1, 7 ) );
+
+        //Get file js
+        $data['footer']['js']    =   $this->Header->getJs( array( 2, 6, 8, 14, 22 ) );
+
+        //Url to header
+        $data['header']['url']   =   $url;
+
+        //Url to body
+        $data['body']['url']     =   $url;
+
+        //get configurações
+        $data['body']['confs']   =   $this->Config->getConfigs();
+
+        $data['body']['cepOrigem']   =   $this->Config->getCepOrigem();
+
+        $data['body']['parcelasSemJuros']   =   $this->Config->getParcelasSemJuros();
+
+        $data['body']['usuarioApiPagseguro']   =   $this->Config->getUsuarioApiPagseguro();
+
+        $data['body']['tokenApiPagseguro']   =   $this->Config->getTokenApiPagseguro();
+
+
+        //Url to footer
+        $data['footer']['url']   =   $url;
+
+        //Load views
+        $this->parser->parse('admin/default/header', $data['header'] );
+
+        $this->parser->parse('admin/gateways/index', $data['body'] );
 
         $this->parser->parse('admin/default/footer', $data['footer'] );
 

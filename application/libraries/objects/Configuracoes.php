@@ -266,6 +266,44 @@ namespace objects {
 
         }
 
+        public function getUsuarioApiPagseguro() {
+
+            //Reseta os attr de Querys
+            $this->reset();
+
+            //Seta a tabela
+            $this->table   =   'config';
+
+            //Seta os campos
+            $this->setField( 'conf_valor' );
+
+            //Seta a condição
+            $this->setWhere( "config_id = '5'" );
+
+            //Obtem os dados
+            return $this->getRecord();
+
+        }
+
+        public function getTokenApiPagseguro() {
+
+            //Reseta os attr de Querys
+            $this->reset();
+
+            //Seta a tabela
+            $this->table   =   'config';
+
+            //Seta os campos
+            $this->setField( 'conf_valor' );
+
+            //Seta a condição
+            $this->setWhere( "config_id = '6'" );
+
+            //Obtem os dados
+            return $this->getRecord();
+
+        }
+
     }
 
 }

@@ -26,6 +26,7 @@
 
 ?>
 <div id="page-wrapper">
+    <!--
     <div class="col-lg-2 margin-top-20 z-index-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -66,6 +67,29 @@
             </form>
         </div>
     </div>  
+    -->
+    <div class="col-lg-2 margin-top-20 z-index-0">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Cep de origem
+            </div>
+            <form class='form-config' method='POST' action='{url}admin/ajax/config/cepOrigem'>
+                <div class="panel-body no-padding-right no-padding-left">
+                    <fieldset>
+                        <div class='col-lg-12'>
+                            <label>Cep</label>
+                            <div class='input-group'>
+                                <input type='text' name='cep' class='form-control cep' value="<?php echo $cepOrigem;  ?>" title='Digite o CEP na qual será usado como CEP de origem para enviar os produtos' />
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="panel-footer">
+                    <button class='btn btn-success'>Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>   
     <div class="col-lg-2 margin-top-20 z-index-0">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -89,28 +113,7 @@
             </form>
         </div>
     </div>
-    <div class="col-lg-2 margin-top-20 z-index-0">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Cep de origem
-            </div>
-            <form class='form-config' method='POST' action='{url}admin/ajax/config/cepOrigem'>
-                <div class="panel-body no-padding-right no-padding-left">
-                    <fieldset>
-                        <div class='col-lg-12'>
-                            <label>Cep</label>
-                            <div class='input-group'>
-                                <input type='text' name='cep' class='form-control cep' value="<?php echo $cepOrigem;  ?>" title='Digite o CEP na qual será usado como CEP de origem para enviar os produtos' />
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="panel-footer">
-                    <button class='btn btn-success'>Salvar</button>
-                </div>
-            </form>
-        </div>
-    </div>     
+      
 </div>
 <script type='text/javascript'>
 
