@@ -408,6 +408,28 @@ class Usuarios extends db\Querys  {
 
     }
 
+    public function getDataNascimento() {
+
+        //Reseta os attr de querys
+        $this->reset();
+
+        //Seta a tabela de busca
+        $this->table  =  'usuarios';
+
+        //Seta os campos que desejo retornar
+        $this->setField( 'usu_nascimento' );
+
+        //Seta a condição de busca pelo ID do usuário
+        $this->setWhere( "usu_id = '$this->idUsuario'" );
+
+        //Realiza a consulta
+        $data   =   $this->getRecord();
+
+        //Checa o retorno e retorna de acordo com a condição
+        return is_bool( $data ) ? false : $data;
+
+    }
+
     public function getTelefonePrincipal() {
 
         //Reseta os attr de querys

@@ -354,6 +354,13 @@ class Checkout extends CI_Controller{
 
         $cpf = $this->Usuarios->getCpf();
 
+        $nascimento = $this->Usuarios->getDataNascimento();
+
+        if(!empty($nascimento)) {
+            $date = DateTime::createFromFormat('Y-m-d', $nascimento);
+            $nascimento = $date->format('d/m/Y');
+        }
+
         $telefoneCelular = $this->Usuarios->getTelefoneCelular();
         $telefonePrincipal= $this->Usuarios->getTelefonePrincipal();
 
@@ -465,7 +472,9 @@ class Checkout extends CI_Controller{
         $data['body']["enderecoPrincipal"]  =  $enderecoPrincipal;
 
         $data['body']["enderecos"]  =   $enderecos;
-        
+
+        $data['body']["nascimento"]  =   $nascimento;
+
         $data['body']["usuario"]  =   $this->Usuarios->getAllDataUser();
         
         $data['body']["parcelasSemJuros"]  =   $parcelasSemJuros;

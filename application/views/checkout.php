@@ -574,6 +574,7 @@
     </div>
 
     <input type="hidden" value="<?= $parcelasSemJuros; ?>" id="parcelas-sem-juros"/>
+    <input type="hidden" value="<?= $nascimento; ?>" id="nascimento"/>
     <input type="hidden" value="0" id="venda-finalizada"/>
 
 <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>

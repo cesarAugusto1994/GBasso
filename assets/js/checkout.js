@@ -365,10 +365,9 @@ $(document).ready(function() {
                     });
                 } else {
 
-                    //console.log(data);
-
-                    window.location.href = 'http://www.grupobasso.com.br/compras/checkout/compra-finalizada?link=' + data.link;
                     setTimeout(function() {
+
+                        window.location.href = 'http://www.grupobasso.com.br/compras/checkout/compra-finalizada?link=' + data.link;
 
                         $("#modal-body").html("");
                         $("#modal-title").html("<font color='green'>Sucesso!</font>")
@@ -609,6 +608,7 @@ $(document).ready(function() {
     $("input[name='holderType']").on('click', function(e) {
         if (e.currentTarget.value == 'sameHolder') {
             $('#dadosOtherPagador').css('display', 'none');
+            $("#creditCardHolderBirthDate").val($("#nascimento").val());
             ReInserir();
         } else if (e.currentTarget.value == 'otherHolder') {
             $('#dadosOtherPagador').css('display', 'block');
