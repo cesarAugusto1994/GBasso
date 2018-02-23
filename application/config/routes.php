@@ -107,7 +107,7 @@ $route['compras/checkout/compra-finalizada'] =   'checkout/finalizado';
 
 $route['compras/checkout/notificacao']       =   'checkout/notificacao';
 
-$route['compras/session']                    =   'produtos/getSession';
+$route['compras/session']                    =   'checkout/getSession';
 
 $route['compras/carrinho/finalizar/compra']   =   'ajax/carrinho_site/finalizar_compra';
 

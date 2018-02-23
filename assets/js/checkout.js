@@ -44,6 +44,17 @@ $(document).ready(function() {
         }
     });
 
+    $('.campo-requerido').keypress(function() {
+
+        const self = $(this);
+
+        console.log('Action');
+
+        self.parent().parent().removeClass('has-warning');
+        self.parent().parent().find('.alert').html('');
+
+    });
+
     $('.endereco-item').click(function() {
         $("#shippingAddressPostalCodeId").val($(this).data('cep-id'))
         $("#shippingAddressPostalCode").val($(this).data('cep'))
@@ -296,7 +307,6 @@ $(document).ready(function() {
             e.preventDefault();
             telefone.focus();
             alerta('Informe o Telefone', 'error');
-
             return false;
         }
 
@@ -378,7 +388,53 @@ $(document).ready(function() {
         $("#aguarde").modal("show");
     }
 
+    function camposRequeridos() {
+
+        const msg = 'Este campo é requerido.';
+
+        var cardNumber = $("#cardNumber");
+        var cardExpirationMonth = $("#cardExpirationMonth");
+        var cardExpirationYear = $("#cardExpirationYear");
+        var cardCvv = $("#cardCvv");
+        var installmentQuantity = $("#installmentQuantity");
+        var creditCardHolderBirthDate = $("#creditCardHolderBirthDate");
+
+        var campos = [cardNumber, cardExpirationMonth, cardExpirationYear, cardCvv, installmentQuantity, creditCardHolderBirthDate];
+        var prosseguir = true;
+
+        $.each(campos, function(i, campo) {
+
+            if (!campo.val()) {
+                showAlert(msg, 501)
+                campo.addClass('campo-requerido');
+                campo.parent().parent().addClass('has-warning');
+                campo.parent().append('<div class="alert alert-danger">' + msg + '</div>');
+                campo.focus();
+                prosseguir = false;
+            }
+
+        });
+
+        return prosseguir;
+
+    }
+
+    function showAlert(msg, code) {
+
+        var classe = (code == 100) ? 'success' : 'error';
+
+        var notification = alertify.notify(msg, classe, 5, function() {});
+
+    }
+
     function pagarCartao(senderHash) {
+
+        var podeProsseguir = camposRequeridos();
+
+        if (!podeProsseguir) {
+            return false;
+        }
+
         showModal();
 
         PagSeguroDirectPayment.createCardToken({

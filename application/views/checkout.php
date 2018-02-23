@@ -423,7 +423,7 @@
                                   <label class="control-label font-bold" for="cvvCartao">Data de Nascimento do Titular do Cartão</label>
                                   <div class="controls">
                                       <input type="text" name="creditCardHolderBirthDate" id="creditCardHolderBirthDate" maxlength="10" class="cardDatainput input-xlarge span12 form-control" />
-                                      <p class="help-block hide">
+                                      <p class="help-block">
 
                                       </p>
                                   </div>

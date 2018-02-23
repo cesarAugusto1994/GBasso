@@ -484,18 +484,27 @@ class Checkout extends CI_Controller{
 
     public function getSession()
     {
-        $ch = curl_init();
+        //Instancia a classe Curl para conexão em outros servidores
+        $this->Curl  =   new connection\Curl( $this->urlPagseguro );
 
-        curl_setopt($ch, CURLOPT_URL, $this->urlPagseguro . 'sessions?email=' . $this->emailLoja . '&token=' . $this->token);
+        $this->Curl->setOpt( 'CURLOPT_URL', $this->urlPagseguro . "sessions?email=" . $this->email . "&token=" . $this->token );
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, true);
+        $this->Curl->setOpt( 'CURLOPT_RETURNTRANSFER', true );
 
-        $data = curl_exec($ch);
-        $xml = new SimpleXMLElement($data, null, true);
+        $this->Curl->setOpt( 'CURLOPT_POSTFIELDS', true );
 
-        echo $xml->id;
-        curl_close($ch);
+        $this->Curl->setOpt( 'CURLOPT_SSL_VERIFYPEER', false );
+
+        //faz a conexão e recebe os dados
+        $response         =   $this->Curl->execute();
+
+        //Seta o retorno na LIB XML
+        $this->XmlParser  =   new parser\Xml( $response );
+
+        $sessao = $this->XmlParser->toArray();
+
+        echo $sessao['id'];
+        exit;
     }
 
     public function getProdutos()
