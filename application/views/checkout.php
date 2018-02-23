@@ -552,7 +552,7 @@
         </div>
 
         <div id="aguarde" class="modal fade" role="dialog">
-          <div class="modal-dialog modal-backdrop">
+          <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
